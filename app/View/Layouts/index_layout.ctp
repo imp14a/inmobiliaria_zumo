@@ -45,7 +45,7 @@ $cakeDescription = __d('inmobiliaria_zumo', 'Inmobiliaria Zumo');
 		<div class="navigationbar leftbar">
 			<ul>
 				<li><?php echo $this->Html->link($this->Html->div('button properties','<span class="title">PROPIEDADES</span>')
-					,array('controller' => 'Property', 'action' => 'index'),
+					,array('controller' => 'Property', 'action' => 'simple_search'),
 					array('escape'=>false)); ?>
 				</li>
 				<li><?php echo $this->Html->link($this->Html->div('button news','<span class="title">NOTICIAS</span>')

@@ -37,3 +37,10 @@ body{
 	float: left;
 	margin-left: 20px;
 }
+#content{
+	width: auto !important;
+	margin-left: 0 !important;
+	margin-right: 0 !important;
+	height: auto !important;
+	margin-top: 0 !important;
+}

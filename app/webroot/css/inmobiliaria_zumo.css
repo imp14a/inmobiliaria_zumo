@@ -6,6 +6,7 @@
 
 body{
 	font-family: HouschkaPro-DemiBold;
+	min-width: 1024px;
 }
 
 #header {
@@ -52,9 +53,9 @@ body{
 }
 
 #content{
-	width: 80%;
-	margin-left: 10%;
-	margin-right: 10%;
+	width: 74%;
+	margin-left: 13%;
+	margin-right: 13%;
 	height: 50px;
 	margin-top: 120px;
 }
@@ -78,8 +79,7 @@ body{
 	list-style: none;
 }
 .navigationbar ul li{
-	margin-top: 80px;
-
+	margin-top: 85px;
 }
 .navigationbar ul li a{
 	font-size: 11px;
@@ -132,23 +132,27 @@ body{
  */
 
 .navigationbar ul li ul.properties_submenu{
+
 	height:60px; 
-	width:100%;
+	width: 115px;
 	margin-top: 5px;
 	margin-bottom: -65px;
  }
 .navigationbar ul li ul.properties_submenu li{
  	margin-top: 0;
- 	text-align: left;
  	line-height: 18px;
  	border-bottom: 2px solid #FFCC00;
+
  }
  .navigationbar ul li ul.properties_submenu li:first-child{
  	border-top: 2px solid #FFCC00;
  }
 
  .navigationbar ul li ul.properties_submenu li a{
- 	font-size: 9px;
+ 	font-family: HouschkaPro-Medium;
+ 	font-size: 10px;
+ 	text-align: left;
+ 	padding-left: 3px;
  }
  .navigationbar ul li ul.properties_submenu li a.active{
  	font-family: HouschkaPro-Bold;

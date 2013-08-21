@@ -61,19 +61,22 @@ $cakeDescription = __d('inmobiliaria_zumo', 'Inmobiliaria Zumo');
 		<div class="navigationbar leftbar">
 			<ul>
 				<li><?php echo $this->Html->link($this->Html->div('button properties','<span class="title">PROPIEDADES</span>')
-					,array('controller' => 'Property', 'action' => 'index'),
+					,array('controller' => 'Property', 'action' => 'simple_search'),
 					array('escape'=>false)); ?>
 					<ul class="properties_submenu">
 						<li>
-							<?php echo $this->Html->link('BÚSQUEDA' ,array('controller' => 'User', 'action' => 'login'));?>
+							<?php echo $this->Html->link('BÚSQUEDA' ,array('controller' => 'Property', 'action' => 'simple_search'),
+							array('class'=>isset($simple_search)?'active':''));?>
 						</li>
 						<li>
-							<?php echo $this->Html->link('BÚSQUEDA EN MAPA' ,array('controller' => 'User', 'action' => 'login'));?>
-						</li>
-						<li>
-							<?php echo $this->Html->link('MIS BUSQUEDAS' ,array('controller' => 'User', 'action' => 'login'));?>
+							<?php echo $this->Html->link('BÚSQUEDA EN MAPA' ,array('controller' => 'Property', 'action' => 'map_search'),array('class'=>isset($map_search)?'active':''));
+							?>
 						</li>
 						<!-- TODO poner mis busquedas cuando este activo -->
+						<li>
+							<?php echo $this->Html->link('MIS BUSQUEDAS' ,array('controller' => 'Property', 'action' => 'user_searchs'),array('class'=>isset($user_searchs)?'active':''));
+							?>
+						</li>
 					</ul>
 				</li>
 				<li><?php echo $this->Html->link($this->Html->div('button news','<span class="title">NOTICIAS</span>')
