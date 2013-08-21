@@ -18,6 +18,7 @@
  */
 
 $cakeDescription = __d('inmobiliaria_zumo', 'Inmobiliaria Zumo');
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -32,13 +33,57 @@ $cakeDescription = __d('inmobiliaria_zumo', 'Inmobiliaria Zumo');
 	<?php
 		echo $this->Html->meta('icon');
 		echo $this->fetch('meta');
+		echo $this->Html->css('inmobiliaria_zumo');
 		echo $this->fetch('css');
+		echo $this->Html->script('prototype');
+		echo $this->Html->script('hover_efect_buttons');
 		echo $this->fetch('script');
 	?>
 </head>
 <body>
 	<div id="container">
 		<div id="header">
+			<?php echo $this->Html->link($this->Html->div('logo','')
+					,array('controller' => 'InmobiliariaZumo', 'action' => 'index'),
+					array('escape'=>false)); ?>
+			<div class="userGroupButtons">
+				<!-- TOOD en este caso dependera si el usuario a iniciado session -->
+				<?php echo $this->Html->link('INICIAR SESIÓN' ,array('controller' => 'User', 'action' => 'login'));?>
+				|
+				<?php echo $this->Html->link('REGISTRARSE' ,array('controller' => 'User', 'action' => 'register'));?>
+			</div>
+		</div>
+		<div class="navigationbar leftbar">
+			<ul>
+				<li><?php echo $this->Html->link($this->Html->div('button properties','<span class="title">PROPIEDADES</span>')
+					,array('controller' => 'Property', 'action' => 'simple_search'),
+					array('escape'=>false)); ?>
+				</li>
+				<li><?php echo $this->Html->link($this->Html->div('button news','<span class="title">NOTICIAS</span>')
+					,array('controller' => 'InmobiliariaZumo', 'action' => 'news'),
+					array('escape'=>false)); ?> 
+				</li>
+				<li><?php echo $this->Html->link($this->Html->div('button downloadables','<span class="title">DESCARGABLES</span>')
+					,array('controller' => 'InmobiliariaZumo', 'action' => 'downloadables'),
+					array('escape'=>false)); ?>
+				</li>
+			</ul>
+		</div>
+		<div class="navigationbar rightbar">
+			<ul>
+				<li><?php echo $this->Html->link($this->Html->div('button about','<span class="title">¿POR QUÉ ZUMO?</span>')
+					,array('controller' => 'InmobiliariaZumo', 'action' => 'about'),
+					array('escape'=>false)); ?>
+				</li>
+				<li><?php echo $this->Html->link($this->Html->div('button alliances','<span class="title">ALIANZAS</span>')
+					,array('controller' => 'InmobiliariaZumo', 'action' => 'alliances'),
+					array('escape'=>false)); ?> 
+				</li>
+				<li><?php echo $this->Html->link($this->Html->div('button contact','<span class="title">CONTACTO</span>')
+					,array('controller' => 'InmobiliariaZumo', 'action' => 'contact'),
+					array('escape'=>false)); ?>
+				</li>
+			</ul>
 		</div>
 		<div id="content">
 

@@ -1,0 +1,182 @@
+
+*{
+	padding: 0;
+	margin: 0;
+}
+
+body{
+	font-family: HouschkaPro-DemiBold;
+	min-width: 1024px;
+}
+
+#header {
+	width: 100%;
+	height: 100px;
+	margin-bottom: 10px;
+	display: block;
+	margin-bottom: -100px;
+}
+
+#header .logo{
+	width: 186px;
+	height: 62px;
+	float: left;
+	display: block;
+	background-image: url(img/zumo_logo.png);
+	background-repeat: no-repeat;
+	margin-top: 20px;
+	margin-left: 3%;
+}
+#header .userGroupButtons{
+	font-family: HouschkaPro-Medium;
+	float:right;
+	width: 238px;
+	height:  23px;
+	display: block;
+	background-image: url(img/elements_background.png);
+	background-repeat: no-repeat;
+	margin-bottom: -21px;
+	margin-right: 1%;
+	margin-top: 79px;
+}
+#header .userGroupButtons a{
+	margin-left: 7px;
+	margin-right: 7px;
+	display: inline-block;
+	line-height: 21px;
+	color: black;
+	text-decoration: none;
+	font-size: 11px;
+}
+#header .userGroupButtons a:hover{
+	font-family: HouschkaPro-DemiBold;
+}
+
+#content{
+	width: 74%;
+	margin-left: 13%;
+	margin-right: 13%;
+	height: 50px;
+	margin-top: 120px;
+}
+
+.navigationbar{
+	margin-top: 80px;
+	width: 8%;
+}
+
+.leftbar{
+	clear: left;
+	margin-left: 3%;
+	float: left;
+}
+.rightbar{
+	clear: right;
+	margin-right: 3%;
+	float: right;
+}
+.navigationbar ul{
+	list-style: none;
+}
+.navigationbar ul li{
+	margin-top: 85px;
+}
+.navigationbar ul li a{
+	font-size: 11px;
+	text-decoration: none;
+	color: black;
+	text-align: center;
+	width: 95%;
+	display: block;
+}
+
+.navigationbar ul li a div{
+	background-repeat: no-repeat; 
+	background-position: top center; 
+	height: 55px;
+	display: inline-block;
+}
+
+.navigationbar ul li a div span{
+	display: block;
+	line-height: 21px;
+	margin-top: 38px;
+}
+
+.navigationbar ul li a div span.buttonOver{
+	background-image: url(img/elements_background.png);
+	background-size: 100px 21px;
+}
+
+.navigationbar ul li a div.properties{
+	background-image: url(img/properties.png);
+}
+.navigationbar ul li a div.news{
+	background-image: url(img/news.png);
+}
+.navigationbar ul li a div.downloadables{
+	background-image: url(img/downloadables.png);
+}
+.navigationbar ul li a div.about{
+	background-image: url(img/why_zumo.png);
+}
+.navigationbar ul li a div.alliances{
+	background-image: url(img/alliances.png);
+}
+.navigationbar ul li a div.contact{
+	background-image: url(img/contact.png);
+}
+
+/*
+	BarrA DE BUSQUEDA
+ */
+
+.navigationbar ul li ul.properties_submenu{
+
+	height:60px; 
+	width: 115px;
+	margin-top: 5px;
+	margin-bottom: -65px;
+ }
+.navigationbar ul li ul.properties_submenu li{
+ 	margin-top: 0;
+ 	line-height: 18px;
+ 	border-bottom: 2px solid #FFCC00;
+
+ }
+ .navigationbar ul li ul.properties_submenu li:first-child{
+ 	border-top: 2px solid #FFCC00;
+ }
+
+ .navigationbar ul li ul.properties_submenu li a{
+ 	font-family: HouschkaPro-Medium;
+ 	font-size: 10px;
+ 	text-align: left;
+ 	padding-left: 3px;
+ }
+ .navigationbar ul li ul.properties_submenu li a.active{
+ 	font-family: HouschkaPro-Bold;
+ }
+ .navigationbar ul li ul.properties_submenu li a:hover{
+ 	font-family: HouschkaPro-Bold;
+ }
+
+@font-face {
+	font-family: HouschkaPro-Thin;
+	src: url(font/HouschkaPro-Thin.otf);
+}
+
+@font-face {
+	font-family: HouschkaPro-DemiBold;
+	src: url(font/HouschkaPro-DemiBold.otf);
+}
+
+@font-face {
+	font-family: HouschkaPro-Medium;
+	src: url(font/HouschkaPro-Medium.otf);
+}
+
+@font-face {
+	font-family: HouschkaPro-Bold;
+	src: url(font/HouschkaPro-Bold.otf);
+}

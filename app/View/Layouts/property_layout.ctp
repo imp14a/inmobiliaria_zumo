@@ -18,6 +18,7 @@
  */
 
 $cakeDescription = __d('inmobiliaria_zumo', 'Inmobiliaria Zumo');
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -32,21 +33,51 @@ $cakeDescription = __d('inmobiliaria_zumo', 'Inmobiliaria Zumo');
 	<?php
 		echo $this->Html->meta('icon');
 		echo $this->fetch('meta');
-		echo $this->Html->css('inmobiliaria_zumo_index');
 		echo $this->Html->css('inmobiliaria_zumo');
 		echo $this->fetch('css');
 		echo $this->Html->script('prototype');
 		echo $this->Html->script('hover_efect_buttons');
 		echo $this->fetch('script');
 	?>
+	<style>
+	.properties_submenu li{
+		margin-top: 0;
+	}
+	</style>
 </head>
 <body>
 	<div id="container">
+		<div id="header">
+			<?php echo $this->Html->link($this->Html->div('logo','')
+					,array('controller' => 'InmobiliariaZumo', 'action' => 'index'),
+					array('escape'=>false)); ?>
+			<div class="userGroupButtons">
+				<!-- TOOD en este caso dependera si el usuario a iniciado session -->
+				<?php echo $this->Html->link('INICIAR SESIÓN' ,array('controller' => 'User', 'action' => 'login'));?>
+				|
+				<?php echo $this->Html->link('REGISTRARSE' ,array('controller' => 'User', 'action' => 'register'));?>
+			</div>
+		</div>
 		<div class="navigationbar leftbar">
 			<ul>
 				<li><?php echo $this->Html->link($this->Html->div('button properties','<span class="title">PROPIEDADES</span>')
 					,array('controller' => 'Property', 'action' => 'simple_search'),
 					array('escape'=>false)); ?>
+					<ul class="properties_submenu">
+						<li>
+							<?php echo $this->Html->link('BÚSQUEDA' ,array('controller' => 'Property', 'action' => 'simple_search'),
+							array('class'=>isset($simple_search)?'active':''));?>
+						</li>
+						<li>
+							<?php echo $this->Html->link('BÚSQUEDA EN MAPA' ,array('controller' => 'Property', 'action' => 'map_search'),array('class'=>isset($map_search)?'active':''));
+							?>
+						</li>
+						<!-- TODO poner mis busquedas cuando este activo -->
+						<li>
+							<?php echo $this->Html->link('MIS BUSQUEDAS' ,array('controller' => 'Property', 'action' => 'user_searchs'),array('class'=>isset($user_searchs)?'active':''));
+							?>
+						</li>
+					</ul>
 				</li>
 				<li><?php echo $this->Html->link($this->Html->div('button news','<span class="title">NOTICIAS</span>')
 					,array('controller' => 'InmobiliariaZumo', 'action' => 'news'),
@@ -75,14 +106,12 @@ $cakeDescription = __d('inmobiliaria_zumo', 'Inmobiliaria Zumo');
 			</ul>
 		</div>
 		<div id="content">
-			<div class='logo_vertical'></div>
-			<div class='indexinfo'>
-				<p class='column'>Somos una organizaci&oacute;n de profesionales inmobiliarios con productos y servicios especializados que cubren las necesidades de personas que desean vender, comprar o rentar
-				</p>
-				<p class='column'>
-					una vivienda.<br /> Brindamos asesor&iacute;a y representaci&oacute;n profesional a quienes desean realizar transacciones inmobiliarias. 
-				</p>
-			</div>
+
+			<?php echo $this->Session->flash(); ?>
+			<?php echo $this->fetch('content'); ?>
+		</div>
+		<div id="footer">
+			
 		</div>
 	</div>
 	<?php echo $this->element('sql_dump'); ?>
