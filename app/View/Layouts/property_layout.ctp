@@ -39,6 +39,11 @@ $cakeDescription = __d('inmobiliaria_zumo', 'Inmobiliaria Zumo');
 		echo $this->Html->script('hover_efect_buttons');
 		echo $this->fetch('script');
 	?>
+	<style>
+	.properties_submenu li{
+		margin-top: 0;
+	}
+	</style>
 </head>
 <body>
 	<div id="container">
@@ -58,6 +63,18 @@ $cakeDescription = __d('inmobiliaria_zumo', 'Inmobiliaria Zumo');
 				<li><?php echo $this->Html->link($this->Html->div('button properties','<span class="title">PROPIEDADES</span>')
 					,array('controller' => 'Property', 'action' => 'index'),
 					array('escape'=>false)); ?>
+					<ul class="properties_submenu">
+						<li>
+							<?php echo $this->Html->link('BÚSQUEDA' ,array('controller' => 'User', 'action' => 'login'));?>
+						</li>
+						<li>
+							<?php echo $this->Html->link('BÚSQUEDA EN MAPA' ,array('controller' => 'User', 'action' => 'login'));?>
+						</li>
+						<li>
+							<?php echo $this->Html->link('MIS BUSQUEDAS' ,array('controller' => 'User', 'action' => 'login'));?>
+						</li>
+						<!-- TODO poner mis busquedas cuando este activo -->
+					</ul>
 				</li>
 				<li><?php echo $this->Html->link($this->Html->div('button news','<span class="title">NOTICIAS</span>')
 					,array('controller' => 'InmobiliariaZumo', 'action' => 'news'),

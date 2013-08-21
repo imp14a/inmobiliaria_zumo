@@ -6,7 +6,6 @@ class InmobiliariaZumoController extends AppController {
         
 		$this->set('title_for_layout','!Bienvenido!');
 	}
-
 }
 
 ?>
