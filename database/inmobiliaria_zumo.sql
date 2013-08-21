@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.5.32, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.5.31, for Linux (x86_64)
 --
 -- Host: localhost    Database: inmobiliaria_zumo
 -- ------------------------------------------------------
--- Server version	5.5.32-log
+-- Server version	5.5.31
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -112,9 +112,11 @@ DROP TABLE IF EXISTS `property_extra_area`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `property_extra_area` (
-  `property` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `property_id` int(11) NOT NULL,
   `area_name` varchar(45) DEFAULT NULL,
-  `description` varchar(45) DEFAULT NULL
+  `description` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -135,9 +137,11 @@ DROP TABLE IF EXISTS `property_extra_information`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `property_extra_information` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `proeprty_id` int(11) NOT NULL,
   `name` varchar(45) DEFAULT NULL,
-  `category` varchar(45) DEFAULT NULL
+  `category` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -158,8 +162,10 @@ DROP TABLE IF EXISTS `property_image`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `property_image` (
-  `id_property` int(11) NOT NULL,
-  `imagen` blob
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `property_id` int(11) NOT NULL,
+  `imagen` blob,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -282,4 +288,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-08-20 18:43:36
+-- Dump completed on 2013-08-20 23:55:40
