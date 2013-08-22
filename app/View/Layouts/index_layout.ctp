@@ -77,10 +77,10 @@ $cakeDescription = __d('inmobiliaria_zumo', 'Inmobiliaria Zumo');
 		<div id="content">
 			<div class='logo_vertical'></div>
 			<div class='indexinfo'>
-				<p class='column'>Somos una organizaci&oacute;n de profesionales inmobiliarios con productos y servicios especializados que cubren las necesidades de personas que desean vender, comprar o rentar
+				<p class='column'>Somos una organizaci&oacute;n de profesionales inmobiliarios con productos y servicios especializados que cubren las necesidades de personas que desean vender, comprar o rentar una vivienda.
 				</p>
 				<p class='column'>
-					una vivienda.<br /> Brindamos asesor&iacute;a y representaci&oacute;n profesional a quienes desean realizar transacciones inmobiliarias. 
+					Brindamos asesor&iacute;a y representaci&oacute;n profesional a quienes desean realizar transacciones inmobiliarias. 
 				</p>
 			</div>
 		</div>

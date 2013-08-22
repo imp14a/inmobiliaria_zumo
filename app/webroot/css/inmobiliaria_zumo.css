@@ -5,7 +5,7 @@
 }
 
 body{
-	font-family: HouschkaPro-DemiBold;
+	font-family: HouschkaPro-Light;
 	min-width: 1024px;
 }
 
@@ -58,6 +58,30 @@ body{
 	margin-right: 13%;
 	height: 50px;
 	margin-top: 120px;
+}
+
+.plainContent{
+	margin-left: 10%;
+	margin-right: 10%;
+	margin-top: 10%;
+	padding-top: 4%;
+	font-size: 9pt;
+	line-height: 1.5;
+}
+
+.plainContent p.title{ 
+	font-family: HouschkaPro-Bold;
+	margin-bottom: 25px;
+}
+
+.plainContent p.semititle{ 
+	font-family: HouschkaPro-DemiBold;
+	margin-bottom: 25px;
+	font-size: 10pt	;
+}
+
+.plainContent p{ 
+	margin-bottom: 20px;
 }
 
 .navigationbar{
@@ -180,3 +204,43 @@ body{
 	font-family: HouschkaPro-Bold;
 	src: url(font/HouschkaPro-Bold.otf);
 }
+
+/* Estilizacion de checkbox y select */
+
+input[type=checkbox] {
+	display: none;
+}
+input[type=checkbox] + label {
+	background: url(img/select.png) 0px 1px no-repeat;
+	padding-left: 25px;
+	display: inline-block;
+}
+
+input[type=checkbox]:checked + label {
+	background: url(img/active_select.png) 0px 1px no-repeat;
+}
+
+.selectZumo select {
+    background: transparent;
+    width: 268px;
+    padding: 5px;
+    font-size: 10pt;
+    line-height: 1;
+    border: 0;
+    border-radius: 0;
+    height: 34px;
+    -webkit-appearance: none;
+    margin-top: -7px;
+	margin-left: 5px;
+    }
+
+.selectZumo {
+    width: 240px;
+    height: 20px;
+    overflow: hidden;
+    background: url(img/show_options.png) no-repeat right;
+    border: 1px solid #000;
+    background-position-y: 1px;
+	background-position-x: 221px;
+}
+
