@@ -18,6 +18,10 @@ class PropertyController extends AppController {
 		$this->set('user_searchs',true);
 		$this->set('title_for_layout','Mis Busquedas');	
 	}
+
+	public function add(){
+		$this->set('title_for_layout','Registro de inmuebles');	
+	}
 }
 
 ?>

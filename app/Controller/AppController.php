@@ -32,4 +32,36 @@ App::uses('Controller', 'Controller');
  * @link		http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller {
+
+	var $components = array('RequestHandler');
+
+	/*function afterFilter() {
+		/*if (in_array($this->request->ext, array('xml', 'json'))) {
+			$_view = ROOT . DS . APP_DIR . DS . "views" . DS . "common" . DS . $this->RequestHandler->ext . ".ctp";
+			$this->render(null, "default", $_view);
+		}*/
+	//}
+
+	//function beforeRender() {
+		// If JSON, XML we don't need to go to any view, just the default one.
+		/*if (in_array($this->request->ext, array('xml', 'json'))){
+			//$this->layout = 'ajax';
+			//$this->disableCache();
+		}
+
+		parent::beforeRender();*/
+	//}
+
+	 //public function beforeFilter() {
+
+	 	/*if (in_array($this->request->ext, array('xml', 'json'))) {
+			// 1. Don't render automatically
+			$this->autoRender = false;
+			// 2. Don't debug
+			//if (Configure::read('debug') > 0) Configure::write('debug', 0);
+		}*/
+
+      //  parent::beforeFilter();
+    //}
+
 }

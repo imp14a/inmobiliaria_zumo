@@ -8,16 +8,9 @@ class InmobiliariaZumoController extends AppController {
 	}
 
 	public function about(){
-		$this->layout = 'default';
-
 		$this->set('title_for_layout','¿POR QUÉ ZUMO?');
 	}
 
-	public function add(){
-		$this->layout = 'default';
-
-		$this->set('title_for_layout','Registro de inmuebles');	
-	}
 }
 
 ?>
