@@ -1,19 +1,28 @@
-(function() {
-    var slider = $('slider');
-    var id_range = $('id_range');
-    var max;
-    var min; 
 
-    new Control.Slider(slider.select('.handle'), slider, {
-      range: $R(0, 255),
-      sliderValue: [0, 255],
-      onSlide: function(values) {
-        max = values.map(Math.round)[1] >= values.map(Math.round)[0] ? values.map(Math.round)[1] : values.map(Math.round)[0];
-        min = values.map(Math.round)[1] <= values.map(Math.round)[0] ? values.map(Math.round)[1] : values.map(Math.round)[0];
-    id_range.setStyle({
-      'margin-left': min + 'px',
-      'width': (max - min) + 'px'
+function createSlider(slider,options,onChangeEvent){    
+
+    return new Control.Slider(slider.select('.handle'), slider, {
+        range: $R(options.min, options.max),
+        increment: options.step,
+        sliderValue: [options.min, options.max],
+        onChange: onChangeEvent,
+        onSlide: function(values) {
+
+            valMin = values.map(Math.round)[0] - this.range.start;
+            valMin = valMin / (this.range.end - this.range.start);
+            valMin = $(slider).getWidth() * valMin;
+
+            valMax = values.map(Math.round)[1] - this.range.start;
+            valMax = valMax / (this.range.end - this.range.start);
+            valMax = $(slider).getWidth() * valMax;
+
+            
+            id_range.setStyle({
+                'margin-left': valMin + 'px',
+                'width': (valMax - valMin) + 'px'
+            });
+        },
+        restricted: true
     });
-      }
-    });
-  })();
+
+}

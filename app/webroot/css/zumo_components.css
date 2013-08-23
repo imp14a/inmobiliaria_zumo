@@ -45,6 +45,21 @@ input[type=checkbox]:checked + label {
 	background: url(img/active_select.png) 0px 1px no-repeat;
 }
 
+input[type=radio] {
+	cursor: pointer;
+	display: none;
+}
+input[type=radio] + label {
+	cursor: pointer;
+	background: url(img/select.png) 0px 1px no-repeat;
+	padding-left: 25px;
+	display: inline-block;
+}
+
+input[type=radio]:checked + label {
+	background: url(img/active_select.png) 0px 1px no-repeat;
+}
+
 .selectZumo select {
 	cursor: pointer;
     background: transparent;
