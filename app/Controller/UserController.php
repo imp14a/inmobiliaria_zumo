@@ -16,7 +16,7 @@ class UserController extends AppController {
 
 		$this->layout = "ajax";
 
-		$postalC = isset($_GET['cp']) ? $_GET[ 'cp' ] : null;
+		$postalC = isset($_REQUEST['cp']) ? $_REQUEST[ 'cp' ] : null;
         if(($postalC == NULL && empty($this->params))){
             return $this->redirect(array('action' => 'register'), array('error'=>'Codigo postal Invalido:'.$postalC));
         }
