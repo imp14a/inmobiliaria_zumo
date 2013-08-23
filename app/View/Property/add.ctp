@@ -1,68 +1,73 @@
-<script src="/inmobiliaria_zumo/app/webroot/js/scriptaculous/scriptaculous.js" type="text/javascript"></script>
+<?php 
 
+	echo $this->Html->script('scriptaculous/scriptaculous');
 
-<style type="text/css">
-  div.slider { width:256px; margin:0px 0; background-color:#ccc; height:3px; position: relative; }
-  div.slider div.handle { 
-  	width:15px; height:15px; cursor:move; position: absolute; 
-  	background: url('/inmobiliaria_zumo/app/webroot/css/img/level_slider.png') no-repeat;
-  	top: -6px;
-  }
-  div.slider div.range {
-	background-color: #FFCC00;
-	height: 3px;
-  }
+?>
+
+<style>
+div.autocomplete {
+  position:absolute;
+  width:500px;
+  background-color:white;
+  border:1px solid #888;
+  margin:0;
+  padding:0;
+}
+div.autocomplete ul {
+  list-style-type:none;
+  margin:0;
+  padding:0;
+}
+div.autocomplete ul li.selected { background-color: #ffb;}
+
+div.autocomplete ul li {
+  list-style-type:none;
+  display:block;
+  margin:0;
+  padding:2px;
+  height:32px;
+  cursor:pointer;
+}
 </style>
 
-<div class="demo">
-    <div id="slider" class="slider">
-    <div class="handle"></div>
-    <div class="handle"></div>
-  	<div id="id_range" class="range"></div>
-</div>
-
-<script type="text/javascript">
-  (function() {
-    var slider = $('slider');
-    var id_range = $('id_range');
-    var max;
-    var min; 
-
-    new Control.Slider(slider.select('.handle'), slider, {
-      range: $R(0, 255),
-      sliderValue: [0, 255],
-      onSlide: function(values) {
-      	max = values.map(Math.round)[1] >= values.map(Math.round)[0] ? values.map(Math.round)[1] : values.map(Math.round)[0];
-      	min = values.map(Math.round)[1] <= values.map(Math.round)[0] ? values.map(Math.round)[1] : values.map(Math.round)[0];
-		id_range.setStyle({
-			'margin-left': min + 'px',
-			'width': (max - min) + 'px'
-		});
-      },
-      onChange: function(values) { 
-      }
-    });
-  })();
-</script>
 <div class="plainContent">
 	<p class="semititle">Registro de inmuebles</p>
-	<input type="checkbox" id="chbx-compra" name="chbx-compra" value="">
-	<label for="chbx-compra">Compra</label>
-	<button class="activeButton">BUSCAR</button>
-	<a class="activeButton">ENTRAR</a>
-	<br>
-	<div class="selectZumo">
-		<select class="selectZumo">
-		    <option>one</option>
-		    <option>two</option>
-		    <option>something</option>
-		    <option>4</option>
-		    <option>5</option>
-		</select>
-	</div>
+	<?php echo $this->Form->create('Register'); ?>
 
-	<?php 
-		
-	?>
+		<?php echo $this->Form->input('Property.name',array('label'=>'Nombre')); ?>
+		<h3>Direcci&oacute;n</h3>
+		<?php echo $this->Form->input('PropertyAdress.postal_code',array('label'=>'Codigo Posta:')); ?>
+		<span id="indicator1" style="display: none">
+			<?php echo $this->Html->image('ajax-loader.gif',array('alt'=>'Espere ...')); ?>
+		</span>
+		<div id="autocomplete_choices" class="autocomplete"></div>
+		<?php echo $this->Form->hidden('PropertyAdress.country',array('value'=>'México')); ?>
+		<?php echo $this->Form->input('PropertyAdress.state',array('label'=>'Estado:')); ?>
+		<?php echo $this->Form->input('PropertyAdress.city',array('label'=>'Ciudad:')); ?>
+		<?php echo $this->Form->input('PropertyAdress.municipality',array('label'=>'Delegación o Municipio:')); ?>
+		<?php echo $this->Form->input('PropertyAdress.quarter',array('label'=>'Colonia:')); ?>
+		<?php echo $this->Form->input('PropertyAdress.street',array('label'=>'Calle:')); ?>
+		<?php echo $this->Form->input('PropertyAdress.interior_number',array('label'=>'Numero exterior:')); ?>
+		<?php echo $this->Form->input('PropertyAdress.exterior_number',array('label'=>'Numero interior:')); ?>
+
+	<?php echo $this->Form->end(); ?>
 
 </div>
+<script>
+
+	new Ajax.Autocompleter("PropertyAdressPostalCode", "autocomplete_choices", 
+		"http://wowinteractive.com.mx/inmobiliaria_zumo/index.php/User/getPostalCode", {
+		paramName: "cp",
+		minChars: 4,
+		indicator: 'indicator1',
+		afterUpdateElement : getSelectionId
+	});
+
+	function getSelectionId(text, li) {
+		$('PropertyAdressState').value = $(li).readAttribute('state');
+		$('PropertyAdressCity').value = $(li).readAttribute('city');
+		$('PropertyAdressMunicipality').value = $(li).readAttribute('municipality');
+		$('PropertyAdressQuarter').value = $(li).readAttribute('quarter');
+		$('PropertyAdressPostalCode').value = li.id;
+	}
+</script>
