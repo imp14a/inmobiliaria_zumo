@@ -12,7 +12,7 @@ class UserController extends AppController {
 		$this->set('title_for_layout','Usuario');
 	}
 
-	public function get_Postal_Code(){
+	public function getPostalCode(){
 
 		$this->layout = "ajax";
 
