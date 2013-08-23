@@ -1,7 +1,7 @@
 <?php 
 
 	echo $this->Html->script('scriptaculous/scriptaculous');
-
+	echo $this->Html->css('zumo_components');
 ?>
 
 <style>
@@ -34,9 +34,9 @@ div.autocomplete ul li {
 	<p class="semititle">Registro de inmuebles</p>
 	<?php echo $this->Form->create('Register'); ?>
 
-		<?php echo $this->Form->input('Property.name',array('label'=>'Nombre')); ?>
+		<?php echo $this->Form->input('Property.name',array('label'=>'Nombre:')); ?>
 		<h3>Direcci&oacute;n</h3>
-		<?php echo $this->Form->input('PropertyAdress.postal_code',array('label'=>'Codigo Posta:')); ?>
+		<?php echo $this->Form->input('PropertyAdress.postal_code',array('label'=>'Código Postal:')); ?>
 		<span id="indicator1" style="display: none">
 			<?php echo $this->Html->image('ajax-loader.gif',array('alt'=>'Espere ...')); ?>
 		</span>
@@ -47,8 +47,8 @@ div.autocomplete ul li {
 		<?php echo $this->Form->input('PropertyAdress.municipality',array('label'=>'Delegación o Municipio:')); ?>
 		<?php echo $this->Form->input('PropertyAdress.quarter',array('label'=>'Colonia:')); ?>
 		<?php echo $this->Form->input('PropertyAdress.street',array('label'=>'Calle:')); ?>
-		<?php echo $this->Form->input('PropertyAdress.interior_number',array('label'=>'Numero exterior:')); ?>
-		<?php echo $this->Form->input('PropertyAdress.exterior_number',array('label'=>'Numero interior:')); ?>
+		<?php echo $this->Form->input('PropertyAdress.interior_number',array('label'=>'Número exterior:')); ?>
+		<?php echo $this->Form->input('PropertyAdress.exterior_number',array('label'=>'Número interior:')); ?>
 
 	<?php echo $this->Form->end(); ?>
 

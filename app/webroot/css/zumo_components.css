@@ -1,0 +1,85 @@
+div.slider { 
+	width:256px; 
+	margin:0px 0; 
+	background-color:#ccc; 
+	height:3px; 
+	position: relative; 
+}
+
+div.slider div.handle { 
+	width:15px; 
+	height:15px; 
+	cursor:move; 
+	position: absolute; 
+	background: url('/inmobiliaria_zumo/app/webroot/css/img/level_slider.png') no-repeat;
+	top: -6px;
+}
+
+div.slider div.range {
+	background-color: #FFCC00;
+	height: 3px;
+}
+
+/* Estilizacion de componentes */
+
+label {
+	font-family: HouschkaPro-Medium;
+}
+
+input[type=text] {
+	margin-left: 10px;
+}
+
+input[type=checkbox] {
+	cursor: pointer;
+	display: none;
+}
+input[type=checkbox] + label {
+	cursor: pointer;
+	background: url(img/select.png) 0px 1px no-repeat;
+	padding-left: 25px;
+	display: inline-block;
+}
+
+input[type=checkbox]:checked + label {
+	background: url(img/active_select.png) 0px 1px no-repeat;
+}
+
+.selectZumo select {
+	cursor: pointer;
+    background: transparent;
+    width: 268px;
+    padding: 5px;
+    font-size: 10pt;
+    line-height: 1;
+    border: 0;
+    border-radius: 0;
+    height: 34px;
+    -webkit-appearance: none;
+    margin-top: -7px;
+	margin-left: 5px;
+    }
+
+.selectZumo {
+    width: 240px;
+    height: 20px;
+    overflow: hidden;
+    background: url(img/show_options.png) no-repeat right;
+    border: 1px solid #000;
+    background-position-y: 1px;
+	background-position-x: 221px;
+}
+
+.activeButton{
+	text-decoration:none;   
+	background-color: #FFCC00;
+	border: none;
+	cursor: pointer;
+	padding: 5px;
+	font-family: HouschkaPro-Medium;
+	font-size: 8pt;
+}
+
+.activeButton:hover{		
+	font-family: HouschkaPro-DemiBold;	
+}

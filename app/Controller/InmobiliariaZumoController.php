@@ -15,6 +15,10 @@ class InmobiliariaZumoController extends AppController {
 		$this->set('title_for_layout', 'ALIANZAS');
 	}
 
+	public function components(){		
+		$this->set('title_for_layout', 'COMPONENTES');
+	}
+
 }
 
 ?>
