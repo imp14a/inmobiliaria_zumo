@@ -20,7 +20,13 @@ class PropertyController extends AppController {
 	}
 
 	public function add(){
-		$this->set('title_for_layout','Registro de inmuebles');	
+		$this->set('title_for_layout','Registro de inmuebles');
+
+		if (empty($this->request->data)) {
+		
+		}else{
+
+		}
 	}
 }
 

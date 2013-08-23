@@ -3,6 +3,7 @@
 class Property extends AppModel {
 
 	public $name = 'PropertyAddress';
+    public $useTable = 'property_address';
 
 	public $hasOne = array( 'PropertyAddress','PropertyDescription',
 		'PropertyLocation','PropertyPaymentInformation');
