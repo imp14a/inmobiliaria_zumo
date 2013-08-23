@@ -5,7 +5,7 @@ function createSlider(slider,options,onChangeEvent){
         range: $R(options.min, options.max),
         increment: options.step,
         sliderValue: [options.min, options.max],
-        onChange: onChangeEvent,
+        //onChange: onChangeEvent,
         onSlide: function(values) {
 
             valMin = values.map(Math.round)[0] - this.range.start;
@@ -21,6 +21,7 @@ function createSlider(slider,options,onChangeEvent){
                 'margin-left': valMin + 'px',
                 'width': (valMax - valMin) + 'px'
             });
+            onChangeEvent(values);
         },
         restricted: true
     });

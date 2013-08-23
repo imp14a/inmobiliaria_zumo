@@ -120,8 +120,8 @@
                     <div id="id_range" class="range"></div>
                 </div>
             </div>
-             <?php echo $this->Form->input('min_price', array('label' => 'Desde')); ?>
-             <?php echo $this->Form->input('min_price', array('label' => 'Hasta')); ?>
+             <?php echo $this->Form->input('min_price', array('label' => 'Desde','value'=>'el menor precio')); ?>
+             <?php echo $this->Form->input('max_price', array('label' => 'Hasta','value'=>'el mayor precio')); ?>
          </div>
 
     <?php   $options = array( 'label' => 'BUSCAR', 'class'=>'activeButton');
@@ -131,10 +131,25 @@
 
 <script>
 
-var slider = createSlider($('slider'),{min:15,max:50,step:5},sliderChange);
+var slider = createSlider($('slider'),{min:0,max:51,step:5},sliderChange);
 
-function sliderChange(value){
+function sliderChange(values){ 
+    if(values.map(Math.round)[0]==0){
+        $("PropertySearchMinPrice").value = "el menor precio";
+    }else{
+        $("PropertySearchMinPrice").value = format_money(values.map(Math.round)[0]);
+    }
 
+    if(values.map(Math.round)[1]==51){
+        $("PropertySearchMaxPrice").value = "el mayor precio"
+    }else{
+        $("PropertySearchMaxPrice").value = format_money(values.map(Math.round)[1]);
+    }
+}
+
+function format_money(value){
+    //TODO poner las comas
+    return "$ "+ value +",000.00";
 }
 
 </script>
