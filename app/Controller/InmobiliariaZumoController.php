@@ -11,6 +11,10 @@ class InmobiliariaZumoController extends AppController {
 		$this->set('title_for_layout','¿POR QUÉ ZUMO?');
 	}
 
+	public function alliances(){
+		$this->set('title_for_layout', 'ALIANZAS');
+	}
+
 }
 
 ?>

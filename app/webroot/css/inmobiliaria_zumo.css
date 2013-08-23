@@ -80,6 +80,26 @@ body{
 	font-size: 10pt	;
 }
 
+.plainContent .textGeorgia{
+	font-family: Georgia;
+}
+
+.plainContent a{
+	color: #000;
+}
+
+.plainContent .column{
+	width: 300px;
+	float: left;
+}
+
+.plainContent img.alliance{
+	width: 225px;
+	height: 225px;
+	float: left;
+	margin-left: 70px;
+}
+
 .plainContent p{ 
 	margin-bottom: 20px;
 }
@@ -242,5 +262,13 @@ input[type=checkbox]:checked + label {
     border: 1px solid #000;
     background-position-y: 1px;
 	background-position-x: 221px;
+}
+
+.activeButton{
+	background-color: #FFCC00;
+	border: none;
+	padding: 5px;
+	font-family: HouschkaPro-Medium;
+	font-size: 8pt;
 }
 
