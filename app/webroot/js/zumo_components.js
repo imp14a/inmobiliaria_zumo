@@ -44,7 +44,6 @@ function createUbicationAjaxSelects(state,municipality,quarter){
                     });
 
                     $(obj).each(function(value){
-                        console.log(value);
                         $(municipality).insert({
                             bottom: new Element('option', {value: value}).update(value)
                         });
@@ -66,7 +65,6 @@ function createUbicationAjaxSelects(state,municipality,quarter){
                     });
 
                     $(obj).each(function(value){
-                        console.log(value);
                         $(quarter).insert({
                             bottom: new Element('option', {value: value}).update(value)
                         });

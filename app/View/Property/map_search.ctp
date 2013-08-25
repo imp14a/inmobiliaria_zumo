@@ -21,19 +21,40 @@
 // Enable the visual refresh
 google.maps.visualRefresh = true;
 
+var geocoder;
 var map;
 function initialize() {
-  var mapOptions = {
-    zoom: 8,
-    center: new google.maps.LatLng(-34.397, 150.644),
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-  };
-  map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+  geocoder = new google.maps.Geocoder();
+    var mapOptions = {
+        zoom: 8,
+        center: new google.maps.LatLng(-34.397, 150.644),
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
 
-    </script>
+function codeAddress() {
+    var address = "Mexico, Estado de " + $('PropertySearchState').value + ',' 
+                            + $('PropertySearchMunicipality').value + ',' 
+                            + $('PropertySearchQuarter').value;
+
+    var zoom =  6;
+    if($('PropertySearchMunicipality').value!=''){
+      zoom +=6;
+    }
+    //aplicamoz zoom
+    geocoder.geocode( { 'address': address}, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            map.setCenter(results[0].geometry.location);
+            map.setZoom(zoom);
+        } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+        }
+    });
+}
+</script>
 <div class="plainContent">
   <p class="semititle">Ubicaci&oacute;n</p>
        <div class="input_select" style='width:260px;'>
@@ -64,4 +85,9 @@ google.maps.event.addDomListener(window, 'load', initialize);
 </div>
 <script>
 createUbicationAjaxSelects('PropertySearchState','PropertySearchMunicipality','PropertySearchQuarter');
+
+$('PropertySearchState').observe('change',codeAddress);
+$('PropertySearchMunicipality').observe('change',codeAddress);
+$('PropertySearchQuarter').observe('change',codeAddress);
+
 </script>
