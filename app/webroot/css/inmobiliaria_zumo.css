@@ -205,6 +205,18 @@ body{
  	font-family: HouschkaPro-Bold;
  }
 
+ .largeText{
+ 	width: 300px;
+ }
+
+ .shortText{
+ 	width: 50px;
+ }
+
+ .mediumText{
+ 	width: 75px;
+ }
+
 @font-face {
 	font-family: HouschkaPro-Thin;
 	src: url(font/HouschkaPro-Thin.otf);
