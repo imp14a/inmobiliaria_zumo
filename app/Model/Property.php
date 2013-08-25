@@ -5,6 +5,10 @@ class Property extends AppModel {
 	public $name = 'Property';
 	public $useTable = 'property';
 
+    var $validate = array(
+        'name' => 'alphaNumeric'
+    );
+
 	public $hasOne = array( 'PropertyAddress','PropertyDescription',
 		'PropertyLocation','PropertyPaymentInformation');
 

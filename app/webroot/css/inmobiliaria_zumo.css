@@ -213,6 +213,10 @@ body{
  	width: 50px;
  }
 
+ .mediumText{
+ 	width: 75px;
+ }
+
 @font-face {
 	font-family: HouschkaPro-Thin;
 	src: url(font/HouschkaPro-Thin.otf);

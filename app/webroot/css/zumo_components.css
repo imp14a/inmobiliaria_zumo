@@ -52,32 +52,17 @@ input[type=text]:hover, input[type=number]:hover{
 	border: thin #FFCC00 solid;
 }
 
-input[type=checkbox] {
+input[type=checkbox], input[type=radio] {
 	cursor: pointer;
 	display: none;
 }
-input[type=checkbox] + label {
+input[type=checkbox] + label, input[type=radio] + label {
 	cursor: pointer;
 	background: url(img/select.png) 0px 1px no-repeat;
 	padding-left: 25px;
 }
 
-input[type=checkbox]:checked + label {
-	background: url(img/active_select.png) 0px 1px no-repeat;
-}
-
-input[type=radio] {
-	cursor: pointer;
-	display: none;
-}
-input[type=radio] + label {
-	cursor: pointer;
-	background: url(img/select.png) 0px 1px no-repeat;
-	padding-left: 25px;
-	display: inline-block;
-}
-
-input[type=radio]:checked + label {
+input[type=checkbox]:checked + label, input[type=radio]:checked + label {
 	background: url(img/active_select.png) 0px 1px no-repeat;
 }
 
@@ -95,6 +80,20 @@ input[type=submit]:hover{
 	font-family: HouschkaPro-DemiBold;	
 }
 
+.addDiv {
+	border: thin #000 solid;
+	height: 15px;
+	width: 240px; 
+	background: url(img/add.png) no-repeat;
+	background-position-x: 223px;
+	background-position-y: -2px;
+	cursor: pointer;
+}
+
+.addDiv label{
+	margin-left: 10px;
+}
+
 .selectZumo select {
 	cursor: pointer;
 	background: transparent;
@@ -107,7 +106,7 @@ input[type=submit]:hover{
 	height: 34px;
 	-webkit-appearance: none;
 	-moz-appearance: none;
-	margin-top: -7px;
+	margin-top: -8px;
 	margin-left: -10px;
 	font-family: HouschkaPro-Medium;
 	padding-left: 15px;
@@ -115,12 +114,12 @@ input[type=submit]:hover{
 
 .selectZumo {
     width: 240px;
-    height: 20px;
+    height: 15px;
     overflow: hidden;
     background: url(img/show_options.png) no-repeat right;
     border: 1px solid #000;
-    background-position-y: 1px;
-	background-position-x: 221px;
+    background-position-y: -1px;
+	background-position-x: 223px;
 	margin-left: 10px;
 	margin-bottom: 10px;
 }

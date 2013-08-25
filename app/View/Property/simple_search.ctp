@@ -1,5 +1,5 @@
 
-<?
+<?php
 
 
   echo $this->Html->css('zumo_components');

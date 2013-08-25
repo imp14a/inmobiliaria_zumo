@@ -40,10 +40,9 @@ class PropertyController extends AppController {
 
 	public function add(){
 		$this->set('title_for_layout','Registro de inmuebles');
-
 		$this->loadModel('PropertyDescription');
 		//Tipos
-		$type = $this->PropertyDescription->getColumnType('type');
+		$type = $this->Property->PropertyDescription->getColumnType('type');
 		preg_match_all("/'(.*?)'/", $type, $enums);
 		foreach($enums[1] as $value )
     	{
@@ -51,18 +50,24 @@ class PropertyController extends AppController {
     	}
 		$this->set('types', $enum);
 		//Antiguedad
-		$type = $this->PropertyDescription->getColumnType('antiqity');
+		unset($enum);
+		$type = $this->PropertyDescription->getColumnType('antiquity');
 		preg_match_all("/'(.*?)'/", $type, $enums);
 		foreach($enums[1] as $value )
     	{
         	$enum[$value] = $value;
     	}
 		$this->set('antiquities', $enum);
-
 		if (empty($this->request->data)) {
-		
 		}else{
+			//$this->Property->saveAll($this->request->data, array('validate'=>'first'));
 
+
+			/*if(){
+				
+			}else{
+				echo "Pelo";
+			}*/
 		}
 	}
 }
