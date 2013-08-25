@@ -1,3 +1,4 @@
+
 <?php 
 
 	echo $this->Html->script('scriptaculous/scriptaculous');

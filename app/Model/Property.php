@@ -9,8 +9,16 @@ class Property extends AppModel {
 		'PropertyLocation','PropertyPaymentInformation');
 
 	public $hasMany = array(
-
-		);
+        'Images' => array(
+            'className' => 'PropertyImage',
+        ),
+        'ExtraAreas' => array(
+            'className' => 'PropertyExtraArea',
+        )
+        ,'ExtraInformations' => array(
+            'className' => 'PropertyExtraInformation',
+        )
+    );
 
 
 }

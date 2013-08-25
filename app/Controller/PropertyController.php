@@ -1,10 +1,29 @@
 <?php
+
+App::Import('Model','PropertyAddress');
+
 class PropertyController extends AppController {
 
 	public function simple_search(){
 		$this->layout = 'property_layout';
 		$this->set('simple_search',true);
 		$this->set('title_for_layout','Busqueda de Propiedades');
+
+		$address = new PropertyAddress();
+
+		$options =  array(
+			'recursive' => -1, //int
+			'fields' => array('PropertyAddress.state'),
+			'order' => array('PropertyAddress.state'), //string or array defining order
+			'group' => array('PropertyAddress.state'), 
+		);
+
+		$states = array();
+		foreach($address->find('all',$options) as $state){
+			$states[$state['PropertyAddress']['state']] = $state['PropertyAddress']['state'];
+		}
+		$this->set('states',$states);
+
 	}
 
 	public function map_search(){

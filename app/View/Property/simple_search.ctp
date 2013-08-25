@@ -3,6 +3,7 @@
 
 
   echo $this->Html->css('zumo_components');
+  echo $this->Html->css('simple_search');
   echo $this->Html->script('scriptaculous/scriptaculous');
   echo $this->Html->script('zumo_components');
 
@@ -10,50 +11,11 @@
 ?>
 
 <style>
-.property_abalible_type{
-  margin-bottom: 20px;
-}
-.property_abalible_type label{
-  margin-right: 20px;
-}
-.input_select{
-    width: 300px;
-    display: inline-block;
-}
-.input_select label{
-    font-size: 10px;
-    font-style: italic;
-    display: block;
-}
-.chekbox_group{
-    width: 300px;
-    display: inline-block;
-}
-.form_line{
-    margin-top: 10px;
-    margin-bottom: 10px;
-    display: block;
-}
-.slider_input{
-    margin-bottom: 20px;
-}
-.slider_input .slider_container{
-    margin-bottom: 20px;
-}
 
-.slider_input label{
-    width: 40px;
-    display: inline-block;
-    font-style: italic;
-    font-size: 11px;
-}
-.slider_input input{
-    border:0;
-    background-color: white;
-}
 </style>
 
 <div class="plainContent">
+
 	<p class="semititle">Busqueda de inmuebles</p>
     <?php echo $this->Form->create('PropertySearch'); ?>
         <p class="semititle">Operaci&oacute;n</p>
@@ -67,46 +29,44 @@
 	   <p class="semititle">Ubicaci&oacute;n</p>
        <div class="input_select">
             <label>Estado</label>
-            <?php $options = array('México' => 'México', 'Distrito Federal' => 'Distrito Federal');
-                echo $this->Form->select('state', $options,array('class' => 'selectZumo'));
-            ?>
+            <?php echo $this->Form->select('state', $states,array('class' => 'selectZumo')); ?>
         </div>
         <div class="input_select">
             <label>Delegaci&oacute;n o Municipio</label>
-            <?php $options = array('México' => 'México', 'Distrito Federal' => 'Distrito Federal');
-                echo $this->Form->select('state', $options,array('class' => 'selectZumo'));
+            <?php $options = array();
+                echo $this->Form->select('municipality', $options,array('class' => 'selectZumo'));
             ?>
         </div>
         <div class="input_select" style="margin-top: 10px;">
             <label>Colonia</label>
-            <?php $options = array('México' => 'México', 'Distrito Federal' => 'Distrito Federal');
-                echo $this->Form->select('state', $options,array('class' => 'selectZumo'));
+            <?php $options = array();
+                echo $this->Form->select('quarter', $options,array('class' => 'selectZumo'));
             ?>
         </div>
         <div class='form_line'>
             <div class="chekbox_group">
                 <p class="semititle">Tipo de propiedad</p>
                 <?php echo $this->Form->checkbox('any',array('hiddenField' => false)); ?>
-                <label>Cualquiera</label><br />
+                <label>Cualquiera</label>
                 <?php echo $this->Form->checkbox('home',array('hiddenField' => false)); ?>
-                <label>Casa Sola</label><br />
+                <label>Casa Sola</label>
                 <?php echo $this->Form->checkbox('condominium',array('hiddenField' => false)); ?>
-                <label>Condominio</label><br />
+                <label>Condominio</label>
                 <?php echo $this->Form->checkbox('department', array('hiddenField' => false)); ?>
-                 <label>Departamento</label><br />
+                 <label>Departamento</label>
                 <?php echo $this->Form->checkbox('villa', array('hiddenField' => false)); ?>
-                 <label>Villa</label><br />
+                 <label>Villa</label>
             </div>
             <div class="chekbox_group">
                 <p class="semititle">Antig&uuml;edad</p>
                 <?php echo $this->Form->checkbox('any',array('hiddenField' => false)); ?>
-                <label>Cualquiera</label><br />
+                <label>Cualquiera</label>
                 <?php echo $this->Form->checkbox('used',array('hiddenField' => false)); ?>
-                <label>Usado</label><br />
+                <label>Usado</label>
                 <?php echo $this->Form->checkbox('new',array('hiddenField' => false)); ?>
-                <label>Nuevo</label><br />
+                <label>Nuevo</label>
                 <?php echo $this->Form->checkbox('presale', array('hiddenField' => false)); ?>
-                 <label>Preventa</label><br />
+                 <label>Preventa</label>
             </div>
         </div>
                     
@@ -151,5 +111,51 @@ function format_money(value){
     //TODO poner las comas
     return "$ "+ value +",000.00";
 }
+
+$('PropertySearchState').observe('change',function(){
+    new Ajax.Request(
+        'http://wowinteractive.com.mx/inmobiliaria_zumo/index.php/PropertyAddress/getMunicipalityForState.json', {
+            parameters: {state: $('PropertySearchState').value},
+            onSuccess: function(response) {
+                obj = response.responseJSON;
+                $('PropertySearchMunicipality').update();
+                $('PropertySearchQuarter').update();
+
+                $('PropertySearchMunicipality').insert({
+                    bottom: new Element('option', {value: ''}).update('')
+                });
+
+                $(obj).each(function(value){
+                    console.log(value);
+                    $('PropertySearchMunicipality').insert({
+                        bottom: new Element('option', {value: value}).update(value)
+                    });
+                });
+            }
+        }
+    );
+});
+
+$('PropertySearchMunicipality').observe('change',function(){
+    new Ajax.Request(
+        'http://wowinteractive.com.mx/inmobiliaria_zumo/index.php/PropertyAddress/getQuartersForMunicipality.json', {
+            parameters: {municipality: $('PropertySearchMunicipality').value},
+            onSuccess: function(response) {
+                obj = response.responseJSON;
+                $('PropertySearchQuarter').update();
+                $('PropertySearchQuarter').insert({
+                    bottom: new Element('option', {value: ''}).update('')
+                });
+
+                $(obj).each(function(value){
+                    console.log(value);
+                    $('PropertySearchQuarter').insert({
+                        bottom: new Element('option', {value: value}).update(value)
+                    });
+                });
+            }
+        }
+    );
+});
 
 </script>

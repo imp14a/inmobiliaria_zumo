@@ -1,0 +1,45 @@
+.property_abalible_type{
+  margin-bottom: 20px;
+}
+.property_abalible_type label{
+  margin-right: 20px;
+}
+.input_select{
+    width: 300px;
+    display: inline-block;
+}
+.input_select label{
+    font-size: 10px;
+    font-style: italic;
+    display: block;
+}
+.chekbox_group{
+    width: 300px;
+    display: inline-block;
+}
+.form_line{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: block;
+}
+.slider_input{
+    margin-bottom: 20px;
+}
+.slider_input .slider_container{
+    margin-bottom: 20px;
+}
+
+.slider_input label{
+    width: 40px;
+    display: inline-block;
+    font-style: italic;
+    font-size: 11px;
+}
+.slider_input input{
+    border:0;
+    background-color: white;
+}
+
+.chekbox_group label{
+    display: block;
+}
