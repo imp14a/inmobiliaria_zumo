@@ -41,6 +41,24 @@ class PropertyController extends AppController {
 	public function add(){
 		$this->set('title_for_layout','Registro de inmuebles');
 
+		$this->loadModel('PropertyDescription');
+		//Tipos
+		$type = $this->PropertyDescription->getColumnType('type');
+		preg_match_all("/'(.*?)'/", $type, $enums);
+		foreach($enums[1] as $value )
+    	{
+        	$enum[$value] = $value;
+    	}
+		$this->set('types', $enum);
+		//Antiguedad
+		$type = $this->PropertyDescription->getColumnType('antiqity');
+		preg_match_all("/'(.*?)'/", $type, $enums);
+		foreach($enums[1] as $value )
+    	{
+        	$enum[$value] = $value;
+    	}
+		$this->set('antiquities', $enum);
+
 		if (empty($this->request->data)) {
 		
 		}else{
