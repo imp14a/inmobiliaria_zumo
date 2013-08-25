@@ -1,5 +1,5 @@
 
-<?
+<?php
 
 
   echo $this->Html->css('zumo_components');
@@ -16,7 +16,6 @@
 
 <div class="plainContent">
 
-	<p class="semititle">Busqueda de inmuebles</p>
     <?php echo $this->Form->create('PropertySearch'); ?>
         <p class="semititle">Operaci&oacute;n</p>
         <div class="property_abalible_type">
@@ -44,29 +43,29 @@
             ?>
         </div>
         <div class='form_line'>
-            <div class="chekbox_group">
+            <div class="chekbox_group" id='type_checkboxes'>
                 <p class="semititle">Tipo de propiedad</p>
-                <?php echo $this->Form->checkbox('any',array('hiddenField' => false)); ?>
-                <label>Cualquiera</label>
-                <?php echo $this->Form->checkbox('home',array('hiddenField' => false)); ?>
-                <label>Casa Sola</label>
-                <?php echo $this->Form->checkbox('condominium',array('hiddenField' => false)); ?>
-                <label>Condominio</label>
-                <?php echo $this->Form->checkbox('department', array('hiddenField' => false)); ?>
-                 <label>Departamento</label>
-                <?php echo $this->Form->checkbox('villa', array('hiddenField' => false)); ?>
-                 <label>Villa</label>
+                <?php echo $this->Form->checkbox('PropertySearch.Type.any',array('hiddenField' => false,'checked')); ?>
+                <label for="PropertySearchTypeAny">Cualquiera</label>
+                <?php echo $this->Form->checkbox('PropertySearch.Type.home',array('hiddenField' => false)); ?>
+                <label for="PropertySearchTypeHome">Casa Sola</label>
+                <?php echo $this->Form->checkbox('PropertySearch.Type.condominium',array('hiddenField' => false)); ?>
+                <label for="PropertySearchTypeCondominium">Condominio</label>
+                <?php echo $this->Form->checkbox('PropertySearch.Type.department', array('hiddenField' => false)); ?>
+                 <label for="PropertySearchTypeDepartment">Departamento</label>
+                <?php echo $this->Form->checkbox('PropertySearch.Type.villa', array('hiddenField' => false)); ?>
+                 <label for="PropertySearchTypeVilla">Villa</label>
             </div>
-            <div class="chekbox_group">
+            <div class="chekbox_group" id='antiquity_checkboxes'>
                 <p class="semititle">Antig&uuml;edad</p>
-                <?php echo $this->Form->checkbox('any',array('hiddenField' => false)); ?>
-                <label>Cualquiera</label>
-                <?php echo $this->Form->checkbox('used',array('hiddenField' => false)); ?>
-                <label>Usado</label>
-                <?php echo $this->Form->checkbox('new',array('hiddenField' => false)); ?>
-                <label>Nuevo</label>
-                <?php echo $this->Form->checkbox('presale', array('hiddenField' => false)); ?>
-                 <label>Preventa</label>
+                <?php echo $this->Form->checkbox('PropertySearch.Antiquity.any',array('hiddenField' => false,'checked')); ?>
+                <label for="PropertySearchAntiquityAny">Cualquiera</label>
+                <?php echo $this->Form->checkbox('PropertySearch.Antiquity.used',array('hiddenField' => false)); ?>
+                <label for="PropertySearchAntiquityUsed">Usado</label>
+                <?php echo $this->Form->checkbox('PropertySearch.Antiquity.new',array('hiddenField' => false)); ?>
+                <label for="PropertySearchAntiquityNew">Nuevo</label>
+                <?php echo $this->Form->checkbox('PropertySearch.Antiquity.presale', array('hiddenField' => false)); ?>
+                 <label for="PropertySearchAntiquityPresale">Preventa</label>
             </div>
         </div>
                     
@@ -80,8 +79,8 @@
                     <div id="id_range" class="range"></div>
                 </div>
             </div>
-             <?php echo $this->Form->input('min_price', array('label' => 'Desde','value'=>'el menor precio')); ?>
-             <?php echo $this->Form->input('max_price', array('label' => 'Hasta','value'=>'el mayor precio')); ?>
+             <?php echo $this->Form->input('min_price', array('label' => 'Desde','value'=>'el menor precio','readonly')); ?>
+             <?php echo $this->Form->input('max_price', array('label' => 'Hasta','value'=>'el mayor precio','readonly')); ?>
          </div>
 
     <?php   $options = array( 'label' => 'BUSCAR', 'class'=>'activeButton');
@@ -112,50 +111,41 @@ function format_money(value){
     return "$ "+ value +",000.00";
 }
 
-$('PropertySearchState').observe('change',function(){
-    new Ajax.Request(
-        'http://wowinteractive.com.mx/inmobiliaria_zumo/index.php/PropertyAddress/getMunicipalityForState.json', {
-            parameters: {state: $('PropertySearchState').value},
-            onSuccess: function(response) {
-                obj = response.responseJSON;
-                $('PropertySearchMunicipality').update();
-                $('PropertySearchQuarter').update();
+createUbicationAjaxSelects('PropertySearchState','PropertySearchMunicipality','PropertySearchQuarter');
 
-                $('PropertySearchMunicipality').insert({
-                    bottom: new Element('option', {value: ''}).update('')
-                });
-
-                $(obj).each(function(value){
-                    console.log(value);
-                    $('PropertySearchMunicipality').insert({
-                        bottom: new Element('option', {value: value}).update(value)
-                    });
-                });
-            }
-        }
-    );
+$('type_checkboxes').select('input').each(function(element){
+    if(element.id!='PropertySearchTypeAny'){
+        $(element).observe('change',function(){
+            $('PropertySearchTypeAny').writeAttribute('checked','');
+        });
+    }
 });
 
-$('PropertySearchMunicipality').observe('change',function(){
-    new Ajax.Request(
-        'http://wowinteractive.com.mx/inmobiliaria_zumo/index.php/PropertyAddress/getQuartersForMunicipality.json', {
-            parameters: {municipality: $('PropertySearchMunicipality').value},
-            onSuccess: function(response) {
-                obj = response.responseJSON;
-                $('PropertySearchQuarter').update();
-                $('PropertySearchQuarter').insert({
-                    bottom: new Element('option', {value: ''}).update('')
-                });
+$('antiquity_checkboxes').select('input').each(function(element){
+    if(element.id!='PropertySearchAntiquityAny'){
+        $(element).observe('change',function(){
+            $('PropertySearchAntiquityAny').writeAttribute('checked','');
+        });
+    }
+});
 
-                $(obj).each(function(value){
-                    console.log(value);
-                    $('PropertySearchQuarter').insert({
-                        bottom: new Element('option', {value: value}).update(value)
-                    });
-                });
-            }
-        }
-    );
+
+$('PropertySearchTypeAny').observe('change',function(){
+    if($(this).readAttribute('checked')){
+        $(this).up().select("input").each(function(element){
+            if(element.id!='PropertySearchTypeAny')
+                $(element).writeAttribute('checked','');
+        });
+    }
+});
+
+$('PropertySearchAntiquityAny').observe('change',function(){
+    if($(this).readAttribute('checked')){
+        $(this).up().select("input").each(function(element){
+            if(element.id!='PropertySearchAntiquityAny')
+                $(element).writeAttribute('checked','');
+        });
+    }
 });
 
 </script>

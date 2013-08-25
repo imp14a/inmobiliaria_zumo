@@ -27,3 +27,52 @@ function createSlider(slider,options,onChangeEvent){
     });
 
 }
+
+function createUbicationAjaxSelects(state,municipality,quarter){
+
+    $(state).observe('change',function(){
+        new Ajax.Request(
+            'http://wowinteractive.com.mx/inmobiliaria_zumo/index.php/PropertyAddress/getMunicipalityForState.json', {
+                parameters: {state: $(state).value},
+                onSuccess: function(response) {
+                    obj = response.responseJSON;
+                    $(municipality).update();
+                    $(quarter).update();
+
+                    $(municipality).insert({
+                        bottom: new Element('option', {value: ''}).update('')
+                    });
+
+                    $(obj).each(function(value){
+                        console.log(value);
+                        $(municipality).insert({
+                            bottom: new Element('option', {value: value}).update(value)
+                        });
+                    });
+                }
+            }
+        );
+    });
+
+    $(municipality).observe('change',function(){
+        new Ajax.Request(
+            'http://wowinteractive.com.mx/inmobiliaria_zumo/index.php/PropertyAddress/getQuartersForMunicipality.json', {
+                parameters: {municipality: $(municipality).value},
+                onSuccess: function(response) {
+                    obj = response.responseJSON;
+                    $(quarter).update();
+                    $(quarter).insert({
+                        bottom: new Element('option', {value: ''}).update('')
+                    });
+
+                    $(obj).each(function(value){
+                        console.log(value);
+                        $(quarter).insert({
+                            bottom: new Element('option', {value: value}).update(value)
+                        });
+                    });
+                }
+            }
+        );
+    });
+}
