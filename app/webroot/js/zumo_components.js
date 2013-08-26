@@ -74,3 +74,30 @@ function createUbicationAjaxSelects(state,municipality,quarter){
         );
     });
 }
+
+function setAdder(adder, label, model, child){
+    model['number'] = 0;
+    var addDiv = new Element('div', {class: 'addDiv'}).insert({
+        bottom: new Element('label', {}).update(label)
+    });
+    addDiv.observe('click', function(){
+        var name = 'data[' + model.name + '][' + model.number + '][' + model.field + ']';
+        var id_text_aux = model.field.split('_');
+        var id_text = model.name + model.number;
+        id_text_aux.each(function(value){
+            id_text += value.substr(0,1).toUpperCase() + value.substr(1,value.length).toLowerCase();
+        });
+        adder.insert({bottom: new Element('div', {class: 'addText'}).insert({
+            top: new Element('input', {type: 'text', name:name, id:id_text})}).insert({
+                    bottom: new Element('img', {
+                        src: 'http://wowinteractive.com.mx/inmobiliaria_zumo/app/webroot/css/img/close_delete.png'
+                    }).observe('click', function(){
+                        $(id_text).remove();
+                        this.remove();
+                    })
+                })
+            });
+            model.number++;
+        });
+    adder.insert({top: addDiv});
+}

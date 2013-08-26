@@ -2,6 +2,7 @@
 <?php 
 
 	echo $this->Html->script('scriptaculous/scriptaculous');
+	echo $this->Html->script('zumo_components');
 	echo $this->Html->css('zumo_components');
 ?>
 
@@ -34,12 +35,15 @@ div.autocomplete ul li {
 
 <div class="plainContent">
 	<h3>Registro de inmuebles</h3><br>	
-	<?php echo $this->Form->create('Register'); ?>
+	<?php echo $this->Form->create('Property'); ?>
 		<label style="float: left; margin-top: 2px; margin-right: 10px;">Tipo de inmueble</label>
 		<div class="selectZumo">
 		<?php echo $this->Form->input('PropertyDescription.type',array('label' => '', 'options' => $types)) ?>
 		</div>
-		<?php echo $this->Form->input('Property.name',array('label'=>'Nombre:', 'class'=>'largeText')); ?>
+		<?php echo $this->Form->input('name',array('label'=>'Nombre:', 'class'=>'largeText')); ?>
+		<label>Disponible para:</label>
+		<?php echo $this->Form->input('available_for_rent',array('label'=>'Renta')); ?>
+		<?php echo $this->Form->input('available_for_sell',array('label'=>'Venta')); ?>
 		<label style="float: left; margin-top: 2px; margin-right: 10px;">Antigüedad</label>
 		<div class="selectZumo">
 		<?php echo $this->Form->input('PropertyDescription.antiquity',array('label' => '', 'options' => $antiquities)) ?>
@@ -72,16 +76,28 @@ div.autocomplete ul li {
 		<?php echo $this->Form->input('PropertyDescription.square_meters_of_construction',array('label'=>'Metros construcción:', 'class'=>'shortText')); ?>
 		<?php echo $this->Form->input('PropertyDescription.square_meters_of_land',array('label'=>'Metros terreno:', 'class'=>'shortText')); ?>
 		<?php echo $this->Form->input('PropertyDescription.extra_description',array('label'=>'Observaciones:')); ?>
-		<p class="semititle">Otras áreas</p>
-		<div id="addAreas">
-			<div class="addDiv">
-				<label>Añadir área</label>
-			</div>
-		</div>
+		<!--<?php echo $this->Form->input('PropertyExtraArea.0.area_name',array('label'=>'area:')); ?>-->
+		<p class="semititle">Otras &aacute;reas</p>
+		<div id="addAreas"></div>
+		<p class="semititle">Informaci&oacute;n adicional</p>
+		<div id="addCategorias"></div>
 		<?php echo $this->Form->end('GUARDAR'); ?>
 
 </div>
 <script>
+	
+	var model_area = [];
+	var model_category = [];
+	var model_category_name = [];
+	model_area['name'] = 'PropertyExtraArea';
+	model_area['field'] = 'area_name';
+	setAdder($('addAreas'), 'Añadir áreas', model_area);
+
+	/*model_category['name'] = 'PropertyExtraInformation';
+	model_category['field'] = 'category';
+	model_category['field2'] = 'name';
+	model_category['number'] = 0;
+	setAdder($('addCategorias'), 'Añadir categorías', model_category);*/
 
 	new Ajax.Autocompleter("PropertyAddressPostalCode", "autocomplete_choices", 
 		"http://wowinteractive.com.mx/inmobiliaria_zumo/index.php/User/getPostalCode", {

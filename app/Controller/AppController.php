@@ -33,7 +33,33 @@ App::uses('Controller', 'Controller');
  */
 class AppController extends Controller {
 
-	var $components = array('RequestHandler');
+	public $components = array(
+		'RequestHandler',
+        'Session',
+        'Auth' => array(
+            'loginRedirect' => array('controller' => 'Property', 'action' => 'simple_search'),
+            'logoutRedirect' => array('controller' => 'inmobiliariazumo', 'action' => 'index'),
+            'authorize' => array('Controller'),
+            'loginAction' => array(
+	            'controller' => 'user',
+	            'action' => 'login'
+	        ),
+        )
+    );
+
+    public function beforeFilter() {
+        $this->Auth->allow('index', 'about', 'alliances', 'contact');
+    } 
+
+    public function isAuthorized($user) {
+	    // Admin can access every action
+	    if (isset($user['isAdmin']) && $user['isAdmin'] === 1) {
+	        return true;
+	    }
+
+	    // Default deny
+	    return false;
+	}
 
 	/*function afterFilter() {
 		/*if (in_array($this->request->ext, array('xml', 'json'))) {
