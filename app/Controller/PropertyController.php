@@ -74,7 +74,8 @@ class PropertyController extends AppController {
 		$this->set('antiquities', $enum);
 		if (empty($this->request->data)) {
 		}else{
-			//$this->Property->saveAll($this->request->data, array('validate'=>'first'));
+			echo $this->request->data;
+			$this->Property->saveAll($this->request->data, array('validate'=>'first'));
 
 
 			/*if(){
