@@ -92,9 +92,9 @@ class PropertyController extends AppController {
         	$enum[$value] = $value;
     	}
 		$this->set('antiquities', $enum);
+		
 		if (empty($this->request->data)) {
-		}else{
-			echo $this->request->data;
+		}else{			
 			$this->Property->saveAll($this->request->data, array('validate'=>'first'));
 		}
 	}
