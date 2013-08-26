@@ -12,7 +12,7 @@ class Property extends AppModel {
 	public $hasOne = array( 'PropertyAddress','PropertyDescription',
 		'PropertyLocation','PropertyPaymentInformation');
 
-	public $hasMany = array(
+	/*public $hasMany = array(
         'Images' => array(
             'className' => 'PropertyImage',
         ),
@@ -22,7 +22,7 @@ class Property extends AppModel {
         ,'ExtraInformations' => array(
             'className' => 'PropertyExtraInformation',
         )
-    );
+    );*/
 
 
 }

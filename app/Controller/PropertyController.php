@@ -1,8 +1,11 @@
 <?php
 
 App::Import('Model','PropertyAddress');
+App::Import('Model','Property');
 
 class PropertyController extends AppController {
+
+
 
 	public function simple_search(){
 		$this->layout = 'property_layout';
@@ -44,6 +47,23 @@ class PropertyController extends AppController {
 			$states[$state['PropertyAddress']['state']] = $state['PropertyAddress']['state'];
 		}
 		$this->set('states',$states);
+	}
+
+	public function getPropertyByStateMunicipalityAndQuarter(){
+		$state = utf8_decode(isset($_REQUEST['state']) ? $_REQUEST[ 'state' ] : '');
+		$municipality = utf8_decode(isset($_REQUEST['municipality']) ? $_REQUEST[ 'municipality' ] : '');
+		$quarter = utf8_decode(isset($_REQUEST['quarter']) ? $_REQUEST[ 'quarter' ] : '');
+
+		$property = new Property(); 
+
+		$options =  array(
+			'conditions'=>array('PropertyAddress.state' => $state,
+				'PropertyAddress.municipality' => $municipality,
+				'PropertyAddress.quarter' => $quarter)
+			);
+
+		$this->set('output',$property->find('all',$options));
+		
 	}
 
 	public function user_searchs(){

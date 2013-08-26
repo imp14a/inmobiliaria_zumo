@@ -26,8 +26,8 @@ var map;
 function initialize() {
   geocoder = new google.maps.Geocoder();
     var mapOptions = {
-        zoom: 8,
-        center: new google.maps.LatLng(-34.397, 150.644),
+        zoom: 5,
+        center: new google.maps.LatLng(22.913,-101.929),
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
@@ -38,7 +38,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 function codeAddress() {
     var address = "Mexico, Estado de " + $('PropertySearchState').value + ',' 
                             + $('PropertySearchMunicipality').value + ',' 
-                            + $('PropertySearchQuarter').value;
+                            + 'Colonia '+$('PropertySearchQuarter').value;
 
     var zoom =  6;
     if($('PropertySearchMunicipality').value!=''){
@@ -88,6 +88,32 @@ createUbicationAjaxSelects('PropertySearchState','PropertySearchMunicipality','P
 
 $('PropertySearchState').observe('change',codeAddress);
 $('PropertySearchMunicipality').observe('change',codeAddress);
-$('PropertySearchQuarter').observe('change',codeAddress);
+$('PropertySearchQuarter').observe('change',findNerbyProperties);
+
+
+function findNerbyProperties(){
+    codeAddress();
+    new Ajax.Request(
+            'http://wowinteractive.com.mx/inmobiliaria_zumo/index.php/Property/getPropertyByStateMunicipalityAndQuarter.json', {
+                parameters: {
+                    state: $('PropertySearchState').value,
+                    municipality:$('PropertySearchMunicipality').value,
+                    quarter: $('PropertySearchQuarter').value
+                },
+                onSuccess: function(response) {
+                    obj = response.responseJSON;
+
+                    $(obj).each(function(element){
+                        position = new google.maps.LatLng(Number(element.PropertyLocation.latitud),
+                                                          Number(element.PropertyLocation.longitud));
+                        var marker = new google.maps.Marker({
+                            map: map,
+                            position: position
+                        });
+                    });
+                }
+            }
+        );
+}
 
 </script>
