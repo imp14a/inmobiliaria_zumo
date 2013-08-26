@@ -37,7 +37,7 @@ class AppController extends Controller {
 		'RequestHandler',
         'Session',
         'Auth' => array(
-            'loginRedirect' => array('controller' => 'Property', 'action' => 'simple_search'),
+            'loginRedirect' => array('controller' => 'inmobiliariazumo', 'action' => 'index'),
             'logoutRedirect' => array('controller' => 'inmobiliariazumo', 'action' => 'index'),
             'authorize' => array('Controller'),
             'loginAction' => array(

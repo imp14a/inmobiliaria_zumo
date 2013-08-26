@@ -3,7 +3,7 @@
 class Property extends AppModel {
 
 	public $name = 'Property';
-	public $useTable = 'property';
+	public $useTable = 'properties';
 
     var $validate = array(
         'name' => 'alphaNumeric'

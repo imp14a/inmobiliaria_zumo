@@ -96,15 +96,14 @@ class PropertyController extends AppController {
 		}else{
 			echo $this->request->data;
 			$this->Property->saveAll($this->request->data, array('validate'=>'first'));
-
-
-			/*if(){
-				
-			}else{
-				echo "Pelo";
-			}*/
 		}
 	}
+
+	public function beforeFilter() {
+        parent::beforeFilter();
+        $this->Auth->allow('add', 'simple_search', 'map_search');
+    }
+
 }
 
 ?>

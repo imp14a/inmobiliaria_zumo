@@ -28,7 +28,7 @@ class UserController extends AppController {
                 }
                 if($this->User->save($this->request->data)){
                     $this->Session->setFlash('Usuario Registrado!');
-                    $this->redirect(array('action' => 'index'));
+                    $this->redirect(array('action' => 'login'));
                 }else{
                     $this->Session->setFlash(__('Ha ocurrido en error, intente de nuevo.'));
                 }
@@ -83,7 +83,7 @@ class UserController extends AppController {
      */
     public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->allow('register', 'login', 'logout');
+        $this->Auth->allow('add', 'register', 'login', 'logout');
     }
 
     public function login() {
