@@ -10,6 +10,17 @@ class User extends AppModel {
             'className' => 'SearchSavedByUser',
         )
     );
+
+    public function isAdmin($user) {
+	    return $this->isAdmin;
+	}
+
+	public function beforeSave($options = array()) {
+        if (isset($this->request->data['User']['password'])) {
+            $this->request->data['User']['password'] = AuthComponent::password($this->request->data['User']['password']);
+        }
+        return true;
+    }
 }
 
 ?>

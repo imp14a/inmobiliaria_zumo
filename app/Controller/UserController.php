@@ -1,6 +1,7 @@
 <?php
 
 App::import('Model','PostalCode');
+App::uses('AuthComponent', 'Controller/Component');
 
 class UserController extends AppController {
 
@@ -22,14 +23,14 @@ class UserController extends AppController {
         else {
             if (empty($this->request->data)) {
             }else{
-                if(!empty($this->request->data['User']['password'])) {
-                    $this->request->data['User']['password'] = Security::hash($this->request->data['User']['password']);
+                if (isset($this->request->data['User']['password'])) {
+                    $this->request->data['User']['password'] = AuthComponent::password($this->request->data['User']['password']);
                 }
-                if($this->User->save($this->request->data)){ //, array('validate'=>'first'))){
+                if($this->User->save($this->request->data)){
                     $this->Session->setFlash('Usuario Registrado!');
-            $this->redirect(array('action' => 'index'));
+                    $this->redirect(array('action' => 'index'));
                 }else{
-
+                    $this->Session->setFlash(__('Ha ocurrido en error, intente de nuevo.'));
                 }
             }
         }
@@ -76,6 +77,40 @@ class UserController extends AppController {
         }
         $this->set('output', $out);
 	}
+
+    /**
+     * Login & logout
+     */
+    public function beforeFilter() {
+        parent::beforeFilter();
+        $this->Auth->allow('register', 'login', 'logout');
+    }
+
+    public function login() {
+        if ($this->request->is('post')) {
+            if ($this->Auth->login()) {
+                return $this->redirect($this->Auth->redirectUrl());
+            }
+            $this->Session->setFlash('Usuario o contraseña inválidos, intente de nuevo.');
+        }
+    }
+
+    public function logout() {
+        return $this->redirect($this->Auth->logout());
+    }
+
+    public function isAuthorized($user) {
+        if (in_array($this->action, array('add', 'login', 'logout'))) {
+            return true;
+        }
+
+        if (in_array($this->action, array('index', 'edit', 'delete'))) {
+            if ($this->User->isAdmin($user)) {
+                return true;
+            }
+        }
+        return parent::isAuthorized($user);
+    }
 }
 
 ?>
