@@ -41,6 +41,9 @@ div.autocomplete ul li {
 		<?php echo $this->Form->input('PropertyDescription.type',array('label' => '', 'options' => $types)) ?>
 		</div>
 		<?php echo $this->Form->input('name',array('label'=>'Nombre:', 'class'=>'largeText')); ?>
+		<label>Disponible para:</label>
+		<?php echo $this->Form->input('available_for_rent',array('label'=>'Renta')); ?>
+		<?php echo $this->Form->input('available_for_sell',array('label'=>'Venta')); ?>
 		<label style="float: left; margin-top: 2px; margin-right: 10px;">Antigüedad</label>
 		<div class="selectZumo">
 		<?php echo $this->Form->input('PropertyDescription.antiquity',array('label' => '', 'options' => $antiquities)) ?>
