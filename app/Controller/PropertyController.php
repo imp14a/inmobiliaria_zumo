@@ -99,10 +99,10 @@ class PropertyController extends AppController {
 		}
 	}
 
-	public function beforeFilter() {
+	/*public function beforeFilter() {
         parent::beforeFilter();
         $this->Auth->allow('add', 'simple_search', 'map_search');
-    }
+    }*/
 
 }
 
