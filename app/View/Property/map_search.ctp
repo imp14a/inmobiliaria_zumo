@@ -49,6 +49,10 @@ function codeAddress() {
         if (status == google.maps.GeocoderStatus.OK) {
             map.setCenter(results[0].geometry.location);
             map.setZoom(zoom);
+            /*var marker = new google.maps.Marker({
+                map: map,
+                position: results[0].geometry.location
+            });*/
         } else {
             alert('Geocode was not successful for the following reason: ' + status);
         }
@@ -108,7 +112,35 @@ function findNerbyProperties(){
                                                           Number(element.PropertyLocation.longitud));
                         var marker = new google.maps.Marker({
                             map: map,
-                            position: position
+                            position: position,
+                            animatio: google.maps.Animation.DROP
+                        });
+
+                        var contentString = '<div id="content" style="background-color:red; margin:0;">'+
+                        '<div id="siteNotice">'+
+                        '</div>'+
+                        '<h1 id="firstHeading" class="firstHeading">Uluru</h1>'+
+                        '<div id="bodyContent">'+
+                        '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
+                        '</p>'+
+                        '<p>Attribution: Uluru, <a href="http://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
+                        'http://en.wikipedia.org/w/index.php?title=Uluru</a> '+
+                        '(last visited June 22, 2009).</p>'+
+                        '</div>'+
+                        '</div>';
+
+                        var infowindow = new google.maps.InfoWindow({
+                            content: contentString
+                        });
+
+                        google.maps.event.addListener(marker, 'click', function() {
+                            infowindow.open(map,marker);
+                            $$('div.gm-style-iw').each(function(element){
+                                $(element).setStyle({
+                                    top:0,
+                                    left:0
+                                });
+                            });
                         });
                     });
                 }
