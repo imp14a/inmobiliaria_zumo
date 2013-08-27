@@ -93,10 +93,30 @@ class PropertyController extends AppController {
     	}
 		$this->set('antiquities', $enum);
 		
-		if (empty($this->request->data)) {
-		}else{			
+		if (!empty($this->request->data)) {			
 			$this->Property->saveAll($this->request->data, array('validate'=>'first'));
+			$this->Session->setFlash('Información almacenada.');
+            $this->redirect(array('action' => 'addlocation', $this->Property->id));
 		}
+	}
+
+	public function addlocation($id = null){
+		$this->set('title_for_layout','Registro de ubicación');
+        $this->Property->id = $id;
+        if ($this->request->is('get')) {
+            $this->request->data = $this->Property->read();
+        } 
+        else {
+            if (empty($this->request->data)) {
+            }else{
+                if($this->Property->save($this->request->data)){
+                    $this->Session->setFlash('Ubicación Registrada!');
+                    $this->redirect(array('action' => 'simple_search'));
+                }else{
+                    $this->Session->setFlash(__('Ha ocurrido en error, intente de nuevo.'));
+                }
+            }
+        }
 	}
 
 	/*public function beforeFilter() {

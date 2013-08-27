@@ -41,7 +41,8 @@ function codeAddress() {
                             + 'Colonia '+$('PropertySearchQuarter').value;
 
     var zoom =  6;
-    if($('PropertySearchMunicipality').value!=''){
+    if($('PropertyAddressMunicipality').value!=''){
+        console.log("entro");
       zoom +=6;
     }
     //aplicamoz zoom

@@ -76,11 +76,8 @@ div.autocomplete ul li {
 		<?php echo $this->Form->input('PropertyDescription.square_meters_of_construction',array('label'=>'Metros construcción:', 'class'=>'shortText')); ?>
 		<?php echo $this->Form->input('PropertyDescription.square_meters_of_land',array('label'=>'Metros terreno:', 'class'=>'shortText')); ?>
 		<?php echo $this->Form->input('PropertyDescription.extra_description',array('label'=>'Observaciones:')); ?>
-		<!--<?php echo $this->Form->input('PropertyExtraArea.0.area_name',array('label'=>'area:')); ?>-->
 		<p class="semititle">Otras &aacute;reas</p>
 		<div id="addAreas"></div>
-		<p class="semititle">Informaci&oacute;n adicional</p>
-		<div id="addCategorias"></div>
 		<?php echo $this->Form->end('GUARDAR'); ?>
 
 </div>
@@ -89,15 +86,9 @@ div.autocomplete ul li {
 	var model_area = [];
 	var model_category = [];
 	var model_category_name = [];
-	model_area['name'] = 'PropertyExtraArea';
+	model_area['name'] = 'PropertyArea';
 	model_area['field'] = 'area_name';
 	setAdder($('addAreas'), 'Añadir áreas', model_area);
-
-	/*model_category['name'] = 'PropertyExtraInformation';
-	model_category['field'] = 'category';
-	model_category['field2'] = 'name';
-	model_category['number'] = 0;
-	setAdder($('addCategorias'), 'Añadir categorías', model_category);*/
 
 	new Ajax.Autocompleter("PropertyAddressPostalCode", "autocomplete_choices", 
 		"http://wowinteractive.com.mx/inmobiliaria_zumo/index.php/User/getPostalCode", {
