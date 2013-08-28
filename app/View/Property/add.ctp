@@ -62,8 +62,8 @@ function placeMarker(location) {
 
 function codeAddress() {
     var address = "Mexico, Estado de " + $('PropertyAddressState').value + ',' 
-                            + $('PropertyAddressMunicipality').value + ',' 
-                            + 'Colonia '+$('PropertyAddressQuarter').value;
+                            + $('PropertyAddressMunicipality').value /*+ ',' 
+                            + 'Colonia '+$('PropertyAddressQuarter').value*/;
     console.log(address);
     var zoom =  6;
     if($('PropertyAddressMunicipality').value!=''){
@@ -102,13 +102,25 @@ function codeAddress() {
 			<?php echo $this->Form->input('PropertyPaymentInformation.sale_price',array('label'=>'Precio de compra:', 'class'=>'mediumText')); ?>
 			<?php echo $this->Form->input('PropertyPaymentInformation.maintenance_price',array('label'=>'Cuota de mantenimiento:', 'class'=>'mediumText')); ?>
 		<br>
-		<p class="semititle">Ubicaci&oacute; y Direcci&oacute;n</p>
+		<p class="semititle">Ubicaci&oacute;n y Direcci&oacute;n</p>
 		<?php echo $this->Form->hidden('PropertyAddress.postal_code',array('label'=>'Código Postal:', 'maxLength'=>5, 'class'=>'shortText')); ?>
 		<?php echo $this->Form->hidden('PropertyAddress.country',array('value'=>'México', 'class'=>'largeText')); ?>
-		<?php echo $this->Form->hidden('PropertyAddress.state',array('label'=>'Estado:', 'class'=>'largeText')); ?>
-		<?php echo $this->Form->hidden('PropertyAddress.city',array('label'=>'Ciudad:', 'class'=>'largeText')); ?>
-		<?php echo $this->Form->hidden('PropertyAddress.municipality',array('label'=>'Delegación o Municipio:', 'class'=>'largeText')); ?>
-		<?php echo $this->Form->hidden('PropertyAddress.quarter',array('label'=>'Colonia:', 'class'=>'largeText')); ?>
+		<label style="float: left; margin-top: 2px; margin-right: 10px;">Estado</label>
+		<div class="selectZumo">
+			<?php echo $this->Form->input('PropertyAddress.state',array('label' => '', 'options' => $states)) ?>
+		</div>		
+		<label style="float: left; margin-top: 2px; margin-right: 10px;">Delegaci&oacute;n o Municipio:</label>
+		<div class="selectZumo">
+			<?php $options = array();
+                echo $this->Form->select('PropertyAddress.municipality', $options);
+            ?>
+		</div>	
+		<label style="float: left; margin-top: 2px; margin-right: 10px;">Colonia:</label>				
+		<div class="selectZumo">
+			<?php $options = array();
+                echo $this->Form->select('PropertyAddress.quarter', $options);
+            ?>
+		</div>			
 		<?php echo $this->Form->hidden('PropertyAddress.street',array('label'=>'Calle:', 'class'=>'largeText')); ?>
 		<?php echo $this->Form->input('PropertyAddress.interior_number',array('label'=>'Número exterior:' , 'class'=>'shortText')); ?>
 		<?php echo $this->Form->input('PropertyAddress.exterior_number',array('label'=>'Número interior:', 'class'=>'shortText')); ?>
@@ -134,4 +146,9 @@ function codeAddress() {
 	model_area['name'] = 'PropertyArea';
 	model_area['field'] = 'area_name';
 	setAdder($('addAreas'), 'Añadir áreas', model_area);	
+
+	createUbicationAjaxSelects('PropertyAddressState', 'PropertyAddressMunicipality', 'PropertyAddressQuarter');
+	$('PropertyAddressState').observe('change', codeAddress);
+	$('PropertyAddressMunicipality').observe('change',codeAddress);
+	$('PropertyAddressQuarter').observe('change',findNerbyProperties);
 </script>
