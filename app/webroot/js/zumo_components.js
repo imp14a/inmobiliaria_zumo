@@ -28,12 +28,19 @@ function createSlider(slider,options,onChangeEvent){
 
 }
 
-function createUbicationAjaxSelects(state,municipality,quarter){
+function createUbicationAjaxSelects(state,municipality,quarter,showAll){
+
+
+    var parametersForState = null;
+    if(typeof showAll!='undefined')
+        parametersForState = {state: $(state).value,showAll:true};
+    else
+        parametersForState = {state: $(state).value};
 
     $(state).observe('change',function(){
         new Ajax.Request(
             'http://wowinteractive.com.mx/inmobiliaria_zumo/index.php/PropertyAddress/getMunicipalityForState.json', {
-                parameters: {state: $(state).value},
+                parameters: parametersForState,
                 onSuccess: function(response) {
                     obj = response.responseJSON;
                     $(municipality).update();
@@ -53,26 +60,29 @@ function createUbicationAjaxSelects(state,municipality,quarter){
         );
     });
 
-    $(municipality).observe('change',function(){
-        new Ajax.Request(
-            'http://wowinteractive.com.mx/inmobiliaria_zumo/index.php/PropertyAddress/getQuartersForMunicipality.json', {
-                parameters: {municipality: $(municipality).value},
-                onSuccess: function(response) {
-                    obj = response.responseJSON;
-                    $(quarter).update();
-                    $(quarter).insert({
-                        bottom: new Element('option', {value: ''}).update('')
-                    });
-
-                    $(obj).each(function(value){
+    if(typeof quarter!='undefined' && quarter!=null){
+        $(municipality).observe('change',function(){
+            new Ajax.Request(
+                'http://wowinteractive.com.mx/inmobiliaria_zumo/index.php/PropertyAddress/getQuartersForMunicipality.json', {
+                    parameters: {municipality: $(municipality).value},
+                    onSuccess: function(response) {
+                        obj = response.responseJSON;
+                        $(quarter).update();
                         $(quarter).insert({
-                            bottom: new Element('option', {value: value}).update(value)
+                            bottom: new Element('option', {value: ''}).update('')
                         });
-                    });
+
+                        $(obj).each(function(value){
+                            $(quarter).insert({
+                                bottom: new Element('option', {value: value}).update(value)
+                            });
+                        });
+                    }
                 }
-            }
-        );
-    });
+            );
+        });
+    }
+    
 }
 
 function setAdder(adder, label, model, child){
