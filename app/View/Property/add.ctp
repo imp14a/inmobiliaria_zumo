@@ -132,6 +132,12 @@ function setAddress(latitude, longitude){
                 echo $this->Form->select('PropertyAddress.municipality', $options);
             ?>
 		</div>	
+		<p class="semititle">Im&aacute;genes</p>
+		<div id="addImages"></div>
+		<div class="upload">
+			<label>Seleccione</label>
+			<input type="file" name="data[PropertyImage][image]" id="PropertyImageImage">	
+		</div>
 		<?php echo $this->Form->input('PropertyAddress.quarter',array('label'=>'Colonia:', 'class'=>'largeText')); ?>
 		<?php echo $this->Form->input('PropertyAddress.street',array('label'=>'Calle:', 'class'=>'largeText')); ?>		
 		<?php echo $this->Form->input('PropertyAddress.postal_code',array('label'=>'Código Postal:', 'maxLength'=>5, 'class'=>'shortText')); ?>
@@ -156,9 +162,16 @@ function setAddress(latitude, longitude){
 	var model_area = [];
 	var model_category = [];
 	var model_category_name = [];
+	var model_images = [];
 	model_area['name'] = 'PropertyArea';
-	model_area['field'] = 'area_name';
+	model_area['field'] = 'area_name';	
 	setAdder($('addAreas'), 'Añadir áreas', model_area);	
+
+	model_images['name'] = 'PropertyImage';
+	model_images['field'] = 'image';
+	model_images['field_type'] = 'file';
+	model_images['class'] = 'upload';
+	setAdder($('addImages'), 'Añadir imágenes', model_images);	
 
 	createUbicationAjaxSelects('PropertyAddressState', 'PropertyAddressMunicipality', null, true);
 	$('PropertyAddressState').observe('change', codeAddress);

@@ -105,7 +105,7 @@ class PropertyController extends AppController {
 		if (!empty($this->request->data)) {						
 			$this->Property->saveAll($this->request->data, array('validate'=>'first'));
 			$this->Session->setFlash('Información almacenada.');
-            //$this->redirect(array('action' => 'addlocation', $this->Property->id));
+            //$this->redirect(array('action' => 'adddetails', $this->Property->id));
 		}
 	}
 	/*public function beforeFilter() {
