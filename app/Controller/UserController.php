@@ -14,7 +14,6 @@ class UserController extends AppController {
 
 
     public function add($id = null){
-        App::uses('Security', 'Utility'); 
         $this->set('title_for_layout','Registro de usuarios');
         $this->User->id = $id;
         if ($this->request->is('get')) {
@@ -81,7 +80,7 @@ class UserController extends AppController {
     /**
      * Login & logout
      */
-    public function beforeFilter() {
+    /*public function beforeFilter() {
         parent::beforeFilter();
         $this->Auth->allow('add', 'register', 'login', 'logout');
     }
@@ -110,7 +109,7 @@ class UserController extends AppController {
             }
         }
         return parent::isAuthorized($user);
-    }
+    }*/
 }
 
 ?>

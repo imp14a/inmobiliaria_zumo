@@ -47,6 +47,7 @@ class AppController extends Controller {
         )*/
     );
 
+
     public function beforeFilter() {
         //$this->Auth->allow('index', 'about', 'alliances', 'contact');
     } 
@@ -59,7 +60,7 @@ class AppController extends Controller {
 
 	    // Default deny
 	    return false;
-	}
+	}*/
 
 	/*function afterFilter() {
 		/*if (in_array($this->request->ext, array('xml', 'json'))) {

@@ -92,17 +92,17 @@ class PropertyController extends AppController {
         	$enum[$value] = $value;
     	}
 		$this->set('antiquities', $enum);
-		if (empty($this->request->data)) {
-		}else{
-			echo $this->request->data;
+		
+		if (!empty($this->request->data)) {			
 			$this->Property->saveAll($this->request->data, array('validate'=>'first'));
+			$this->Session->setFlash('Información almacenada.');
+            //$this->redirect(array('action' => 'addlocation', $this->Property->id));
 		}
 	}
-
-	public function beforeFilter() {
+	/*public function beforeFilter() {
         parent::beforeFilter();
         $this->Auth->allow('add', 'simple_search', 'map_search');
-    }
+    }*/
 
 }
 
