@@ -110,3 +110,9 @@ function setAdder(adder, label, model, child){
         });
     adder.insert({top: addDiv});
 }
+
+function createExpandElement(button,expandElement,show){
+    $(button).observe('click',function(){
+        console.log('asdasdhajkdahlsjk');
+    });
+}

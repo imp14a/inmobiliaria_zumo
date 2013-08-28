@@ -83,8 +83,13 @@
              <?php echo $this->Form->input('max_price', array('label' => 'Hasta','value'=>'el mayor precio','readonly')); ?>
          </div>
 
-    <?php   $options = array( 'label' => 'BUSCAR', 'class'=>'activeButton');
-            echo $this->Form->end($options);
+
+         <a id="advancedSearch" class="expandButton" href="javascript:void(0);">B&Uacute;SQUEDA AVANZADA</a>
+         <div id="expandElements">
+         </div>
+
+        <?php   $options = array( 'label' => 'BUSCAR', 'class'=>'activeButton');
+        echo $this->Form->end($options);
     ?>
 </div>
 
