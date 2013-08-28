@@ -1,4 +1,3 @@
-
 <?php
 App::Import('Model','PropertyAddress');
 App::Import('Model','State');
