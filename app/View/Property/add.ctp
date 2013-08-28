@@ -55,16 +55,14 @@ function placeMarker(location) {
 	    map: map
 	});
 	markersArray.push(marker);
-	markersArray[0].setMap(map);
-	$('PropertyLatitude').value = location.ob;
-	$('PropertyLongitude').value = location.pb;
+	markersArray[0].setMap(map);	
+	setAddress(location.ob, location.pb);
 }
 
 function codeAddress() {
     var address = "Mexico, Estado de " + $('PropertyAddressState').value + ',' 
-                            + $('PropertyAddressMunicipality').value /*+ ',' 
-                            + 'Colonia '+$('PropertyAddressQuarter').value*/;
-    console.log(address);
+                            + $('PropertyAddressMunicipality').value; /*+ ',' 
+                            + 'Colonia '+$('PropertyAddressQuarter').value;*/
     var zoom =  6;
     if($('PropertyAddressMunicipality').value!=''){
       zoom +=6;
@@ -78,6 +76,23 @@ function codeAddress() {
             alert('Geocode was not successful for the following reason: ' + status);
         }
     });
+}
+
+function setAddress(latitude, longitude){
+	$('PropertyLatitude').value = latitude;
+	$('PropertyLongitude').value = longitude;
+	new Ajax.Request(
+        'http://maps.googleapis.com/maps/api/geocode/json', {
+            parameters: {
+            	latlng: latitude + ',' + longitude,
+            	sensor: false
+            },
+            onSuccess: function(response) {
+                obj = response.responseJSON;
+                console.log(obj.address_components);
+            }
+        }
+    );
 }
 </script>
 
