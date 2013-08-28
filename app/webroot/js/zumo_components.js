@@ -28,20 +28,19 @@ function createSlider(slider,options,onChangeEvent){
 
 }
 
-function createUbicationAjaxSelects(state,municipality,quarter,showAll){
-
-
-    var parametersForState = null;
-    if(typeof showAll!='undefined')
-        parametersForState = {state: $(state).value,showAll:true};
-    else
-        parametersForState = {state: $(state).value};
-
+function createUbicationAjaxSelects(state,municipality,quarter,showAll){    
     $(state).observe('change',function(){
+        var parametersForState = null;
+        if(typeof showAll!='undefined')
+            parametersForState = {state: $(state).value,showAll:true};
+        else
+            parametersForState = {state: $(state).value};
+        
         new Ajax.Request(
             'http://wowinteractive.com.mx/inmobiliaria_zumo/index.php/PropertyAddress/getMunicipalityForState.json', {
                 parameters: parametersForState,
                 onSuccess: function(response) {
+                    console.log(response);                    
                     obj = response.responseJSON;
                     $(municipality).update();
                     $(quarter).update();

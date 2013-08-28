@@ -81,18 +81,14 @@ function codeAddress() {
 function setAddress(latitude, longitude){
 	$('PropertyLatitude').value = latitude;
 	$('PropertyLongitude').value = longitude;
-	new Ajax.Request(
-        'http://maps.googleapis.com/maps/api/geocode/json', {
-            parameters: {
-            	latlng: latitude + ',' + longitude,
-            	sensor: false
-            },
-            onSuccess: function(response) {
-                obj = response.responseJSON;
-                console.log(obj.address_components);
-            }
+	latlng = new google.maps.LatLng(latitude, longitude, true);
+	geocoder.geocode({'location': latlng}, function(results, status){
+	if (status == google.maps.GeocoderStatus.OK) {
+            console.log(results[0].address_components[0].long_name);
+        } else {
+            alert('Geocode was not successful for the following reason: ' + status);
         }
-    );
+    });
 }
 </script>
 
@@ -130,13 +126,9 @@ function setAddress(latitude, longitude){
                 echo $this->Form->select('PropertyAddress.municipality', $options);
             ?>
 		</div>	
-		<label style="float: left; margin-top: 2px; margin-right: 10px;">Colonia:</label>				
-		<div class="selectZumo">
-			<?php $options = array();
-                echo $this->Form->select('PropertyAddress.quarter', $options);
-            ?>
-		</div>			
-		<?php echo $this->Form->hidden('PropertyAddress.street',array('label'=>'Calle:', 'class'=>'largeText')); ?>
+		<?php echo $this->Form->input('PropertyAddress.quarter',array('label'=>'Colonia:', 'class'=>'largeText')); ?>
+		<?php echo $this->Form->input('PropertyAddress.street',array('label'=>'Calle:', 'class'=>'largeText')); ?>
+
 		<?php echo $this->Form->input('PropertyAddress.interior_number',array('label'=>'Número exterior:' , 'class'=>'shortText')); ?>
 		<?php echo $this->Form->input('PropertyAddress.exterior_number',array('label'=>'Número interior:', 'class'=>'shortText')); ?>
 		<?php echo $this->Form->hidden('Property.latitude', array('label' => 'Latitud:', 'class' => 'largeText')); ?>
@@ -162,8 +154,7 @@ function setAddress(latitude, longitude){
 	model_area['field'] = 'area_name';
 	setAdder($('addAreas'), 'Añadir áreas', model_area);	
 
-	createUbicationAjaxSelects('PropertyAddressState', 'PropertyAddressMunicipality', 'PropertyAddressQuarter');
+	createUbicationAjaxSelects('PropertyAddressState', 'PropertyAddressMunicipality', null, true);
 	$('PropertyAddressState').observe('change', codeAddress);
-	$('PropertyAddressMunicipality').observe('change',codeAddress);
-	$('PropertyAddressQuarter').observe('change',findNerbyProperties);
+	$('PropertyAddressMunicipality').observe('change', codeAddress);	
 </script>
