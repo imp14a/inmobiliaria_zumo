@@ -155,3 +155,27 @@ input[type=submit]:hover{
 .activeButton:hover{		
 	font-family: HouschkaPro-DemiBold;	
 }
+
+.expandButton{
+	padding: 3px;
+	border: 2px solid black;
+	line-height: 14px;
+	width: 220px;
+	display: inline-block;
+	text-decoration: none;
+	font-size: 10px;
+	font-family: HouschkaPro-Medium;
+	background: url(img/show_options.png) no-repeat right;
+}
+
+.expandButton.active{
+	padding: 3px;
+	border: 2px solid black;
+	line-height: 14px;
+	width: 220px;
+	display: inline-block;
+	text-decoration: none;
+	font-size: 10px;
+	font-family: HouschkaPro-Medium;
+	background: url(img/show_options.png) no-repeat right;
+}
