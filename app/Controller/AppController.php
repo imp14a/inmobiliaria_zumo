@@ -36,7 +36,7 @@ class AppController extends Controller {
 	public $components = array(
 		'RequestHandler',
         'Session',
-        'Auth' => array(
+        /*'Auth' => array(
             'loginRedirect' => array('controller' => 'inmobiliariazumo', 'action' => 'index'),
             'logoutRedirect' => array('controller' => 'inmobiliariazumo', 'action' => 'index'),
             'authorize' => array('Controller'),
@@ -44,11 +44,11 @@ class AppController extends Controller {
 	            'controller' => 'user',
 	            'action' => 'login'
 	        ),
-        )
+        )*/
     );
 
     public function beforeFilter() {
-        $this->Auth->allow('index', 'about', 'alliances', 'contact');
+        //$this->Auth->allow('index', 'about', 'alliances', 'contact');
     } 
 
     public function isAuthorized($user) {
