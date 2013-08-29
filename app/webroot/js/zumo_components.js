@@ -83,10 +83,11 @@ function createUbicationAjaxSelects(state,municipality,quarter,showAll){
     
 }
 
-function setAdder(adder, label, model){
+function setAdder(adder, model){
     model['number'] = 0;
-    var addDiv = new Element('div', {class: 'addDiv'}).insert({
-        bottom: new Element('label', {}).update(label)
+    console.log(model.isChild);
+    var addDiv = new Element('div', {class: 'addDiv', 'style': typeof model.isChild != 'undefined' && model.isChild ? 'margin-left: 10px' : 'margin-left: 0px'}).insert({
+        bottom: new Element('label', {}).update(model.label)
     });
     addDiv.observe('click', function(){
         var name = 'data[' + model.name + '][' + model.number + '][' + model.field + ']';
@@ -95,25 +96,35 @@ function setAdder(adder, label, model){
         id_text_aux.each(function(value){
             id_text += value.substr(0,1).toUpperCase() + value.substr(1,value.length).toLowerCase();
         });
-        var subAdder = new Element('div', {class: typeof model.class != 'undefined' ? 'upload' : 'addText'});
-        adder.insert({bottom: subAdder.insert({
-            top: new Element('input', {type: typeof model.field_type != 'undefined' ? model.field_type : 'text', name:name, id:id_text})}).insert({
-                    bottom: new Element('img', {
-                        src: 'http://wowinteractive.com.mx/inmobiliaria_zumo/app/webroot/css/img/close_delete.png'
-                    }).observe('click', function(){
-                        $(id_text).remove();
-                        this.remove();
-                    })
+        var subAdder = new Element('div', {class: typeof model.class != 'undefined' ? model.class : 'addText'});
+        subAdder
+        subAdder = subAdder.insert({
+            top: new Element('input', {
+                type:           typeof model.field_type != 'undefined' ? model.field_type : 'text', 
+                name:           name, 
+                id:             id_text,
+                placeholder:    typeof model.placeholder != 'undefined' ? model.placeholder : '', 
+            })
+        }).insert({
+            bottom: new Element('img', {
+                src: 'http://wowinteractive.com.mx/inmobiliaria_zumo/app/webroot/css/img/close_delete.png'
+                }).observe('click', function(){
+                    subAdder.remove();
                 })
+            });        
+        if(typeof model.field_type != 'undefined' && model.field_type == 'file'){
+            subAdder.insert({
+                top: new Element('label', {for: id_text}).update('Seleccione')
             });
-            model.number++;
-            if(typeof model.field_type != 'undefined' && model.field_type == 'file'){
-                subAdder.insert({
-                    top: new Element('label').update('Seleccione')
-                });
-            }
-        });
-    adder.insert({top: addDiv});
+        }
+        if(typeof model.child != null && typeof model.child != 'undefined'){
+            model.child['isChild'] = true;
+            setAdder(subAdder, model.child)
+        }
+        adder.insert({bottom: subAdder});
+        model.number++;        
+    });
+    adder.insert({bottom: addDiv});
 }
 
 function createExpandElement(button,expandElement,show){

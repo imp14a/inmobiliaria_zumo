@@ -24,9 +24,7 @@ div.slider div.range {
 
 div.upload {
     width: 157px;
-    height: 15px;
-    background: #FFCC00;
-    border: thin #000 solid;
+    height: 15px;   
     margin-bottom: 10px;
 }
 
@@ -35,6 +33,10 @@ div.upload label{
 	cursor: pointer;
 	width: 156px;
 	text-align: center;
+	z-index: 1;
+	margin-top: -1px;
+	background: #FFCC00;
+    border: thin #000 solid;
 }
 
 div.upload label:hover{    
@@ -42,18 +44,17 @@ div.upload label:hover{
 }
 
 div.upload input {    
-    width: 280px;
+    width: 355px;
     height: 15px;
-    overflow: hidden;
-    margin-left: 40px;
-	margin-top: -1px;
-	opacity: 0;
+    margin-left: 30px;
+	margin-top: -2px;	
 }
 
 div.upload img{
 	position: absolute;
-	margin-left: 320px;
-	margin-top: -16px;
+	margin-left: 395px;
+	margin-top: -13px;
+	cursor: pointer;
 }
 
 label {
@@ -80,6 +81,11 @@ input[type=text]:hover, input[type=number]:hover, input[type=password]:hover{
 	width: 250px;
 }
 
+.addText .child{
+	width: 250px;
+	margin-left: 10px;
+}
+
 .addText input[type=text]{
 	width: 213px;
 }
@@ -89,6 +95,7 @@ input[type=text]:hover, input[type=number]:hover, input[type=password]:hover{
 	position: absolute;
 	height: 15px;
 	margin-left: 2px;
+	margin-top: 2px;
 }
 
 input[type='number']::-webkit-outer-spin-button,
