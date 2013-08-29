@@ -60,6 +60,9 @@ function placeMarker(location) {
 }
 
 function codeAddress() {
+	$('PropertyAddressQuarter').value = '';
+    $('PropertyAddressStreet').value = '';            
+    $('PropertyAddressPostalCode').value = '';
     var address = "Mexico, Estado de " + $('PropertyAddressState').value + ',' 
                             + $('PropertyAddressMunicipality').value; /*+ ',' 
                             + 'Colonia '+$('PropertyAddressQuarter').value;*/
@@ -81,18 +84,18 @@ function codeAddress() {
 function setAddress(latitude, longitude){
 	$('PropertyLatitude').value = latitude;
 	$('PropertyLongitude').value = longitude;
-	new Ajax.Request(
-        'http://maps.googleapis.com/maps/api/geocode/json', {
-            parameters: {
-            	latlng: latitude + ',' + longitude,
-            	sensor: false
-            },
-            onSuccess: function(response) {
-                obj = response.responseJSON;
-                console.log(obj.address_components);
-            }
+	latlng = new google.maps.LatLng(latitude, longitude, true);
+	geocoder.geocode({'location': latlng}, function(results, status){
+	if (status == google.maps.GeocoderStatus.OK) {
+			console.log(results);
+			$('PropertyAddressQuarter').value = parseInt(results[0].address_components[0].long_name, 10) > 0 ? results[0].address_components[2].long_name : results[0].address_components[1].long_name;
+            $('PropertyAddressStreet').value = parseInt(results[0].address_components[0].long_name, 10) > 0 ? results[0].address_components[1].long_name : results[0].address_components[0].long_name;            
+            $('PropertyAddressPostalCode').value = parseInt(results[0].address_components[0].long_name, 10) > 0 ? results[0].address_components[7].long_name : results[0].address_components[5].long_name;            
+            $('PropertyAddressInteriorNumber').value = parseInt(results[0].address_components[0].long_name, 10) > 0 ? results[0].address_components[0].long_name : '';            
+        } else {
+            alert('Geocode was not successful for the following reason: ' + status);
         }
-    );
+    });
 }
 </script>
 
@@ -118,8 +121,7 @@ function setAddress(latitude, longitude){
 			<?php echo $this->Form->input('PropertyPaymentInformation.maintenance_price',array('label'=>'Cuota de mantenimiento:', 'class'=>'mediumText')); ?>
 		<br>
 		<p class="semititle">Ubicaci&oacute;n y Direcci&oacute;n</p>
-		<?php echo $this->Form->hidden('PropertyAddress.postal_code',array('label'=>'Código Postal:', 'maxLength'=>5, 'class'=>'shortText')); ?>
-		<?php echo $this->Form->hidden('PropertyAddress.country',array('value'=>'México', 'class'=>'largeText')); ?>
+		<?php echo $this->Form->hidden('PropertyAddress.country',array('value'=>utf8_encode('México'), 'class'=>'largeText')); ?>
 		<label style="float: left; margin-top: 2px; margin-right: 10px;">Estado</label>
 		<div class="selectZumo">
 			<?php echo $this->Form->input('PropertyAddress.state',array('label' => '', 'options' => $states)) ?>
@@ -130,13 +132,11 @@ function setAddress(latitude, longitude){
                 echo $this->Form->select('PropertyAddress.municipality', $options);
             ?>
 		</div>	
-		<label style="float: left; margin-top: 2px; margin-right: 10px;">Colonia:</label>				
-		<div class="selectZumo">
-			<?php $options = array();
-                echo $this->Form->select('PropertyAddress.quarter', $options);
-            ?>
-		</div>			
-		<?php echo $this->Form->hidden('PropertyAddress.street',array('label'=>'Calle:', 'class'=>'largeText')); ?>
+		<p class="semititle">Im&aacute;genes</p>
+		<div id="addImages"></div>
+		<?php echo $this->Form->input('PropertyAddress.quarter',array('label'=>'Colonia:', 'class'=>'largeText')); ?>
+		<?php echo $this->Form->input('PropertyAddress.street',array('label'=>'Calle:', 'class'=>'largeText')); ?>		
+		<?php echo $this->Form->input('PropertyAddress.postal_code',array('label'=>'Código Postal:', 'maxLength'=>5, 'class'=>'shortText')); ?>
 		<?php echo $this->Form->input('PropertyAddress.interior_number',array('label'=>'Número exterior:' , 'class'=>'shortText')); ?>
 		<?php echo $this->Form->input('PropertyAddress.exterior_number',array('label'=>'Número interior:', 'class'=>'shortText')); ?>
 		<?php echo $this->Form->hidden('Property.latitude', array('label' => 'Latitud:', 'class' => 'largeText')); ?>
@@ -158,12 +158,18 @@ function setAddress(latitude, longitude){
 	var model_area = [];
 	var model_category = [];
 	var model_category_name = [];
+	var model_images = [];
 	model_area['name'] = 'PropertyArea';
-	model_area['field'] = 'area_name';
+	model_area['field'] = 'area_name';	
 	setAdder($('addAreas'), 'Añadir áreas', model_area);	
 
-	createUbicationAjaxSelects('PropertyAddressState', 'PropertyAddressMunicipality', 'PropertyAddressQuarter');
+	model_images['name'] = 'PropertyImage';
+	model_images['field'] = 'image';
+	model_images['field_type'] = 'file';
+	model_images['class'] = 'upload';
+	setAdder($('addImages'), 'Añadir imágenes', model_images);	
+
+	createUbicationAjaxSelects('PropertyAddressState', 'PropertyAddressMunicipality', null, true);
 	$('PropertyAddressState').observe('change', codeAddress);
-	$('PropertyAddressMunicipality').observe('change',codeAddress);
-	$('PropertyAddressQuarter').observe('change',findNerbyProperties);
+	$('PropertyAddressMunicipality').observe('change', codeAddress);	
 </script>

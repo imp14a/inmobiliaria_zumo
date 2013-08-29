@@ -35,7 +35,7 @@ class AppController extends Controller {
 
 	public $components = array(
 		'RequestHandler',
-        //'Session',
+        'Session'
         /*'Auth' => array(
             'loginRedirect' => array('controller' => 'inmobiliariazumo', 'action' => 'index'),
             'logoutRedirect' => array('controller' => 'inmobiliariazumo', 'action' => 'index'),
@@ -92,5 +92,4 @@ class AppController extends Controller {
     //}
 
 }
-
 ?>

@@ -102,10 +102,10 @@ class PropertyController extends AppController {
 			$enum[utf8_encode($state['State']['name'])] = utf8_encode($state['State']['name']);
 		}
 		$this->set('states', $enum);			
-		if (!empty($this->request->data)) {			
+		if (!empty($this->request->data)) {						
 			$this->Property->saveAll($this->request->data, array('validate'=>'first'));
 			$this->Session->setFlash('Información almacenada.');
-            //$this->redirect(array('action' => 'addlocation', $this->Property->id));
+            //$this->redirect(array('action' => 'adddetails', $this->Property->id));
 		}
 	}
 	/*public function beforeFilter() {
