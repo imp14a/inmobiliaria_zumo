@@ -49,10 +49,52 @@ function codeAddress() {
         if (status == google.maps.GeocoderStatus.OK) {
             map.setCenter(results[0].geometry.location);
             map.setZoom(zoom);
+            var marker = new google.maps.Marker({
+                map: map,
+                position: results[0].geometry.location,
+                animation: google.maps.Animation.DROP
+            });
+
             /*var marker = new google.maps.Marker({
                 map: map,
-                position: results[0].geometry.location
+                position: position,
             });*/
+
+            var contentString = '<div id="marker_content" style="margin:0;">'+
+                    '<div id="siteNotice">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading">Uluru</h1>'+
+            '<div id="bodyContent">'+
+            '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
+            '</p>'+
+            '<p>Attribution: Uluru, <a href="http://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
+            'http://en.wikipedia.org/w/index.php?title=Uluru</a> '+
+            '(last visited June 22, 2009).</p>'+
+            '</div>'+
+            '</div>';
+
+            var infowindow = new google.maps.InfoWindow({
+                content: contentString,
+                maxWidth:300
+            });
+
+            google.maps.event.addDomListener(infowindow,'domready',function(){
+                $$('div.gm-style-iw').each(function(element){
+                    $(element).setStyle({
+                        top:0,
+                        left:0,
+                        width: '100%',
+                        height: '100%',
+                        backgroundColor:'#FFCC00'
+                    });
+                });
+            });
+
+            google.maps.event.addListener(marker, 'click', function() {
+                infowindow.open(map,marker);
+                //TODO hide other marcs
+                
+            });
         } else {
             alert('Geocode was not successful for the following reason: ' + status);
         }
@@ -113,7 +155,7 @@ function findNerbyProperties(){
                         var marker = new google.maps.Marker({
                             map: map,
                             position: position,
-                            animatio: google.maps.Animation.DROP
+                            animation: google.maps.Animation.DROP
                         });
 
                         var contentString = '<div id="content" style="background-color:red; margin:0;">'+
