@@ -10,5 +10,6 @@ header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
 // Fix for IE?
 header('Content-type: application/json');
 //header('X-JSON: '.($javascript->object($this->viewVars)));
+
 echo json_encode($output);
 ?>

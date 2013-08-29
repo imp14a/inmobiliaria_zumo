@@ -35,8 +35,8 @@ class AppController extends Controller {
 
 	public $components = array(
 		'RequestHandler',
-        'Session'/*,
-        'Auth' => array(
+        'Session'
+        /*'Auth' => array(
             'loginRedirect' => array('controller' => 'inmobiliariazumo', 'action' => 'index'),
             'logoutRedirect' => array('controller' => 'inmobiliariazumo', 'action' => 'index'),
             'authorize' => array('Controller'),
@@ -47,8 +47,9 @@ class AppController extends Controller {
         )*/
     );
 
-    /*public function beforeFilter() {
-        $this->Auth->allow('index', 'about', 'alliances', 'contact');
+
+    public function beforeFilter() {
+        //$this->Auth->allow('index', 'about', 'alliances', 'contact');
     } 
 
     public function isAuthorized($user) {
@@ -59,7 +60,7 @@ class AppController extends Controller {
 
 	    // Default deny
 	    return false;
-	}*/
+	}
 
 	/*function afterFilter() {
 		/*if (in_array($this->request->ext, array('xml', 'json'))) {
@@ -91,3 +92,4 @@ class AppController extends Controller {
     //}
 
 }
+?>

@@ -7,31 +7,97 @@
 ?>
 
 <style>
-div.autocomplete {
-  overflow: scroll;
-  position:absolute;
-  width:500px !important;
-  background-color:white;
-  border:1px solid #888;
-  margin:0;
-  padding:0;
-}
-div.autocomplete ul {
-  list-style-type:none;
-  margin:0;
-  padding:0;
-}
-div.autocomplete ul li.selected { background-color: #FFCC00;}
-
-div.autocomplete ul li {
-  list-style-type:none;
-  display:block;
-  margin:0;
-  padding:2px;
-  height:32px;
-  cursor:pointer;
-}
+  #map-canvas {
+    margin: 0 auto;
+    padding: 0;
+    height: 400px;
+    width: 80%;
+  }
 </style>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+<script>
+// Enable the visual refresh
+google.maps.visualRefresh = true;
+
+var geocoder;
+var map;
+var markersArray = [];
+
+function initialize() {
+  geocoder = new google.maps.Geocoder();
+    var mapOptions = {
+        zoom: 5,
+        center: new google.maps.LatLng(22.913,-101.929),
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+    
+    google.maps.event.addListener(map, 'dblclick', function(event) {
+    	placeMarker(event.latLng);
+	});
+
+    codeAddress();
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+function deleteOverlays() {
+	if (markersArray.length >= 1) {
+		markersArray[0].setMap(null);
+		markersArray.length = 0;
+  	}
+}
+
+function placeMarker(location) {
+	deleteOverlays();
+	var marker = new google.maps.Marker({
+	    position: location,
+	    map: map
+	});
+	markersArray.push(marker);
+	markersArray[0].setMap(map);	
+	setAddress(location.ob, location.pb);
+}
+
+function codeAddress() {
+	$('PropertyAddressQuarter').value = '';
+    $('PropertyAddressStreet').value = '';            
+    $('PropertyAddressPostalCode').value = '';
+    var address = "Mexico, Estado de " + $('PropertyAddressState').value + ',' 
+                            + $('PropertyAddressMunicipality').value; /*+ ',' 
+                            + 'Colonia '+$('PropertyAddressQuarter').value;*/
+    var zoom =  6;
+    if($('PropertyAddressMunicipality').value!=''){
+      zoom +=6;
+    }
+    //aplicamoz zoom
+    geocoder.geocode( { 'address': address}, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            map.setCenter(results[0].geometry.location);
+            map.setZoom(zoom);
+        } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+        }
+    });
+}
+
+function setAddress(latitude, longitude){
+	$('PropertyLatitude').value = latitude;
+	$('PropertyLongitude').value = longitude;
+	latlng = new google.maps.LatLng(latitude, longitude, true);
+	geocoder.geocode({'location': latlng}, function(results, status){
+	if (status == google.maps.GeocoderStatus.OK) {
+			console.log(results);
+			$('PropertyAddressQuarter').value = parseInt(results[0].address_components[0].long_name, 10) > 0 ? results[0].address_components[2].long_name : results[0].address_components[1].long_name;
+            $('PropertyAddressStreet').value = parseInt(results[0].address_components[0].long_name, 10) > 0 ? results[0].address_components[1].long_name : results[0].address_components[0].long_name;            
+            $('PropertyAddressPostalCode').value = parseInt(results[0].address_components[0].long_name, 10) > 0 ? results[0].address_components[7].long_name : results[0].address_components[5].long_name;            
+            $('PropertyAddressInteriorNumber').value = parseInt(results[0].address_components[0].long_name, 10) > 0 ? results[0].address_components[0].long_name : '';            
+        } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+        }
+    });
+}
+</script>
 
 <div class="plainContent">
 	<h3>Registro de inmuebles</h3><br>	
@@ -54,20 +120,28 @@ div.autocomplete ul li {
 			<?php echo $this->Form->input('PropertyPaymentInformation.sale_price',array('label'=>'Precio de compra:', 'class'=>'mediumText')); ?>
 			<?php echo $this->Form->input('PropertyPaymentInformation.maintenance_price',array('label'=>'Cuota de mantenimiento:', 'class'=>'mediumText')); ?>
 		<br>
-		<p class="semititle">Direcci&oacute;n</p>
-		<?php echo $this->Form->input('PropertyAddress.postal_code',array('label'=>'Código Postal:', 'maxLength'=>5, 'class'=>'shortText')); ?>
-		<span id="indicator1" style="display: none">
-			<?php echo $this->Html->image('ajax-loader.gif',array('alt'=>'Espere ...')); ?>
-		</span>
-		<div id="autocomplete_choices" class="autocomplete"></div>
-		<?php echo $this->Form->hidden('PropertyAddress.country',array('value'=>'México', 'class'=>'largeText')); ?>
-		<?php echo $this->Form->input('PropertyAddress.state',array('label'=>'Estado:', 'class'=>'largeText')); ?>
-		<?php echo $this->Form->input('PropertyAddress.city',array('label'=>'Ciudad:', 'class'=>'largeText')); ?>
-		<?php echo $this->Form->input('PropertyAddress.municipality',array('label'=>'Delegación o Municipio:', 'class'=>'largeText')); ?>
+		<p class="semititle">Ubicaci&oacute;n y Direcci&oacute;n</p>
+		<?php echo $this->Form->hidden('PropertyAddress.country',array('value'=>utf8_encode('México'), 'class'=>'largeText')); ?>
+		<label style="float: left; margin-top: 2px; margin-right: 10px;">Estado</label>
+		<div class="selectZumo">
+			<?php echo $this->Form->input('PropertyAddress.state',array('label' => '', 'options' => $states)) ?>
+		</div>		
+		<label style="float: left; margin-top: 2px; margin-right: 10px;">Delegaci&oacute;n o Municipio:</label>
+		<div class="selectZumo">
+			<?php $options = array();
+                echo $this->Form->select('PropertyAddress.municipality', $options);
+            ?>
+		</div>	
+		<p class="semititle">Im&aacute;genes</p>
+		<div id="addImages"></div>
 		<?php echo $this->Form->input('PropertyAddress.quarter',array('label'=>'Colonia:', 'class'=>'largeText')); ?>
-		<?php echo $this->Form->input('PropertyAddress.street',array('label'=>'Calle:', 'class'=>'largeText')); ?>
+		<?php echo $this->Form->input('PropertyAddress.street',array('label'=>'Calle:', 'class'=>'largeText')); ?>		
+		<?php echo $this->Form->input('PropertyAddress.postal_code',array('label'=>'Código Postal:', 'maxLength'=>5, 'class'=>'shortText')); ?>
 		<?php echo $this->Form->input('PropertyAddress.interior_number',array('label'=>'Número exterior:' , 'class'=>'shortText')); ?>
 		<?php echo $this->Form->input('PropertyAddress.exterior_number',array('label'=>'Número interior:', 'class'=>'shortText')); ?>
+		<?php echo $this->Form->hidden('Property.latitude', array('label' => 'Latitud:', 'class' => 'largeText')); ?>
+		<?php echo $this->Form->hidden('Property.longitude', array('label' => 'Longitud:', 'class' => 'largeText')); ?>
+		<div id="map-canvas"></div>
 		<p class="semititle">Descripción</p>
 		<?php echo $this->Form->input('PropertyDescription.number_of_rooms',array('label'=>'Recámaras:', 'class'=>'shortText')); ?>
 		<?php echo $this->Form->input('PropertyDescription.number_of_bathrooms',array('label'=>'Baños:', 'class'=>'shortText')); ?>
@@ -76,42 +150,26 @@ div.autocomplete ul li {
 		<?php echo $this->Form->input('PropertyDescription.square_meters_of_construction',array('label'=>'Metros construcción:', 'class'=>'shortText')); ?>
 		<?php echo $this->Form->input('PropertyDescription.square_meters_of_land',array('label'=>'Metros terreno:', 'class'=>'shortText')); ?>
 		<?php echo $this->Form->input('PropertyDescription.extra_description',array('label'=>'Observaciones:')); ?>
-		<!--<?php echo $this->Form->input('PropertyExtraArea.0.area_name',array('label'=>'area:')); ?>-->
 		<p class="semititle">Otras &aacute;reas</p>
 		<div id="addAreas"></div>
-		<p class="semititle">Informaci&oacute;n adicional</p>
-		<div id="addCategorias"></div>
 		<?php echo $this->Form->end('GUARDAR'); ?>
-
 </div>
 <script>
-	
 	var model_area = [];
 	var model_category = [];
 	var model_category_name = [];
-	model_area['name'] = 'PropertyExtraArea';
-	model_area['field'] = 'area_name';
-	setAdder($('addAreas'), 'Añadir áreas', model_area);
+	var model_images = [];
+	model_area['name'] = 'PropertyArea';
+	model_area['field'] = 'area_name';	
+	setAdder($('addAreas'), 'Añadir áreas', model_area);	
 
-	/*model_category['name'] = 'PropertyExtraInformation';
-	model_category['field'] = 'category';
-	model_category['field2'] = 'name';
-	model_category['number'] = 0;
-	setAdder($('addCategorias'), 'Añadir categorías', model_category);*/
+	model_images['name'] = 'PropertyImage';
+	model_images['field'] = 'image';
+	model_images['field_type'] = 'file';
+	model_images['class'] = 'upload';
+	setAdder($('addImages'), 'Añadir imágenes', model_images);	
 
-	new Ajax.Autocompleter("PropertyAddressPostalCode", "autocomplete_choices", 
-		"http://wowinteractive.com.mx/inmobiliaria_zumo/index.php/User/getPostalCode", {
-		paramName: "cp",
-		minChars: 4,
-		indicator: 'indicator1',
-		afterUpdateElement : getSelectionId,
-	});
-
-	function getSelectionId(text, li) {
-		$('PropertyAddressState').value = $(li).readAttribute('state');
-		$('PropertyAddressCity').value = $(li).readAttribute('city');
-		$('PropertyAddressMunicipality').value = $(li).readAttribute('municipality');
-		$('PropertyAddressQuarter').value = $(li).readAttribute('quarter');
-		$('PropertyAddressPostalCode').value = li.id;
-	}
+	createUbicationAjaxSelects('PropertyAddressState', 'PropertyAddressMunicipality', null, true);
+	$('PropertyAddressState').observe('change', codeAddress);
+	$('PropertyAddressMunicipality').observe('change', codeAddress);	
 </script>

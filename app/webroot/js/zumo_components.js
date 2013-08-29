@@ -28,22 +28,27 @@ function createSlider(slider,options,onChangeEvent){
 
 }
 
-function createUbicationAjaxSelects(state,municipality,quarter){
-
+function createUbicationAjaxSelects(state,municipality,quarter,showAll){    
     $(state).observe('change',function(){
+        var parametersForState = null;
+        if(typeof showAll!='undefined')
+            parametersForState = {state: $(state).value,showAll:true};
+        else
+            parametersForState = {state: $(state).value};
+        
         new Ajax.Request(
             'http://wowinteractive.com.mx/inmobiliaria_zumo/index.php/PropertyAddress/getMunicipalityForState.json', {
-                parameters: {state: $(state).value},
-                onSuccess: function(response) {
-                    obj = response.responseJSON;
+                parameters: parametersForState,
+                onSuccess: function(response) {                                        
+                    obj = response.responseJSON;                   
                     $(municipality).update();
-                    $(quarter).update();
-
+                    if(typeof quarter!='undefined' && quarter!=null)
+                        $(quarter).update();
                     $(municipality).insert({
                         bottom: new Element('option', {value: ''}).update('')
                     });
-
                     $(obj).each(function(value){
+
                         $(municipality).insert({
                             bottom: new Element('option', {value: value}).update(value)
                         });
@@ -53,29 +58,32 @@ function createUbicationAjaxSelects(state,municipality,quarter){
         );
     });
 
-    $(municipality).observe('change',function(){
-        new Ajax.Request(
-            'http://wowinteractive.com.mx/inmobiliaria_zumo/index.php/PropertyAddress/getQuartersForMunicipality.json', {
-                parameters: {municipality: $(municipality).value},
-                onSuccess: function(response) {
-                    obj = response.responseJSON;
-                    $(quarter).update();
-                    $(quarter).insert({
-                        bottom: new Element('option', {value: ''}).update('')
-                    });
-
-                    $(obj).each(function(value){
+    if(typeof quarter!='undefined' && quarter!=null){
+        $(municipality).observe('change',function(){
+            new Ajax.Request(
+                'http://wowinteractive.com.mx/inmobiliaria_zumo/index.php/PropertyAddress/getQuartersForMunicipality.json', {
+                    parameters: {municipality: $(municipality).value},
+                    onSuccess: function(response) {
+                        obj = response.responseJSON;
+                        $(quarter).update();
                         $(quarter).insert({
-                            bottom: new Element('option', {value: value}).update(value)
+                            bottom: new Element('option', {value: ''}).update('')
                         });
-                    });
+
+                        $(obj).each(function(value){
+                            $(quarter).insert({
+                                bottom: new Element('option', {value: value}).update(value)
+                            });
+                        });
+                    }
                 }
-            }
-        );
-    });
+            );
+        });
+    }
+    
 }
 
-function setAdder(adder, label, model, child){
+function setAdder(adder, label, model){
     model['number'] = 0;
     var addDiv = new Element('div', {class: 'addDiv'}).insert({
         bottom: new Element('label', {}).update(label)
@@ -87,8 +95,9 @@ function setAdder(adder, label, model, child){
         id_text_aux.each(function(value){
             id_text += value.substr(0,1).toUpperCase() + value.substr(1,value.length).toLowerCase();
         });
-        adder.insert({bottom: new Element('div', {class: 'addText'}).insert({
-            top: new Element('input', {type: 'text', name:name, id:id_text})}).insert({
+        var subAdder = new Element('div', {class: typeof model.class != 'undefined' ? 'upload' : 'addText'});
+        adder.insert({bottom: subAdder.insert({
+            top: new Element('input', {type: typeof model.field_type != 'undefined' ? model.field_type : 'text', name:name, id:id_text})}).insert({
                     bottom: new Element('img', {
                         src: 'http://wowinteractive.com.mx/inmobiliaria_zumo/app/webroot/css/img/close_delete.png'
                     }).observe('click', function(){
@@ -98,6 +107,17 @@ function setAdder(adder, label, model, child){
                 })
             });
             model.number++;
+            if(typeof model.field_type != 'undefined' && model.field_type == 'file'){
+                subAdder.insert({
+                    top: new Element('label').update('Seleccione')
+                });
+            }
         });
     adder.insert({top: addDiv});
+}
+
+function createExpandElement(button,expandElement,show){
+    $(button).observe('click',function(){
+        console.log('asdasdhajkdahlsjk');
+    });
 }

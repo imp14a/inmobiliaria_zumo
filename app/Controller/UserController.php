@@ -14,7 +14,6 @@ class UserController extends AppController {
 
 
     public function add($id = null){
-        App::uses('Security', 'Utility'); 
         $this->set('title_for_layout','Registro de usuarios');
         $this->User->id = $id;
         if ($this->request->is('get')) {

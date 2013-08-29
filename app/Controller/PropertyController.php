@@ -92,13 +92,22 @@ class PropertyController extends AppController {
         	$enum[$value] = $value;
     	}
 		$this->set('antiquities', $enum);
-		
-		if (empty($this->request->data)) {
-		}else{			
+		//Informacion de ubicacion
+		//Estados
+		unset($enum);
+		$this->loadModel('State');
+		$this->State->recursive= -1;
+		$states = $this->State->find('all');
+		foreach ($states as $state){
+			$enum[utf8_encode($state['State']['name'])] = utf8_encode($state['State']['name']);
+		}
+		$this->set('states', $enum);			
+		if (!empty($this->request->data)) {						
 			$this->Property->saveAll($this->request->data, array('validate'=>'first'));
+			$this->Session->setFlash('Información almacenada.');
+            //$this->redirect(array('action' => 'adddetails', $this->Property->id));
 		}
 	}
-
 	/*public function beforeFilter() {
         parent::beforeFilter();
         $this->Auth->allow('add', 'simple_search', 'map_search');
