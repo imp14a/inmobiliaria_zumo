@@ -16,11 +16,16 @@
 .chekbox_group{
     width: 300px;
     display: inline-block;
+    float: left;
+}
+.chekbox_group label{
+    display: block;
 }
 .form_line{
     margin-top: 10px;
     margin-bottom: 10px;
     display: block;
+    height: 125px;
 }
 .slider_input{
     margin-bottom: 20px;
@@ -40,6 +45,3 @@
     background-color: white;
 }
 
-.chekbox_group label{
-    display: block;
-}
