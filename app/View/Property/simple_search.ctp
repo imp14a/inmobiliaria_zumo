@@ -86,7 +86,109 @@
 
          <a id="advancedSearch" class="expandButton" href="javascript:void(0);">B&Uacute;SQUEDA AVANZADA</a>
          <div id="expandElements">
-         </div>
+            <div class="line">
+                <div class="spinerContainer">
+                    <label class="spiner_title">Rec&aacute;maras</label>
+                    <div class="spiner">
+                        <?php echo $this->Form->input('AdvancedSearch.rooms_number', array('label' => false,'value'=>1,'div'=>false,'readonly')); ?>
+                        <span> o m&aacute;s</span>
+                        <a href="javascript:void(0);" class="spinerControl up"></a>
+                        <a href="javascript:void(0);" class="spinerControl down"></a>
+                    </div>
+                </div>
+                <div class="spinerContainer">
+                    <label class="spiner_title">Ba&ntilde;os</label>
+                    <div class="spiner">
+                        <?php echo $this->Form->input('AdvancedSearch.bathrooms_number', array('label' => false,'value'=>1,'div'=>false,'readonly')); ?>
+                        <span> o m&aacute;s</span>
+                        <a href="javascript:void(0);" class="spinerControl up"></a>
+                        <a href="javascript:void(0);" class="spinerControl down"></a>
+                    </div>
+                </div>
+                <div class="spinerContainer">
+                    <label class="spiner_title">Estacionamiento</label>
+                    <div class="spiner">
+                        <?php echo $this->Form->input('AdvancedSearch.parking_number', array('label' => false,'value'=>1,'div'=>false,'readonly')); ?>
+                        <span> o m&aacute;s</span>
+                        <a href="javascript:void(0);" class="spinerControl up"></a>
+                        <a href="javascript:void(0);" class="spinerControl down"></a>
+                    </div>
+                </div>
+                <div class="spinerContainer">
+                    <label class="spiner_title">Niveles</label>
+                    <div class="spiner">
+                        <?php echo $this->Form->input('AdvancedSearch.levels_number', array('label' => false,'value'=>1,'div'=>false,'readonly')); ?>
+                        <span> o m&aacute;s</span>
+                        <a href="javascript:void(0);" class="spinerControl up"></a>
+                        <a href="javascript:void(0);" class="spinerControl down"></a>
+                    </div>
+                </div>
+             </div>
+             <div class="line">
+                <div class="spinerContainer">
+                    <label class="spiner_title">m<sup>2</sup> de construcci&oacute;n</label>
+                    <div class="spiner">
+                        <?php echo $this->Form->input('AdvancedSearch.contruction_meters', array('label' => false,'value'=>1,'div'=>false,'readonly')); ?>
+                        <span>m<sup>2</sup> o m&aacute;s</span>
+                        <a href="javascript:void(0);" class="spinerControl up"></a>
+                        <a href="javascript:void(0);" class="spinerControl down"></a>
+                    </div>
+                </div>
+                <div class="spinerContainer">
+                    <label class="spiner_title">m<sup>2</sup> de terreno</label>
+                    <div class="spiner">
+                        <?php echo $this->Form->input('AdvancedSearch.contruction_meters', array('label' => false,'value'=>1,'div'=>false,'readonly')); ?>
+                        <span>m<sup>2</sup> o m&aacute;s</span>
+                        <a href="javascript:void(0);" class="spinerControl up"></a>
+                        <a href="javascript:void(0);" class="spinerControl down"></a>
+                    </div>
+                </div>
+             </div>
+             <div class="line">
+                <div style="width:auto; display:inline-block;">
+                    <p class="semititle">Otras &Aacute;reas</p>
+                     <div class="chekbox_group" style="width: 120px;">
+                        <?php echo $this->Form->checkbox('AdvancedSearch.Areas.any',array('hiddenField' => false,'checked')); ?>
+                        <label for="PropertySearchAntiquityAny">Comedor</label>
+                        <?php echo $this->Form->checkbox('AdvancedSearch.Areas.used',array('hiddenField' => false)); ?>
+                        <label for="PropertySearchAntiquityUsed">Cocina</label>
+                        <?php echo $this->Form->checkbox('AdvancedSearch.Areas.new',array('hiddenField' => false)); ?>
+                        <label for="PropertySearchAntiquityNew">Estancia</label>
+                        <?php echo $this->Form->checkbox('AdvancedSearch.Areas.presale', array('hiddenField' => false)); ?>
+                         <label for="PropertySearchAntiquityPresale">Sala de TV</label>
+                         <?php echo $this->Form->checkbox('AdvancedSearch.Areas.presale', array('hiddenField' => false)); ?>
+                         <label for="PropertySearchAntiquityPresale">Cuarto de lavado</label>
+                    </div>
+                    <div class="chekbox_group" style="width: 140px;">
+                        <?php echo $this->Form->checkbox('AdvancedSearch.Areas.any',array('hiddenField' => false,'checked')); ?>
+                        <label for="PropertySearchAntiquityAny">Cuarto de servicio</label>
+                        <?php echo $this->Form->checkbox('AdvancedSearch.AreasAreas.used',array('hiddenField' => false)); ?>
+                        <label for="PropertySearchAntiquityUsed">Estudio</label>
+                        <?php echo $this->Form->checkbox('AdvancedSearch.AreasAreas.used',array('hiddenField' => false)); ?>
+                        <label for="PropertySearchAntiquityUsed">Terraza</label>
+                        <?php echo $this->Form->checkbox('AdvancedSearch.Areas.new',array('hiddenField' => false)); ?>
+                        <label for="PropertySearchAntiquityNew">Gimnasio</label>
+                        <?php echo $this->Form->checkbox('AdvancedSearch.Areas.presale', array('hiddenField' => false)); ?>
+                         <label for="PropertySearchAntiquityPresale">Otro</label>
+                    </div>
+                </div>
+                <div style="width:130px; display:inline-block;">
+                    <p class="semititle">Servicios cercanos</p>
+                     <div class="chekbox_group" style="width: 120px;">
+                        <?php echo $this->Form->checkbox('AdvancedSearch.Services.any',array('hiddenField' => false,'checked')); ?>
+                        <label for="PropertySearchAntiquityAny">Escuela</label>
+                        <?php echo $this->Form->checkbox('AdvancedSearch.Services.used',array('hiddenField' => false)); ?>
+                        <label for="PropertySearchAntiquityUsed">Banco</label>
+                        <?php echo $this->Form->checkbox('AdvancedSearch.Services.used',array('hiddenField' => false)); ?>
+                        <label for="PropertySearchAntiquityUsed">Parque</label>
+                        <?php echo $this->Form->checkbox('AdvancedSearch.Services.new',array('hiddenField' => false)); ?>
+                        <label for="PropertySearchAntiquityNew">Supermercado</label>
+                        <?php echo $this->Form->checkbox('AdvancedSearch.Services.presale', array('hiddenField' => false)); ?>
+                         <label for="PropertySearchAntiquityPresale">Hospital</label>
+                    </div>
+                </div>
+             </line>
+        </div>
 
         <?php   $options = array( 'label' => 'BUSCAR', 'class'=>'activeButton');
         echo $this->Form->end($options);

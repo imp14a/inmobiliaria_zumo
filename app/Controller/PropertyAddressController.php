@@ -1,5 +1,5 @@
-
 <?php
+
 App::Import('Model','PropertyAddress');
 App::Import('Model','State');
 App::Import('Model','Municipality');
@@ -8,6 +8,9 @@ class PropertyAddressController extends AppController {
 	
 
 	public function getMunicipalityForState(){
+
+		$this->layout = "ajax";
+
 		$state = utf8_decode(isset($_REQUEST['state']) ? $_REQUEST[ 'state' ] : '');
 		$showAll = isset($_REQUEST['showAll']);
 		if($showAll){
@@ -46,6 +49,9 @@ class PropertyAddressController extends AppController {
 	}
 
 	public function getQuartersForMunicipality(){
+
+		$this->layout = "ajax";
+
 		$municipality = utf8_decode(isset($_REQUEST['municipality']) ? $_REQUEST[ 'municipality' ] : '');
 		$address = new PropertyAddress();
 

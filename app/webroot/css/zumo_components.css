@@ -158,24 +158,58 @@ input[type=submit]:hover{
 
 .expandButton{
 	padding: 3px;
-	border: 2px solid black;
+	border: 1px solid black;
 	line-height: 14px;
 	width: 220px;
 	display: inline-block;
 	text-decoration: none;
 	font-size: 10px;
 	font-family: HouschkaPro-Medium;
-	background: url(img/show_options.png) no-repeat right;
+	background: url(img/show_more.png) no-repeat right;
 }
 
 .expandButton.active{
-	padding: 3px;
-	border: 2px solid black;
-	line-height: 14px;
-	width: 220px;
+	background: url(img/show_less.png) no-repeat right;
+}
+
+.line{
+	display: block;
+	margin-top: 20px;
+}
+.spinerContainer{
+	width: 120px;
 	display: inline-block;
-	text-decoration: none;
-	font-size: 10px;
-	font-family: HouschkaPro-Medium;
-	background: url(img/show_options.png) no-repeat right;
+}
+.spinerContainer .spiner_title{
+	margin-left: 10px;
+}
+.spinerContainer input{
+	width: 20px;
+	border: none;
+	text-align: right;
+	margin:0; 
+}
+.spinerContainer input:hover{
+	border: none;
+}
+
+.spiner span{
+	width: 50px;
+	display: inline-block;
+}
+
+.spinerControl{
+	width: 16px;
+	height: 16px;
+	display: inline-block;
+}
+
+.spinerControl.up{
+	background: url(img/add.png) no-repeat right;
+	margin-right: 5px;
+}
+
+.spinerControl.down{
+	background: url(img/sub.png) no-repeat right;
+	background-size: 16px 16px;
 }
