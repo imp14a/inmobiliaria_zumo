@@ -26,10 +26,15 @@ div.upload {
     width: 157px;
     height: 15px;
     background: #FFCC00;
-    overflow: hidden;
-    text-align: center;
     border: thin #000 solid;
     margin-bottom: 10px;
+}
+
+div.upload label{    
+	position: absolute;
+	cursor: pointer;
+	width: 156px;
+	text-align: center;
 }
 
 div.upload label:hover{    
@@ -37,10 +42,18 @@ div.upload label:hover{
 }
 
 div.upload input {    
-    width: 157px !important;
-    height: 15px !important;
-    opacity: 0 !important;
-    overflow: hidden !important;
+    width: 280px;
+    height: 15px;
+    overflow: hidden;
+    margin-left: 40px;
+	margin-top: -1px;
+	opacity: 0;
+}
+
+div.upload img{
+	position: absolute;
+	margin-left: 320px;
+	margin-top: -16px;
 }
 
 label {

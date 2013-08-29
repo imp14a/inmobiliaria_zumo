@@ -134,10 +134,6 @@ function setAddress(latitude, longitude){
 		</div>	
 		<p class="semititle">Im&aacute;genes</p>
 		<div id="addImages"></div>
-		<div class="upload">
-			<label>Seleccione</label>
-			<input type="file" name="data[PropertyImage][image]" id="PropertyImageImage">	
-		</div>
 		<?php echo $this->Form->input('PropertyAddress.quarter',array('label'=>'Colonia:', 'class'=>'largeText')); ?>
 		<?php echo $this->Form->input('PropertyAddress.street',array('label'=>'Calle:', 'class'=>'largeText')); ?>		
 		<?php echo $this->Form->input('PropertyAddress.postal_code',array('label'=>'Código Postal:', 'maxLength'=>5, 'class'=>'shortText')); ?>

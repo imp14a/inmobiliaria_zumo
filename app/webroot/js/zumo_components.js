@@ -95,15 +95,8 @@ function setAdder(adder, label, model){
         id_text_aux.each(function(value){
             id_text += value.substr(0,1).toUpperCase() + value.substr(1,value.length).toLowerCase();
         });
-        /*if(typeof model.field_type != 'undefined'){
-            if(typeof model.class != 'undefined'){
-            element = new Element('input', {
-                type: typeof model.field_type != 'undefined' ? model.field_type : 'text',
-                name:name,                
-                id:id_text
-            });                            
-        }*/
-        adder.insert({bottom: new Element('div', {class: 'addText'}).insert({
+        var subAdder = new Element('div', {class: typeof model.class != 'undefined' ? 'upload' : 'addText'});
+        adder.insert({bottom: subAdder.insert({
             top: new Element('input', {type: typeof model.field_type != 'undefined' ? model.field_type : 'text', name:name, id:id_text})}).insert({
                     bottom: new Element('img', {
                         src: 'http://wowinteractive.com.mx/inmobiliaria_zumo/app/webroot/css/img/close_delete.png'
@@ -114,6 +107,11 @@ function setAdder(adder, label, model){
                 })
             });
             model.number++;
+            if(typeof model.field_type != 'undefined' && model.field_type == 'file'){
+                subAdder.insert({
+                    top: new Element('label').update('Seleccione')
+                });
+            }
         });
     adder.insert({top: addDiv});
 }
