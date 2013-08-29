@@ -131,9 +131,7 @@ function setAddress(latitude, longitude){
 			<?php $options = array();
                 echo $this->Form->select('PropertyAddress.municipality', $options);
             ?>
-		</div>	
-		<p class="semititle">Im&aacute;genes</p>
-		<div id="addImages"></div>
+		</div>			
 		<?php echo $this->Form->input('PropertyAddress.quarter',array('label'=>'Colonia:', 'class'=>'largeText')); ?>
 		<?php echo $this->Form->input('PropertyAddress.street',array('label'=>'Calle:', 'class'=>'largeText')); ?>		
 		<?php echo $this->Form->input('PropertyAddress.postal_code',array('label'=>'Código Postal:', 'maxLength'=>5, 'class'=>'shortText')); ?>
@@ -152,6 +150,10 @@ function setAddress(latitude, longitude){
 		<?php echo $this->Form->input('PropertyDescription.extra_description',array('label'=>'Observaciones:')); ?>
 		<p class="semititle">Otras &aacute;reas</p>
 		<div id="addAreas"></div>
+		<!--<p class="semititle">Im&aacute;genes</p>
+		<div id="addImages"></div>
+		<p class="semititle">Servicios</p>
+		<div id="addServices"></div>-->
 		<?php echo $this->Form->end('GUARDAR'); ?>
 </div>
 <script>
@@ -161,13 +163,29 @@ function setAddress(latitude, longitude){
 	var model_images = [];
 	model_area['name'] = 'PropertyArea';
 	model_area['field'] = 'area_name';	
-	setAdder($('addAreas'), 'Añadir áreas', model_area);	
+	model_area['placeholder'] = 'ingresa área';
+	model_area['label'] = 'Añadir áreas';
+	setAdder($('addAreas'), model_area);	
 
-	model_images['name'] = 'PropertyImage';
+	/*model_images['name'] = 'PropertyImage';
 	model_images['field'] = 'image';
 	model_images['field_type'] = 'file';
 	model_images['class'] = 'upload';
-	setAdder($('addImages'), 'Añadir imágenes', model_images);	
+	model_images['label'] = 'Añadir imágenes';
+	setAdder($('addImages'), model_images);
+
+	model_category['name'] = 'PropertyInformation';
+	model_category['field'] = 'category';	
+	model_category['placeholder'] = 'ingresa categoría';
+	model_category['label'] = 'Añadir categorías';
+	//Recursive
+	model_category_name['name'] = 'PropertyInformation';
+	model_category_name['field'] = 'name';	
+	model_category_name['placeholder'] = 'ingresa descripción';
+	model_category_name['label'] = 'Añadir descripción';
+	model_category_name['class'] = 'addText child';
+	model_category['child'] = model_category_name;
+	setAdder($('addServices'), model_category);	*/
 
 	createUbicationAjaxSelects('PropertyAddressState', 'PropertyAddressMunicipality', null, true);
 	$('PropertyAddressState').observe('change', codeAddress);
