@@ -116,8 +116,40 @@ function setAdder(adder, label, model){
     adder.insert({top: addDiv});
 }
 
-function createExpandElement(button,expandElement,show){
-    $(button).observe('click',function(){
-        console.log('asdasdhajkdahlsjk');
+function createFirstCheckOnlyElement(container,firstElement){
+    $(container).select('input').each(function(element){
+        if(element.id!=firstElement){
+            $(element).observe('change',function(){
+                $(firstElement).writeAttribute('checked','');
+            });
+        }
     });
+
+    $(firstElement).observe('change',function(){
+        if($(this).readAttribute('checked')){
+            $(this).up().select("input").each(function(element){
+                if(element.id!=firstElement)
+                    $(element).writeAttribute('checked','');
+            });
+        }
+    });
+}
+
+function createExpandElement(button,expandElement,show,expandEvent){
+    $(button).observe('click',function(event){
+        if($(this).hasClassName('active')){
+            $(this).removeClassName('active');
+            Effect.SlideUp(expandElement);
+            event.expanded = false;
+        }else{
+            $(this).addClassName('active');
+            Effect.SlideDown(expandElement);
+            event.expanded = true;
+        }
+        expandEvent(event);
+    });
+
+    if(!show){
+        $(expandElement).hide();
+    }
 }

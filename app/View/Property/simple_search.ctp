@@ -86,6 +86,7 @@
 
          <a id="advancedSearch" class="expandButton" href="javascript:void(0);">B&Uacute;SQUEDA AVANZADA</a>
          <div id="expandElements">
+            <?php echo $this->Form->hidden('AdvancedSearch.on', array('value'=>0)); ?>
             <div class="line">
                 <div class="spinerContainer">
                     <label class="spiner_title">Rec&aacute;maras</label>
@@ -148,46 +149,46 @@
                 <div style="width:auto; display:inline-block;">
                     <p class="semititle">Otras &Aacute;reas</p>
                      <div class="chekbox_group" style="width: 120px;">
-                        <?php echo $this->Form->checkbox('AdvancedSearch.Areas.any',array('hiddenField' => false,'checked')); ?>
-                        <label for="PropertySearchAntiquityAny">Comedor</label>
-                        <?php echo $this->Form->checkbox('AdvancedSearch.Areas.used',array('hiddenField' => false)); ?>
-                        <label for="PropertySearchAntiquityUsed">Cocina</label>
-                        <?php echo $this->Form->checkbox('AdvancedSearch.Areas.new',array('hiddenField' => false)); ?>
-                        <label for="PropertySearchAntiquityNew">Estancia</label>
-                        <?php echo $this->Form->checkbox('AdvancedSearch.Areas.presale', array('hiddenField' => false)); ?>
-                         <label for="PropertySearchAntiquityPresale">Sala de TV</label>
-                         <?php echo $this->Form->checkbox('AdvancedSearch.Areas.presale', array('hiddenField' => false)); ?>
-                         <label for="PropertySearchAntiquityPresale">Cuarto de lavado</label>
+                        <?php echo $this->Form->checkbox('AdvancedSearch.Areas.dining_room',array('hiddenField' => false)); ?>
+                        <label for="AdvancedSearchAreasDiningRoom">Comedor</label>
+                        <?php echo $this->Form->checkbox('AdvancedSearch.Areas.kitchen',array('hiddenField' => false)); ?>
+                        <label for="AdvancedSearchAreasKitchen">Cocina</label>
+                        <?php echo $this->Form->checkbox('AdvancedSearch.Areas.living_room',array('hiddenField' => false)); ?>
+                        <label for="AdvancedSearchAreasLivingRoom">Estancia</label>
+                        <?php echo $this->Form->checkbox('AdvancedSearch.Areas.tv_room', array('hiddenField' => false)); ?>
+                         <label for="AdvancedSearchAreasTvRoom">Sala de TV</label>
+                         <?php echo $this->Form->checkbox('AdvancedSearch.Areas.laundry', array('hiddenField' => false)); ?>
+                         <label for="AdvancedSearchAreasLaundry">Cuarto de lavado</label>
                     </div>
                     <div class="chekbox_group" style="width: 140px;">
-                        <?php echo $this->Form->checkbox('AdvancedSearch.Areas.any',array('hiddenField' => false,'checked')); ?>
-                        <label for="PropertySearchAntiquityAny">Cuarto de servicio</label>
-                        <?php echo $this->Form->checkbox('AdvancedSearch.AreasAreas.used',array('hiddenField' => false)); ?>
-                        <label for="PropertySearchAntiquityUsed">Estudio</label>
-                        <?php echo $this->Form->checkbox('AdvancedSearch.AreasAreas.used',array('hiddenField' => false)); ?>
-                        <label for="PropertySearchAntiquityUsed">Terraza</label>
-                        <?php echo $this->Form->checkbox('AdvancedSearch.Areas.new',array('hiddenField' => false)); ?>
-                        <label for="PropertySearchAntiquityNew">Gimnasio</label>
-                        <?php echo $this->Form->checkbox('AdvancedSearch.Areas.presale', array('hiddenField' => false)); ?>
-                         <label for="PropertySearchAntiquityPresale">Otro</label>
+                        <?php echo $this->Form->checkbox('AdvancedSearch.Areas.service_room',array('hiddenField' => false)); ?>
+                        <label for="AdvancedSearchAreasServiceRoom">Cuarto de servicio</label>
+                        <?php echo $this->Form->checkbox('AdvancedSearch.Areas.study_room',array('hiddenField' => false)); ?>
+                        <label for="AdvancedSearchAreasStudyRoom">Estudio</label>
+                        <?php echo $this->Form->checkbox('AdvancedSearch.Areas.terrace',array('hiddenField' => false)); ?>
+                        <label for="AdvancedSearchAreasTerrace">Terraza</label>
+                        <?php echo $this->Form->checkbox('AdvancedSearch.Areas.gym',array('hiddenField' => false)); ?>
+                        <label for="AdvancedSearchAreasGym">Gimnasio</label>
+                        <?php echo $this->Form->checkbox('AdvancedSearch.Areas.other', array('hiddenField' => false)); ?>
+                         <label for="AdvancedSearchAreasOther">Otro</label>
                     </div>
                 </div>
                 <div style="width:130px; display:inline-block;">
                     <p class="semititle">Servicios cercanos</p>
                      <div class="chekbox_group" style="width: 120px;">
-                        <?php echo $this->Form->checkbox('AdvancedSearch.Services.any',array('hiddenField' => false,'checked')); ?>
-                        <label for="PropertySearchAntiquityAny">Escuela</label>
-                        <?php echo $this->Form->checkbox('AdvancedSearch.Services.used',array('hiddenField' => false)); ?>
-                        <label for="PropertySearchAntiquityUsed">Banco</label>
-                        <?php echo $this->Form->checkbox('AdvancedSearch.Services.used',array('hiddenField' => false)); ?>
-                        <label for="PropertySearchAntiquityUsed">Parque</label>
-                        <?php echo $this->Form->checkbox('AdvancedSearch.Services.new',array('hiddenField' => false)); ?>
-                        <label for="PropertySearchAntiquityNew">Supermercado</label>
-                        <?php echo $this->Form->checkbox('AdvancedSearch.Services.presale', array('hiddenField' => false)); ?>
-                         <label for="PropertySearchAntiquityPresale">Hospital</label>
+                        <?php echo $this->Form->checkbox('AdvancedSearch.Services.school',array('hiddenField' => false)); ?>
+                        <label for="AdvancedSearchServicesSchool">Escuela</label>
+                        <?php echo $this->Form->checkbox('AdvancedSearch.Services.bank',array('hiddenField' => false)); ?>
+                        <label for="AdvancedSearchServicesBank">Banco</label>
+                        <?php echo $this->Form->checkbox('AdvancedSearch.Services.park',array('hiddenField' => false)); ?>
+                        <label for="AdvancedSearchServicesPark">Parque</label>
+                        <?php echo $this->Form->checkbox('AdvancedSearch.Services.supermarket',array('hiddenField' => false)); ?>
+                        <label for="AdvancedSearchServicesSupermarket">Supermercado</label>
+                        <?php echo $this->Form->checkbox('AdvancedSearch.Services.hospital', array('hiddenField' => false)); ?>
+                         <label for="AdvancedSearchServicesHospital">Hospital</label>
                     </div>
                 </div>
-             </line>
+             </div>
         </div>
 
         <?php   $options = array( 'label' => 'BUSCAR', 'class'=>'activeButton');
@@ -220,39 +221,12 @@ function format_money(value){
 
 createUbicationAjaxSelects('PropertySearchState','PropertySearchMunicipality','PropertySearchQuarter');
 
-$('type_checkboxes').select('input').each(function(element){
-    if(element.id!='PropertySearchTypeAny'){
-        $(element).observe('change',function(){
-            $('PropertySearchTypeAny').writeAttribute('checked','');
-        });
-    }
-});
+createFirstCheckOnlyElement('type_checkboxes','PropertySearchTypeAny');
 
-$('antiquity_checkboxes').select('input').each(function(element){
-    if(element.id!='PropertySearchAntiquityAny'){
-        $(element).observe('change',function(){
-            $('PropertySearchAntiquityAny').writeAttribute('checked','');
-        });
-    }
-});
+createFirstCheckOnlyElement('antiquity_checkboxes','PropertySearchAntiquityAny');
 
-
-$('PropertySearchTypeAny').observe('change',function(){
-    if($(this).readAttribute('checked')){
-        $(this).up().select("input").each(function(element){
-            if(element.id!='PropertySearchTypeAny')
-                $(element).writeAttribute('checked','');
-        });
-    }
-});
-
-$('PropertySearchAntiquityAny').observe('change',function(){
-    if($(this).readAttribute('checked')){
-        $(this).up().select("input").each(function(element){
-            if(element.id!='PropertySearchAntiquityAny')
-                $(element).writeAttribute('checked','');
-        });
-    }
+createExpandElement('advancedSearch','expandElements',false,function(event){
+   $('AdvancedSearchOn').value = event.expanded;
 });
 
 </script>
