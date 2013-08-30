@@ -89,6 +89,8 @@ function setAddress(latitude, longitude){
 	if (status == google.maps.GeocoderStatus.OK) {
 			console.log(results);
 			$('PropertyAddressQuarter').value = parseInt(results[0].address_components[0].long_name, 10) > 0 ? results[0].address_components[2].long_name : results[0].address_components[1].long_name;
+			$('PropertyAddressQuarterGoogle').value = parseInt(results[0].address_components[0].long_name, 10) > 0 ? results[0].address_components[2].long_name : results[0].address_components[1].long_name;
+			$('PropertyAddressMunicipalityGoogle').value = parseInt(results[0].address_components[0].long_name, 10) > 0 ? results[0].address_components[3].long_name : results[0].address_components[2].long_name;
             $('PropertyAddressStreet').value = parseInt(results[0].address_components[0].long_name, 10) > 0 ? results[0].address_components[1].long_name : results[0].address_components[0].long_name;            
             $('PropertyAddressPostalCode').value = parseInt(results[0].address_components[0].long_name, 10) > 0 ? results[0].address_components[7].long_name : results[0].address_components[5].long_name;            
             $('PropertyAddressInteriorNumber').value = parseInt(results[0].address_components[0].long_name, 10) > 0 ? results[0].address_components[0].long_name : '';            
@@ -131,6 +133,8 @@ function setAddress(latitude, longitude){
 			<?php $options = array();
                 echo $this->Form->select('PropertyAddress.municipality', $options);
             ?>
+            <?php  echo $this->Form->hidden('PropertyAddress.municipality_google'); ?>
+			<?php echo $this->Form->hidden('PropertyAddress.quarter_google'); ?>
 		</div>			
 		<?php echo $this->Form->input('PropertyAddress.quarter',array('label'=>'Colonia:', 'class'=>'largeText')); ?>
 		<?php echo $this->Form->input('PropertyAddress.street',array('label'=>'Calle:', 'class'=>'largeText')); ?>		
@@ -152,8 +156,8 @@ function setAddress(latitude, longitude){
 		<div id="addAreas"></div>
 		<!--<p class="semititle">Im&aacute;genes</p>
 		<div id="addImages"></div>-->
-		<p class="semititle">Servicios</p>
-		<div id="addServices"></div>
+		<!--<p class="semititle">Servicios</p>
+		<div id="addServices"></div>-->
 		<?php echo $this->Form->end('GUARDAR'); ?>
 </div>
 <script>
@@ -172,7 +176,7 @@ function setAddress(latitude, longitude){
 	model_images['field_type'] = 'file';
 	model_images['class'] = 'upload';
 	model_images['label'] = 'Añadir imágenes';
-	setAdder($('addImages'), model_images);*/
+	setAdder($('addImages'), model_images);
 
 	model_category['name'] = 'PropertyInformation';
 	model_category['field'] = 'category';	
@@ -185,7 +189,7 @@ function setAddress(latitude, longitude){
 	model_category_name['label'] = 'Añadir elemento';
 	model_category_name['class'] = 'addText child';
 	model_category['child'] = model_category_name;
-	setAdder($('addServices'), model_category);
+	setAdder($('addServices'), model_category);*/
 
 	createUbicationAjaxSelects('PropertyAddressState', 'PropertyAddressMunicipality', null, true);
 	$('PropertyAddressState').observe('change', codeAddress);
