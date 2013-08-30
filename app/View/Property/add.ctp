@@ -151,9 +151,9 @@ function setAddress(latitude, longitude){
 		<p class="semititle">Otras &aacute;reas</p>
 		<div id="addAreas"></div>
 		<!--<p class="semititle">Im&aacute;genes</p>
-		<div id="addImages"></div>
+		<div id="addImages"></div>-->
 		<p class="semititle">Servicios</p>
-		<div id="addServices"></div>-->
+		<div id="addServices"></div>
 		<?php echo $this->Form->end('GUARDAR'); ?>
 </div>
 <script>
@@ -172,7 +172,7 @@ function setAddress(latitude, longitude){
 	model_images['field_type'] = 'file';
 	model_images['class'] = 'upload';
 	model_images['label'] = 'Añadir imágenes';
-	setAdder($('addImages'), model_images);
+	setAdder($('addImages'), model_images);*/
 
 	model_category['name'] = 'PropertyInformation';
 	model_category['field'] = 'category';	
@@ -181,11 +181,11 @@ function setAddress(latitude, longitude){
 	//Recursive
 	model_category_name['name'] = 'PropertyInformation';
 	model_category_name['field'] = 'name';	
-	model_category_name['placeholder'] = 'ingresa descripción';
-	model_category_name['label'] = 'Añadir descripción';
+	model_category_name['placeholder'] = 'ingresa elemento';
+	model_category_name['label'] = 'Añadir elemento';
 	model_category_name['class'] = 'addText child';
 	model_category['child'] = model_category_name;
-	setAdder($('addServices'), model_category);	*/
+	setAdder($('addServices'), model_category);
 
 	createUbicationAjaxSelects('PropertyAddressState', 'PropertyAddressMunicipality', null, true);
 	$('PropertyAddressState').observe('change', codeAddress);
