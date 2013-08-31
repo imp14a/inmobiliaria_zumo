@@ -132,10 +132,10 @@ function setAddress(latitude, longitude){
 		<div class="selectZumo">
 			<?php $options = array();
                 echo $this->Form->select('PropertyAddress.municipality', $options);
-            ?>
-            <?php  echo $this->Form->hidden('PropertyAddress.municipality_google'); ?>
-			<?php echo $this->Form->hidden('PropertyAddress.quarter_google'); ?>
-		</div>			
+            ?>      
+		</div>
+		<?php echo $this->Form->hidden('PropertyAddress.municipality_google', array('label' => 'municipality_google:')); ?>
+		<?php echo $this->Form->hidden('PropertyAddress.quarter_google', array('label' => 'quarter_google:')); ?>			
 		<?php echo $this->Form->input('PropertyAddress.quarter',array('label'=>'Colonia:', 'class'=>'largeText')); ?>
 		<?php echo $this->Form->input('PropertyAddress.street',array('label'=>'Calle:', 'class'=>'largeText')); ?>		
 		<?php echo $this->Form->input('PropertyAddress.postal_code',array('label'=>'Código Postal:', 'maxLength'=>5, 'class'=>'shortText')); ?>
@@ -156,8 +156,8 @@ function setAddress(latitude, longitude){
 		<div id="addAreas"></div>
 		<!--<p class="semititle">Im&aacute;genes</p>
 		<div id="addImages"></div>-->
-		<!--<p class="semititle">Servicios</p>
-		<div id="addServices"></div>-->
+		<p class="semititle">Servicios</p>
+		<div id="addServices"></div>
 		<?php echo $this->Form->end('GUARDAR'); ?>
 </div>
 <script>
@@ -176,7 +176,7 @@ function setAddress(latitude, longitude){
 	model_images['field_type'] = 'file';
 	model_images['class'] = 'upload';
 	model_images['label'] = 'Añadir imágenes';
-	setAdder($('addImages'), model_images);
+	setAdder($('addImages'), model_images);*/
 
 	model_category['name'] = 'PropertyInformation';
 	model_category['field'] = 'category';	
@@ -189,7 +189,7 @@ function setAddress(latitude, longitude){
 	model_category_name['label'] = 'Añadir elemento';
 	model_category_name['class'] = 'addText child';
 	model_category['child'] = model_category_name;
-	setAdder($('addServices'), model_category);*/
+	setAdder($('addServices'), model_category);
 
 	createUbicationAjaxSelects('PropertyAddressState', 'PropertyAddressMunicipality', null, true);
 	$('PropertyAddressState').observe('change', codeAddress);

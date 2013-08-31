@@ -85,28 +85,51 @@ function createUbicationAjaxSelects(state,municipality,quarter,showAll){
 
 function setAdder(adder, model){
     model['number'] = 0;
-    var addDiv = new Element('div', {class: 'addDiv', 'style': typeof model.isChild != 'undefined' && model.isChild ? 'margin-left: 10px' : 'margin-left: 0px'}).insert({
+    var id_text1;
+    var addDiv = new Element('div', {class: 'addDiv', 'style': model.isChild ? 'margin-left: 10px' : 'margin-left: 0px'}).insert({
         bottom: new Element('label', {}).update(model.label)
     });
     addDiv.observe('click', function(){
+        if(model.isChild && $(model.parent.id + '_parent').value.trim().length == 0){
+            alert('Debe ingresar el nombre de la categoría.');
+            $(model.parent.id + '_parent').focus();
+            return;
+        }
         var name = 'data[' + model.name + '][' + model.number + '][' + model.field + ']';
         var id_text_aux = model.field.split('_');
         var id_text = model.name + model.number;
         id_text_aux.each(function(value){
             id_text += value.substr(0,1).toUpperCase() + value.substr(1,value.length).toLowerCase();
         });
+        model['id'] = id_text;
         var subAdder = new Element('div', {class: typeof model.class != 'undefined' ? model.class : 'addText'});
-        subAdder
+        if(typeof model.parent != 'undefined'){
+            var name1 = 'data[' + model.parent.name + '][' + model.number + '][' + model.parent.field + ']';
+            var id_text_aux1 = model.parent.field.split('_');
+            id_text1 = model.parent.name + model.number;
+            id_text_aux1.each(function(value){
+                id_text1 += value.substr(0,1).toUpperCase() + value.substr(1,value.length).toLowerCase();
+            });
+            subAdder.insert({
+                top: new Element('input',{
+                    type: 'hidden', 
+                    name: name1, 
+                    id:   id_text1
+                })
+            });
+        }  
         subAdder = subAdder.insert({
             top: new Element('input', {
                 type:           typeof model.field_type != 'undefined' ? model.field_type : 'text', 
                 name:           typeof model.child != 'undefined' ? '' : name, 
                 id:             typeof model.child != 'undefined' ? id_text + '_parent' : id_text,
                 placeholder:    typeof model.placeholder != 'undefined' ? model.placeholder : '', 
+                bro_id:         typeof model.parent != 'undefined' ? id_text1 : '',
+                parent_id:      typeof model.parent != 'undefined' ? model.parent.id + '_parent' : ''
             }).observe('change', function(){
-                if($(id_text) != null){
-                    $(id_text).value = this.value;                    
-                }
+                if(typeof model.parent != 'undefined'){
+                    $(this.readAttribute('bro_id')).value = $(this.readAttribute('parent_id')).value;
+                }                
             })
         }).insert({
             bottom: new Element('img', {
@@ -115,21 +138,6 @@ function setAdder(adder, model){
                     subAdder.remove();
                 })
             });      
-        if(typeof model.parent != 'undefined'){
-            var name1 = 'data[' + model.parent.name + '][' + model.number + '][' + model.parent.field + ']';
-            var id_text_aux1 = model.parent.field.split('_');
-            var id_text1 = model.parent.name + model.number;
-            id_text_aux1.each(function(value){
-                id_text1 += value.substr(0,1).toUpperCase() + value.substr(1,value.length).toLowerCase();
-            });
-            subAdder.ºinsert({
-                top: new Element('input',{
-                    type: 'hidden', 
-                    name: name1, 
-                    id:   id_text1
-                })
-            });
-        }  
         if(typeof model.field_type != 'undefined' && model.field_type == 'file'){
             subAdder.insert({
                 top: new Element('label', {for: id_text}).update('Seleccione')
