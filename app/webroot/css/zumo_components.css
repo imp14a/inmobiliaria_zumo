@@ -253,3 +253,31 @@ input[type=submit]:hover{
 	background: url(img/sub.png) no-repeat right;
 	background-size: 16px 16px;
 }
+
+div.autocomplete {
+  background-color:white;
+  margin:0;
+  padding:0;
+  position: relative !important;
+  height: 0;
+  left: 260px !important;
+  top: 0px !important;
+  z-index: 1;
+}
+div.autocomplete ul {
+  list-style-type:none;
+  margin:0;
+  padding:0;
+}
+div.autocomplete ul li.selected { 
+	background-color: #FFCC00;
+	font-family: HouschkaPro-DemiBold;
+}
+div.autocomplete ul li {
+  list-style-type:none;
+  display:block;
+  margin:0;
+  padding:2px;
+  height:32px;
+  cursor:pointer;
+}

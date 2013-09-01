@@ -153,10 +153,18 @@ function setAddress(latitude, longitude){
 		<?php echo $this->Form->input('PropertyDescription.square_meters_of_land',array('label'=>'Metros terreno:', 'class'=>'shortText')); ?>
 		<?php echo $this->Form->input('PropertyDescription.extra_description',array('label'=>'Observaciones:')); ?>
 		<p class="semititle">Otras &aacute;reas</p>
+		<div id="autocomplete_areas" class="autocomplete"></div>
 		<div id="addAreas"></div>
+		<span id="indicator1" style="display: none">
+	    <?php echo $this->Html->image('ajax-loader.gif',array('alt'=>'Espere ...')); ?>
+    	</span>
 		<!--<p class="semititle">Im&aacute;genes</p>
 		<div id="addImages"></div>-->
 		<p class="semititle">Servicios</p>
+		<div id="autocomplete_categories" class="autocomplete"></div>
+		<span id="indicator2" style="display: none">
+	    <?php echo $this->Html->image('ajax-loader.gif',array('alt'=>'Espere ...')); ?>
+    	</span>
 		<div id="addServices"></div>
 		<?php echo $this->Form->end('GUARDAR'); ?>
 </div>
@@ -169,6 +177,10 @@ function setAddress(latitude, longitude){
 	model_area['field'] = 'area_name';	
 	model_area['placeholder'] = 'ingresa área';
 	model_area['label'] = 'Añadir áreas';
+	model_area['autocomplete_paramName'] = 'name';
+	model_area['autocomplete_id'] = 'autocomplete_areas';
+	model_area['autocomplete_indicator'] = 'indicator1';
+	model_area['autocomplete_srv'] = 'PropertyArea/getPropertyAreas';
 	setAdder($('addAreas'), model_area);	
 
 	/*model_images['name'] = 'PropertyImage';
@@ -182,16 +194,25 @@ function setAddress(latitude, longitude){
 	model_category['field'] = 'category';	
 	model_category['placeholder'] = 'ingresa categoría';
 	model_category['label'] = 'Añadir categorías';
+	model_category['autocomplete_paramName'] = 'category';
+	model_category['autocomplete_id'] = 'autocomplete_categories';
+	model_category['autocomplete_indicator'] = 'indicator2';
+	model_category['autocomplete_srv'] = 'PropertyInformation/getPropertyCategories';
 	//Recursive
 	model_category_name['name'] = 'PropertyInformation';
 	model_category_name['field'] = 'name';	
 	model_category_name['placeholder'] = 'ingresa elemento';
 	model_category_name['label'] = 'Añadir elemento';
 	model_category_name['class'] = 'addText child';
+	model_category_name['autocomplete_indicator'] = 'indicator2';
+	model_category_name['autocomplete_id'] = 'autocomplete_categories';
+	model_category_name['autocomplete_paramName'] = 'name';
+	model_category_name['autocomplete_srv'] = 'PropertyInformation/getPropertyElementsByCategory'
 	model_category['child'] = model_category_name;
 	setAdder($('addServices'), model_category);
 
 	createUbicationAjaxSelects('PropertyAddressState', 'PropertyAddressMunicipality', null, true);
 	$('PropertyAddressState').observe('change', codeAddress);
-	$('PropertyAddressMunicipality').observe('change', codeAddress);	
+	$('PropertyAddressMunicipality').observe('change', codeAddress);
+
 </script>

@@ -86,21 +86,23 @@ function createUbicationAjaxSelects(state,municipality,quarter,showAll){
 function setAdder(adder, model){
     model['number'] = 0;
     var id_text1;
+    var id_text;
     var addDiv = new Element('div', {class: 'addDiv', 'style': model.isChild ? 'margin-left: 10px' : 'margin-left: 0px'}).insert({
         bottom: new Element('label', {}).update(model.label)
     });
     addDiv.observe('click', function(){
-        if(model.isChild && $(model.parent.id + '_parent').value.trim().length == 0){
+        if(model.isChild && $(model.parent.id).value.trim().length == 0){
             alert('Debe ingresar el nombre de la categoría.');
-            $(model.parent.id + '_parent').focus();
+            $(model.parent.id).focus();
             return;
         }
         var name = 'data[' + model.name + '][' + model.number + '][' + model.field + ']';
         var id_text_aux = model.field.split('_');
-        var id_text = model.name + model.number;
+        id_text = model.name + model.number;
         id_text_aux.each(function(value){
             id_text += value.substr(0,1).toUpperCase() + value.substr(1,value.length).toLowerCase();
         });
+        id_text += typeof model.child != 'undefined' ? '_parent' : '';
         model['id'] = id_text;
         var subAdder = new Element('div', {class: typeof model.class != 'undefined' ? model.class : 'addText'});
         if(typeof model.parent != 'undefined'){
@@ -122,22 +124,22 @@ function setAdder(adder, model){
             top: new Element('input', {
                 type:           typeof model.field_type != 'undefined' ? model.field_type : 'text', 
                 name:           typeof model.child != 'undefined' ? '' : name, 
-                id:             typeof model.child != 'undefined' ? id_text + '_parent' : id_text,
+                id:             id_text,
                 placeholder:    typeof model.placeholder != 'undefined' ? model.placeholder : '', 
                 bro_id:         typeof model.parent != 'undefined' ? id_text1 : '',
-                parent_id:      typeof model.parent != 'undefined' ? model.parent.id + '_parent' : ''
+                parent_id:      typeof model.parent != 'undefined' ? model.parent.id : ''
             }).observe('change', function(){
                 if(typeof model.parent != 'undefined'){
                     $(this.readAttribute('bro_id')).value = $(this.readAttribute('parent_id')).value;
-                }                
-            })
+                }   
+            })                                   
         }).insert({
             bottom: new Element('img', {
                 src: 'http://wowinteractive.com.mx/inmobiliaria_zumo/app/webroot/css/img/close_delete.png'
                 }).observe('click', function(){
                     subAdder.remove();
                 })
-            });      
+            });             
         if(typeof model.field_type != 'undefined' && model.field_type == 'file'){
             subAdder.insert({
                 top: new Element('label', {for: id_text}).update('Seleccione')
@@ -149,6 +151,15 @@ function setAdder(adder, model){
             setAdder(subAdder, model.child)
         }
         adder.insert({bottom: subAdder});
+        //  Autocompleters
+        if(typeof model.autocomplete_srv != 'undefined'){
+            new ZumoCompleter(id_text, model.autocomplete_id, 
+            "http://wowinteractive.com.mx/inmobiliaria_zumo/index.php/" + model.autocomplete_srv + ".json", {
+                indicator: model.autocomplete_indicator,
+                paramName: model.autocomplete_paramName,
+                minChars:  1
+            });
+        } 
         model.number++;        
     });
     adder.insert({bottom: addDiv});
@@ -191,3 +202,29 @@ function createExpandElement(button,expandElement,show,expandEvent){
         $(expandElement).hide();
     }
 }
+
+var ZumoCompleter = Class.create(Ajax.Autocompleter, {
+
+    initialize: function($super, id_search, id_list, url, options) {
+        $super(id_search, id_list, url, options);
+    },
+
+    onComplete: function(response) {
+        var text = response.responseText;
+        if (text.isJSON()) {
+            this.handleJSON(text.evalJSON());
+        }
+    },
+
+    handleJSON: function(json) {
+        var htmlStr = '<ul>';
+        json.each(function(item) {
+            htmlStr += '<li>';
+            htmlStr += item;
+            htmlStr += '</li>';
+        });
+        htmlStr += '</ul>';
+        this.updateChoices(htmlStr);
+    }
+
+});
