@@ -41,7 +41,7 @@ function codeAddress() {
                             + 'Colonia '+$('PropertySearchQuarter').value;
 
     var zoom =  6;
-    if($('PropertyAddressMunicipality').value!=''){
+    if($('PropertySearchMunicipality').value!=''){
         console.log("entro");
       zoom +=6;
     }
@@ -50,52 +50,6 @@ function codeAddress() {
         if (status == google.maps.GeocoderStatus.OK) {
             map.setCenter(results[0].geometry.location);
             map.setZoom(zoom);
-            var marker = new google.maps.Marker({
-                map: map,
-                position: results[0].geometry.location,
-                animation: google.maps.Animation.DROP
-            });
-
-            /*var marker = new google.maps.Marker({
-                map: map,
-                position: position,
-            });*/
-
-            var contentString = '<div id="marker_content" style="margin:0;">'+
-                    '<div id="siteNotice">'+
-            '</div>'+
-            '<h1 id="firstHeading" class="firstHeading">Uluru</h1>'+
-            '<div id="bodyContent">'+
-            '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
-            '</p>'+
-            '<p>Attribution: Uluru, <a href="http://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
-            'http://en.wikipedia.org/w/index.php?title=Uluru</a> '+
-            '(last visited June 22, 2009).</p>'+
-            '</div>'+
-            '</div>';
-
-            var infowindow = new google.maps.InfoWindow({
-                content: contentString,
-                maxWidth:300
-            });
-
-            google.maps.event.addDomListener(infowindow,'domready',function(){
-                $$('div.gm-style-iw').each(function(element){
-                    $(element).setStyle({
-                        top:0,
-                        left:0,
-                        width: '100%',
-                        height: '100%',
-                        backgroundColor:'#FFCC00'
-                    });
-                });
-            });
-
-            google.maps.event.addListener(marker, 'click', function() {
-                infowindow.open(map,marker);
-                //TODO hide other marcs
-                
-            });
         } else {
             alert('Geocode was not successful for the following reason: ' + status);
         }
@@ -149,41 +103,59 @@ function findNerbyProperties(){
                 },
                 onSuccess: function(response) {
                     obj = response.responseJSON;
-
-                    $(obj).each(function(element){
-                        position = new google.maps.LatLng(Number(element.PropertyLocation.latitud),
-                                                          Number(element.PropertyLocation.longitud));
+                    
+                    $(obj).each(function(e){
+                        position = new google.maps.LatLng(Number(e.Property.latitude),
+                                                          Number(e.Property.longitude));
+                        console.log(e);
+                        console.log(position);
                         var marker = new google.maps.Marker({
                             map: map,
                             position: position,
                             animation: google.maps.Animation.DROP
                         });
 
-                        var contentString = '<div id="content" style="background-color:red; margin:0;">'+
-                        '<div id="siteNotice">'+
-                        '</div>'+
-                        '<h1 id="firstHeading" class="firstHeading">Uluru</h1>'+
-                        '<div id="bodyContent">'+
-                        '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
-                        '</p>'+
-                        '<p>Attribution: Uluru, <a href="http://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
-                        'http://en.wikipedia.org/w/index.php?title=Uluru</a> '+
-                        '(last visited June 22, 2009).</p>'+
-                        '</div>'+
-                        '</div>';
+                        rent = e.Property.available_for_rent?'Renta '+e.PropertyPaymentInformation.rent_price:'';
+                        sell = e.Property.available_for_sell?'Venta '+e.PropertyPaymentInformation.sale_price:'';
+                        contector = (rent && sell)?' ,<br />':''; 
+
+                        var infoStrin = e.PropertyDescription.type+',  '+rent+contector+sell+
+
+                        '<br />'+e.PropertyDescription.square_meters_of_construction+' m<sup>2</sup> of contruction';
+
+                        linkMoreInfo = "<a href='"+
+                        "<?php echo $this->Html->url(array( "controller" => "property","action" => "view"));?>/"+
+                        e.Property.id+"'>+info</a>  ";
+
+                        var contentString = 
+                            '<div id="marker_content" style="margin:0;padding: 10px;padding-bottom: 0;">'+
+                                '<div id="siteNotice">'+'</div>'+
+                                '<span class="firstHeading">'+e.Property.name+'</span>'+
+                                '<div id="bodyContent">'+
+                                    '<p>'+infoStrin+'</p>'
+                                    +linkMoreInfo+
+                                '</div>'+
+                            '</div>';
 
                         var infowindow = new google.maps.InfoWindow({
-                            content: contentString
+                            content: contentString,
+                            maxWidth:300
+                        });
+
+                        google.maps.event.addDomListener(infowindow,'domready',function(){
+                            $$('div.gm-style-iw').each(function(element){
+                                $(element).setStyle({
+                                    top:0,
+                                    left:0,
+                                    width: '100%',
+                                    height: '100%',
+                                    backgroundColor:'#FFCC00'
+                                });
+                            });
                         });
 
                         google.maps.event.addListener(marker, 'click', function() {
                             infowindow.open(map,marker);
-                            $$('div.gm-style-iw').each(function(element){
-                                $(element).setStyle({
-                                    top:0,
-                                    left:0
-                                });
-                            });
                         });
                     });
                 }
