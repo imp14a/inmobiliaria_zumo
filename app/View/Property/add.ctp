@@ -103,7 +103,7 @@ function setAddress(latitude, longitude){
 
 <div class="plainContent">
 	<h3>Registro de inmuebles</h3><br>	
-	<?php echo $this->Form->create('Property'); ?>
+	<?php echo $this->Form->create('Property', array('type' => 'file')); ?>
 		<label style="float: left; margin-top: 2px; margin-right: 10px;">Tipo de inmueble</label>
 		<div class="selectZumo">
 		<?php echo $this->Form->input('PropertyDescription.type',array('label' => '', 'options' => $types)) ?>
@@ -123,7 +123,7 @@ function setAddress(latitude, longitude){
 			<?php echo $this->Form->input('PropertyPaymentInformation.maintenance_price',array('label'=>'Cuota de mantenimiento:', 'class'=>'mediumText')); ?>
 		<br>
 		<p class="semititle">Ubicaci&oacute;n y Direcci&oacute;n</p>
-		<?php echo $this->Form->hidden('PropertyAddress.country',array('value'=>utf8_encode('México'), 'class'=>'largeText')); ?>
+		<?php echo $this->Form->hidden('PropertyAddress.country',array('value'=>'México', 'class'=>'largeText')); ?>
 		<label style="float: left; margin-top: 2px; margin-right: 10px;">Estado</label>
 		<div class="selectZumo">
 			<?php echo $this->Form->input('PropertyAddress.state',array('label' => '', 'options' => $states)) ?>
@@ -158,8 +158,8 @@ function setAddress(latitude, longitude){
 		<span id="indicator1" style="display: none">
 	    <?php echo $this->Html->image('ajax-loader.gif',array('alt'=>'Espere ...')); ?>
     	</span>
-		<!--<p class="semititle">Im&aacute;genes</p>
-		<div id="addImages"></div>-->
+		<p class="semititle">Im&aacute;genes</p>
+		<div id="addImages"></div>
 		<p class="semititle">Servicios</p>
 		<div id="autocomplete_categories" class="autocomplete"></div>
 		<span id="indicator2" style="display: none">
@@ -183,12 +183,12 @@ function setAddress(latitude, longitude){
 	model_area['autocomplete_srv'] = 'PropertyArea/getPropertyAreas';
 	setAdder($('addAreas'), model_area);	
 
-	/*model_images['name'] = 'PropertyImage';
+	model_images['name'] = 'PropertyImage';
 	model_images['field'] = 'image';
 	model_images['field_type'] = 'file';
 	model_images['class'] = 'upload';
 	model_images['label'] = 'Añadir imágenes';
-	setAdder($('addImages'), model_images);*/
+	setAdder($('addImages'), model_images);
 
 	model_category['name'] = 'PropertyInformation';
 	model_category['field'] = 'category';	

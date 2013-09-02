@@ -43,17 +43,18 @@ div.upload label:hover{
     font-family: HouschkaPro-DemiBold;
 }
 
-div.upload input {    
+div.upload input {  
+	position: relative;  
     width: 355px;
     height: 15px;
-    margin-left: 30px;
-	margin-top: -2px;	
+    left: 40px;
+	top: 0px;	
 }
 
 div.upload img{
-	position: absolute;
-	margin-left: 395px;
-	margin-top: -13px;
+	position: relative;
+	left: 395px;
+	top: -14px;
 	cursor: pointer;
 }
 
@@ -92,9 +93,10 @@ input[type=text]:hover, input[type=number]:hover, input[type=password]:hover{
 
 .addText img{
 	cursor: pointer;
-	position: absolute;
+	position: relative;
 	height: 15px;
-	margin-left: 2px;
+	left: 2px;
+	top: 3px;
 }
 
 input[type='number']::-webkit-outer-spin-button,
@@ -113,7 +115,7 @@ input[type=checkbox], input[type=radio] {
 }
 input[type=checkbox] + label, input[type=radio] + label {
 	cursor: pointer;
-	background: url(img/select.png) 0px 1px no-repeat;
+	background: url(img/select.png) 0px 0px no-repeat;
 	padding-left: 25px;
 }
 
@@ -141,8 +143,7 @@ input[type=submit]:hover{
 	height: 15px;
 	width: 240px; 
 	background: url(img/add.png) no-repeat;
-	background-position-x: 223px;
-	background-position-y: -2px;
+	background-position: 223px -2px;
 	cursor: pointer;
 	margin-bottom: 10px;
 }
@@ -152,21 +153,22 @@ input[type=submit]:hover{
 }
 
 .selectZumo select {
+	float: left;
 	cursor: pointer;
 	background: transparent;
 	width: 288px;
-	padding: 5px;
 	font-size: 10pt;
-	line-height: 1;
-	border: 0;
-	border-radius: 0;
+	border:none;
+    outline:none;
+    display: inline-block;
 	height: 34px;
 	-webkit-appearance: none;
 	-moz-appearance: none;
-	margin-top: -8px;
-	margin-left: -10px;
 	font-family: HouschkaPro-Medium;
-	padding-left: 15px;
+	position: relative;
+	left: 5px;
+	top: -8px;
+	-moz-margin-start: -5px;
 }
 
 .selectZumo {
