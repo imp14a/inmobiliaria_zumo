@@ -2,6 +2,7 @@
 
 App::Import('Model','PropertyAddress');
 App::Import('Model','Property');
+App::Import('Model','PropertyNearPlace');
 
 class PropertyController extends AppController {
 
@@ -108,6 +109,23 @@ class PropertyController extends AppController {
             //$this->redirect(array('action' => 'adddetails', $this->Property->id));
 		}
 	}
+
+	public function addnearplaces($id){
+		$this->set('title_for_layout','Registro de lugares cercanos');
+        $this->Property->id = $id;
+        if ($this->request->is('get')) {
+            $this->request->data = $this->Property->read();
+            $this->set('state', utf8_encode($this->request->data['PropertyAddress']['state']));
+        } 
+        else {
+            if (empty($this->request->data)) {
+            }else{
+                $this->Property->saveAll($this->request->data, array('validate'=>'first'));
+                //Limpiar datos y regresar a la misma página
+            }
+        }
+	}
+
 	/*public function beforeFilter() {
         parent::beforeFilter();
         $this->Auth->allow('add', 'simple_search', 'map_search');
