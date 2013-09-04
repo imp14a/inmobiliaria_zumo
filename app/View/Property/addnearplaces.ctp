@@ -1,15 +1,16 @@
-
 <?php 
 
 	echo $this->Html->script('scriptaculous/scriptaculous');
 	echo $this->Html->script('zumo_components');
 	echo $this->Html->css('zumo_components');
 ?>
+
 <style>
   #map-canvas {
-    margin: 0;
+    margin: 0 auto;
     padding: 0;
     height: 400px;
+    width: 80%;
   }
 </style>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
@@ -31,42 +32,32 @@ function initialize() {
     map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
     
     google.maps.event.addListener(map, 'dblclick', function(event) {
-    	placeMarker(event.latLng);
-	});
+        placeMarker(event.latLng, 'green');
+    });
 
     codeAddress();
+    var latlng = new google.maps.LatLng($('PropertyLatitude').value, $('PropertyLongitude').value, true);
+    placeMarker(latlng, null);  
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
 
-function deleteOverlays() {
-	if (markersArray.length >= 1) {
-		markersArray[0].setMap(null);
-		markersArray.length = 0;
-  	}
-}
-
-function placeMarker(location) {
-	deleteOverlays();
+function placeMarker(location, color) {
 	var marker = new google.maps.Marker({
 	    position: location,
-	    map: map
+	    map: map,
+        title: $('PropertyName').value
 	});
-	markersArray.push(marker);
-	markersArray[0].setMap(map);
-	$('PropertyLatitude').value = location.ob;
-	$('PropertyLongitude').value = location.pb;
+    if(color){
+        marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
+    }
 }
 
 function codeAddress() {
     var address = "Mexico, Estado de " + $('PropertyAddressState').value + ',' 
-                            + $('PropertyAddressMunicipality').value + ',' 
-                            + 'Colonia '+$('PropertyAddressQuarter').value;
-    console.log(address);
-    var zoom =  6;
-    if($('PropertyAddressMunicipality').value!=''){
-      zoom +=6;
-    }
+                            + $('PropertyAddressMunicipalityGoogle').value + ',' 
+                            + 'Colonia '+$('PropertyAddressQuarterGoogle').value;
+    var zoom =  16;
     //aplicamoz zoom
     geocoder.geocode( { 'address': address}, function(results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
@@ -80,15 +71,19 @@ function codeAddress() {
 </script>
 
 <div class="plainContent">
-	<h3>Registro de ubicación</h3><br>
+	<h3>Registro de inmuebles</h3><br>	
 	<?php echo $this->Form->create('Property'); ?>
-	<?php echo $this->Form->input('Property.name', array('label' => 'Nombre de inmueble:', 'readonly' => 'true', 'class' => 'largeText')); ?>	
-	<p class="semititle">Ubicaci&oacute;n</p>
-	<?php echo $this->Form->hidden('PropertyAddress.state', array('label' => 'Estado:', 'class' => 'largeText')); ?>
-	<?php echo $this->Form->hidden('PropertyAddress.municipality', array('label' => 'Municipio:', 'class' => 'largeText')); ?>
-	<?php echo $this->Form->hidden('PropertyAddress.quarter', array('label' => 'Colonia:', 'class' => 'largeText')); ?>
-	<?php echo $this->Form->hidden('Property.latitude', array('label' => 'Latitud:', 'class' => 'largeText')); ?>
-	<?php echo $this->Form->hidden('Property.longitude', array('label' => 'Longitud:', 'class' => 'largeText')); ?>
+    <?php echo $this->Form->hidden('Property.longitude'); ?>
+    <?php echo $this->Form->hidden('Property.latitude'); ?>
+    <?php echo $this->Form->hidden('Property.name'); ?>
+	<?php echo $this->Form->hidden('PropertyAddress.municipality_google'); ?>
+	<?php echo $this->Form->hidden('PropertyAddress.quarter_google'); ?>
+	<?php echo $this->Form->hidden('PropertyAddress.state', array('value' => $state)); ?>
+	<?php echo $this->Form->input('PropertyNearPlace.type', array('label' => 'Tipo del lugar:', 'class' => 'largeText')); ?>
+	<?php echo $this->Form->input('PropertyNearPlace.name', array('label' => 'Nombre del lugar:', 'class' => 'largeText')); ?>
+	<?php echo $this->Form->input('PropertyNearPlace.description', array('label' => 'Descripción del lugar:', 'type' => 'textarea')); ?>
+    <br>    
+    <p class="semiTitle">Ubicaci&oacute;n</p>
+	<div id="map-canvas"></div>
 	<?php echo $this->Form->end('GUARDAR'); ?>
-  <div id="map-canvas"></div>
 </div>
