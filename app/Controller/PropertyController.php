@@ -113,6 +113,11 @@ class PropertyController extends AppController {
         $this->Auth->allow('add', 'simple_search', 'map_search');
     }*/
 
+    public function view($id = null){
+    	$this->layout = 'property_layout';
+		$this->set('title_for_layout','Propiedad');
+    }
+
 }
 
 ?>
