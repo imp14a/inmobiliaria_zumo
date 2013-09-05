@@ -11,7 +11,7 @@ class PropertyAddressController extends AppController {
 
 		$this->layout = "ajax";
 
-		$state = utf8_decode(isset($_REQUEST['state']) ? $_REQUEST[ 'state' ] : '');
+		$state = isset($_REQUEST['state']) ? $_REQUEST[ 'state' ] : '';
 		$showAll = isset($_REQUEST['showAll']);
 		if($showAll){
 			$State = new State();
@@ -40,9 +40,9 @@ class PropertyAddressController extends AppController {
 		$out = array();
 		foreach($result as $res){
 			if($showAll)
-				array_push($out, utf8_encode($res['Municipality']['name']));
+				array_push($out, $res['Municipality']['name']);
 			else
-				array_push($out, utf8_encode($res['PropertyAddress']['municipality']));
+				array_push($out, $res['PropertyAddress']['municipality']);
 		}
 
 		$this->set('output',$out);
@@ -52,7 +52,7 @@ class PropertyAddressController extends AppController {
 
 		$this->layout = "ajax";
 
-		$municipality = utf8_decode(isset($_REQUEST['municipality']) ? $_REQUEST[ 'municipality' ] : '');
+		$municipality = isset($_REQUEST['municipality']) ? $_REQUEST[ 'municipality' ] : '';
 		$address = new PropertyAddress();
 
 		$options =  array(
@@ -66,7 +66,7 @@ class PropertyAddressController extends AppController {
 		$out = array();
 
 		foreach($address->find('all',$options) as $res){
-			array_push($out, utf8_encode($res['PropertyAddress']['quarter']));
+			array_push($out, $res['PropertyAddress']['quarter']);
 		}
 
 		$this->set('output',$out);

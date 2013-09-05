@@ -228,3 +228,59 @@ var ZumoCompleter = Class.create(Ajax.Autocompleter, {
     }
 
 });
+
+var ZumoSpiner = Class.create();
+
+ZumoSpiner.prototype = {
+    step:1,
+    element:null,
+    initialize: function(element) {
+        this.element = element;
+        if ($(element).hasAttribute('step')){
+            this.step = Number($(element).readAttribute('step'));
+        }
+        var that = this;
+        $(element).select('.spinerControl').each(function(control){
+            if($(control).hasClassName('up')){
+
+            $(control).observe('click',function(){
+                that.calculateSpiner(that.step);
+            });
+            }
+            if($(control).hasClassName('down')){
+                $(control).observe('click',function(){
+                    that.calculateSpiner(-that.step);
+                });
+            }
+        });
+    },
+    calculateSpiner:function(valueToAdd){
+        value = Number($(this.element).select('input')[0].value);
+        if(value + valueToAdd > 0){
+            $(this.element).select('input')[0].value = value + valueToAdd;            
+        }
+    }
+};
+
+var ZumoGridElement = Class.create();
+
+ZumoGridElement.prototype = {
+    image:null,
+    effect:null,
+    initialize: function(element) {
+        this.element = element;
+        this.image = $(element).select('img')[0];
+        var that = this;
+        $(element).observe('mouseover',function(){
+           if(that.effect!=null) that.effect.cancel();
+           that.effect = Effect.Fade(that.image,{ from: 1.0, to: 0.0, duration: 0.5 });
+           //$(that.image).({ from: 1.0, to: 0.0, duration: 0.5 });
+        });
+        $(element).observe('mouseleave',function(){
+            if(that.effect!=null) that.effect.cancel();
+            $(that.image).setStyle({display:''});
+            //Effect.BlindDown(that.image, { duration: 0.3 });
+            that.effect = Effect.Fade(that.image,{ from: 0.0, to: 1.0, duration: 0.5 });
+        });
+    },
+}

@@ -16,12 +16,12 @@
 
 <div class="plainContent">
 
-    <?php echo $this->Form->create('PropertySearch'); ?>
+    <?php echo $this->Form->create('PropertySearch',array( 'url' =>array('controller'=>'Property','action'=>'searchResult'))); ?>
         <p class="semititle">Operaci&oacute;n</p>
         <div class="property_abalible_type">
             <?php 
                 $options = array('buy' => 'Compra', 'rent' => 'Renta', 'both'=>'Cualquiera');
-                $attributes = array('legend' => false);
+                $attributes = array('legend' => false,'value'=>'both');
                 echo $this->Form->radio('abalible_type', $options,$attributes);
             ?>
         </div>
@@ -47,25 +47,25 @@
                 <p class="semititle">Tipo de propiedad</p>
                 <?php echo $this->Form->checkbox('PropertySearch.Type.any',array('hiddenField' => false,'checked')); ?>
                 <label for="PropertySearchTypeAny">Cualquiera</label>
-                <?php echo $this->Form->checkbox('PropertySearch.Type.home',array('hiddenField' => false)); ?>
-                <label for="PropertySearchTypeHome">Casa Sola</label>
-                <?php echo $this->Form->checkbox('PropertySearch.Type.condominium',array('hiddenField' => false)); ?>
-                <label for="PropertySearchTypeCondominium">Condominio</label>
-                <?php echo $this->Form->checkbox('PropertySearch.Type.department', array('hiddenField' => false)); ?>
-                 <label for="PropertySearchTypeDepartment">Departamento</label>
-                <?php echo $this->Form->checkbox('PropertySearch.Type.villa', array('hiddenField' => false)); ?>
+                <?php echo $this->Form->checkbox('PropertySearch.Type.Casa_Sola',array('hiddenField' => false)); ?>
+                <label for="PropertySearchTypeCasaSola">Casa Sola</label>
+                <?php echo $this->Form->checkbox('PropertySearch.Type.Casa_Condominio',array('hiddenField' => false)); ?>
+                <label for="PropertySearchTypeCasaCondominio">Casa Condominio</label>
+                <?php echo $this->Form->checkbox('PropertySearch.Type.Departamento', array('hiddenField' => false)); ?>
+                 <label for="PropertySearchTypeDepartamento">Departamento</label>
+                <?php echo $this->Form->checkbox('PropertySearch.Type.Villa', array('hiddenField' => false)); ?>
                  <label for="PropertySearchTypeVilla">Villa</label>
             </div>
             <div class="chekbox_group" id='antiquity_checkboxes'>
                 <p class="semititle">Antig&uuml;edad</p>
                 <?php echo $this->Form->checkbox('PropertySearch.Antiquity.any',array('hiddenField' => false,'checked')); ?>
                 <label for="PropertySearchAntiquityAny">Cualquiera</label>
-                <?php echo $this->Form->checkbox('PropertySearch.Antiquity.used',array('hiddenField' => false)); ?>
-                <label for="PropertySearchAntiquityUsed">Usado</label>
-                <?php echo $this->Form->checkbox('PropertySearch.Antiquity.new',array('hiddenField' => false)); ?>
-                <label for="PropertySearchAntiquityNew">Nuevo</label>
-                <?php echo $this->Form->checkbox('PropertySearch.Antiquity.presale', array('hiddenField' => false)); ?>
-                 <label for="PropertySearchAntiquityPresale">Preventa</label>
+                <?php echo $this->Form->checkbox('PropertySearch.Antiquity.Usado',array('hiddenField' => false)); ?>
+                <label for="PropertySearchAntiquityUsado">Usado</label>
+                <?php echo $this->Form->checkbox('PropertySearch.Antiquity.Nuevo',array('hiddenField' => false)); ?>
+                <label for="PropertySearchAntiquityNuevo">Nuevo</label>
+                <?php echo $this->Form->checkbox('PropertySearch.Antiquity.Preventa', array('hiddenField' => false)); ?>
+                 <label for="PropertySearchAntiquityPreventa">Preventa</label>
             </div>
         </div>
                     
@@ -88,9 +88,9 @@
          <div id="expandElements">
             <?php echo $this->Form->hidden('AdvancedSearch.on', array('value'=>0)); ?>
             <div class="line">
-                <div class="spinerContainer">
+                <div class="spinerContainer" >
                     <label class="spiner_title">Rec&aacute;maras</label>
-                    <div class="spiner">
+                    <div class="spiner" id="spinerElement">
                         <?php echo $this->Form->input('AdvancedSearch.rooms_number', array('label' => false,'value'=>1,'div'=>false,'readonly')); ?>
                         <span> o m&aacute;s</span>
                         <a href="javascript:void(0);" class="spinerControl up"></a>
@@ -128,8 +128,8 @@
              <div class="line">
                 <div class="spinerContainer">
                     <label class="spiner_title">m<sup>2</sup> de construcci&oacute;n</label>
-                    <div class="spiner">
-                        <?php echo $this->Form->input('AdvancedSearch.contruction_meters', array('label' => false,'value'=>1,'div'=>false,'readonly')); ?>
+                    <div class="spiner" step="10">
+                        <?php echo $this->Form->input('AdvancedSearch.contruction_meters', array('label' => false,'value'=>10,'div'=>false,'readonly')); ?>
                         <span>m<sup>2</sup> o m&aacute;s</span>
                         <a href="javascript:void(0);" class="spinerControl up"></a>
                         <a href="javascript:void(0);" class="spinerControl down"></a>
@@ -137,8 +137,8 @@
                 </div>
                 <div class="spinerContainer">
                     <label class="spiner_title">m<sup>2</sup> de terreno</label>
-                    <div class="spiner">
-                        <?php echo $this->Form->input('AdvancedSearch.contruction_meters', array('label' => false,'value'=>1,'div'=>false,'readonly')); ?>
+                    <div class="spiner" step="10">
+                        <?php echo $this->Form->input('AdvancedSearch.contruction_meters', array('label' => false,'value'=>10,'div'=>false,'readonly')); ?>
                         <span>m<sup>2</sup> o m&aacute;s</span>
                         <a href="javascript:void(0);" class="spinerControl up"></a>
                         <a href="javascript:void(0);" class="spinerControl down"></a>
@@ -224,6 +224,10 @@ createUbicationAjaxSelects('PropertySearchState','PropertySearchMunicipality','P
 createFirstCheckOnlyElement('type_checkboxes','PropertySearchTypeAny');
 
 createFirstCheckOnlyElement('antiquity_checkboxes','PropertySearchAntiquityAny');
+
+$$('.spiner').each(function(spiner){
+    new ZumoSpiner(spiner);
+});
 
 createExpandElement('advancedSearch','expandElements',false,function(event){
    $('AdvancedSearchOn').value = event.expanded;
