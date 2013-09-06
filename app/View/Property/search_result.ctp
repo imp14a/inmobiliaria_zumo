@@ -8,7 +8,6 @@
 
 ?>
 <style>
-
 .grid{
 
 }
@@ -41,10 +40,35 @@
 	display: block;
 }
 
+.paginator{
+	display: block;
+}
+.paginator .pagesInfo{
+	float: right;
+}
+.paginator .pagesControl{
+	float: right;
+	margin-left: 10px;
+}
 </style>
-
 <div class="plainContent">
 
+	<!-- TODO Paginacion -->
+<!-- Muestra los enlaces para Anterior y Siguiente -->
+
+<!-- Muestra X de Y, donde X es la página actual e Y el total del páginas -->
+	<div class="paginator">
+		<div class="pagesControl">
+		<?php
+	    	echo $this->paginator->prev('< ', null, null, array('class' => 'disabled'));
+	    	echo $this->paginator->next(' >', null, null, array('class' => 'disabled'));
+		?>
+		</div>
+		<div class="pagesInfo">
+			<?php echo $this->paginator->counter(array(
+	    		'format' => 'Resultados Búsqueda: %count%  paginas %page% | %pages%')); ?>
+	    </div>
+	</div>
 	<div class="grid">
 		<?php foreach($found_properties as $property): ?>
 

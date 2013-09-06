@@ -18,11 +18,11 @@
 
     <?php echo $this->Form->create('PropertySearch',array( 'url' =>array('controller'=>'Property','action'=>'searchResult'))); ?>
         <p class="semititle">Operaci&oacute;n</p>
-        <div class="property_abalible_type">
+        <div class="property_abalible_type" id="property_abalible_type">
             <?php 
-                $options = array('buy' => 'Compra', 'rent' => 'Renta', 'both'=>'Cualquiera');
-                $attributes = array('legend' => false,'value'=>'both');
-                echo $this->Form->radio('abalible_type', $options,$attributes);
+                $options = array('sale' => 'Compra', 'rent' => 'Renta');
+                $attributes = array('legend' => false,'value'=>'rent');
+                echo $this->Form->radio('PropertySearch.available_type', $options,$attributes);
             ?>
         </div>
 	   <p class="semititle">Ubicaci&oacute;n</p>
@@ -198,32 +198,22 @@
 
 <script>
 
-var slider = createSlider($('slider'),{min:0,max:51,step:5},sliderChange);
-
-function sliderChange(values){ 
-    if(values.map(Math.round)[0]==0){
-        $("PropertySearchMinPrice").value = "el menor precio";
-    }else{
-        $("PropertySearchMinPrice").value = format_money(values.map(Math.round)[0]);
-    }
-
-    if(values.map(Math.round)[1]==51){
-        $("PropertySearchMaxPrice").value = "el mayor precio"
-    }else{
-        $("PropertySearchMaxPrice").value = format_money(values.map(Math.round)[1]);
-    }
-}
-
-function format_money(value){
-    //TODO poner las comas
-    return "$ "+ value +",000.00";
-}
+var slider = new ZumoSlider('slider',
+                    [   'PropertySearchMinPrice',
+                        'PropertySearchMaxPrice'
+                    ],
+                    {
+                        rangeValues : [0,15,20,25,30,35,40,50,55],
+                        minLabel : "el menor precio",
+                        maxLabel : "el mayor precio",
+                        concurrency : { coinSimbol: "$",sufijo: ",000.00"}
+                    }
+                );
 
 createUbicationAjaxSelects('PropertySearchState','PropertySearchMunicipality','PropertySearchQuarter');
 
-createFirstCheckOnlyElement('type_checkboxes','PropertySearchTypeAny');
-
-createFirstCheckOnlyElement('antiquity_checkboxes','PropertySearchAntiquityAny');
+new ZumoFirstCheckOnlyElement('type_checkboxes','PropertySearchTypeAny');
+new ZumoFirstCheckOnlyElement('antiquity_checkboxes','PropertySearchAntiquityAny');
 
 $$('.spiner').each(function(spiner){
     new ZumoSpiner(spiner);
@@ -231,6 +221,25 @@ $$('.spiner').each(function(spiner){
 
 createExpandElement('advancedSearch','expandElements',false,function(event){
    $('AdvancedSearchOn').value = event.expanded;
+});
+
+$('property_abalible_type').select('input').each(function(radio){
+    $(radio).observe('click',function(){
+        if(radio.value == "sale"){
+            slider.setRangeValues([0,2,4,5,10,15,20,30,100]);
+            slider.setConcurrency({ coinSimbol: "$",sufijo: ",000,000.00"});
+        }else{
+            slider.setRangeValues([0,2,4,5,10,15,20,30,100]);
+            slider.setConcurrency( { coinSimbol: "$",sufijo: ",000.00"});
+        }
+    });
+});
+
+$('PropertySearchSimpleSearchForm').observe('submit',function(event){
+    if($('PropertySearchState').value == '' || $('PropertySearchMunicipality').value == ''){
+        alert("Debes selecionar el estado y municipio de la búsqueda");
+        event.preventDefault();
+    }
 });
 
 </script>

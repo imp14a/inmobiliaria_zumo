@@ -1,33 +1,4 @@
 
-function createSlider(slider,options,onChangeEvent){    
-
-    return new Control.Slider(slider.select('.handle'), slider, {
-        range: $R(options.min, options.max),
-        increment: options.step,
-        sliderValue: [options.min, options.max],
-        //onChange: onChangeEvent,
-        onSlide: function(values) {
-
-            valMin = values.map(Math.round)[0] - this.range.start;
-            valMin = valMin / (this.range.end - this.range.start);
-            valMin = $(slider).getWidth() * valMin;
-
-            valMax = values.map(Math.round)[1] - this.range.start;
-            valMax = valMax / (this.range.end - this.range.start);
-            valMax = $(slider).getWidth() * valMax;
-
-            
-            id_range.setStyle({
-                'margin-left': valMin + 'px',
-                'width': (valMax - valMin) + 'px'
-            });
-            onChangeEvent(values);
-        },
-        restricted: true
-    });
-
-}
-
 function createUbicationAjaxSelects(state,municipality,quarter,showAll){    
     $(state).observe('change',function(){
         var parametersForState = null;
@@ -165,24 +136,7 @@ function setAdder(adder, model){
     adder.insert({bottom: addDiv});
 }
 
-function createFirstCheckOnlyElement(container,firstElement){
-    $(container).select('input').each(function(element){
-        if(element.id!=firstElement){
-            $(element).observe('change',function(){
-                $(firstElement).writeAttribute('checked','');
-            });
-        }
-    });
 
-    $(firstElement).observe('change',function(){
-        if($(this).readAttribute('checked')){
-            $(this).up().select("input").each(function(element){
-                if(element.id!=firstElement)
-                    $(element).writeAttribute('checked','');
-            });
-        }
-    });
-}
 
 function createExpandElement(button,expandElement,show,expandEvent){
     $(button).observe('click',function(event){
@@ -283,4 +237,114 @@ ZumoGridElement.prototype = {
             that.effect = Effect.Fade(that.image,{ from: 0.0, to: 1.0, duration: 0.5 });
         });
     },
+}
+
+var ZumoSlider = Class.create();
+
+ZumoSlider.prototype = {
+    element:null,
+    slider : null, // Scriptaculus slider
+    inputs : null, // must be 2 inputs
+    options : null,
+    initialize:function(element,inputs,options){
+        this.element = element;
+        this.inputs = inputs;
+        this.options = options;
+        var that = this;
+        this.slider = new Control.Slider($(element).select('.handle'), element, {
+            range: $R(0, 8), 
+            increment: 1,
+            sliderValue: [0, 8],
+            onSlide: function(values) {
+                valMin = (values.map(Math.round)[0] - this.range.start) / (this.range.end - this.range.start);
+                valMin = $(that.element).getWidth() * valMin;
+                valMax = (values.map(Math.round)[1] - this.range.start) / (this.range.end - this.range.start);
+                valMax = $(that.element).getWidth() * valMax;
+                
+                id_range.setStyle({
+                    'margin-left': valMin + 'px',
+                    'width': (valMax - valMin) + 'px'
+                });
+
+                for(i=0;i<that.inputs.length;i++){
+                    switch(values.map(Math.round)[i]){
+                        case this.range.start:
+                            $(that.inputs[i]).value = that.options.minLabel;
+                        break;
+                        case this.range.end:
+                            $(that.inputs[i]).value = that.options.maxLabel;
+                        break;
+                        default:
+                            $(that.inputs[i]).value = that.getCurrencyValue(that.options.rangeValues[values.map(Math.round)[i]]);
+                        break;
+                    }
+                }
+            },
+            restricted: true
+        });
+    },
+    setRangeValues:function(newValue){
+       this.options.rangeValues = newValue;
+    },
+    setConcurrency:function(newValue){
+        this.options.concurrency = newValue;
+    },
+    resetSlider:function(){
+        this.slider.setValue(0, 0);
+        this.slider.setValue(9, 1);
+    },
+    getCurrencyValue:function(number){
+        return this.options.concurrency.coinSimbol +" "+ number + this.options.concurrency.sufijo;
+    }
+}
+ZumoFirstCheckOnlyElement = Class.create();
+
+ZumoFirstCheckOnlyElement.prototype = {
+    firstChecked : true,
+    container : null,
+    firstElement : null,
+    initialize:function(container,firstElement){
+        var that = this;
+        this.container = container;
+        this.firstElement = firstElement;
+        $(container).select('input').each(function(element){
+            if(element.id!=firstElement){
+                $(element).observe('change',function(event){
+                    $(firstElement).writeAttribute('checked','');
+                    //that.verifySomeOneChecked();
+                    that.firstChecked = false;
+                });
+            }
+        });
+        $(firstElement).observe('click',function(event){
+            if(that.firstChecked){
+                event.preventDefault();
+            }
+            that.firstChecked = true;
+            if($(this).readAttribute('checked')){
+                $(this).up().select("input").each(function(element){
+                    if(element.id!=firstElement)
+                        $(element).writeAttribute('checked',"");
+                        
+                });
+            }
+        });
+    }/*,
+    verifySomeOneChecked:function(){ // verifica almenos uno de los opcionales esta checkado, si no checkea el primero
+        var someone = false;
+        var that = this;
+        $(this.container).select('input').each(function(element){
+            console.log(element);
+            if(element.id!=that.firstElement){
+                someone = $(element).hasAttribute('checked');
+                if(someone) return;
+            }
+        });
+        console.log(someone);
+        if(!someone){
+            $(this.firstElement).writeAttribute('checked');
+        }
+        this.firstChecked = true;
+        return someone;
+    }*/
 }

@@ -8,6 +8,13 @@ class PropertyController extends AppController {
 
 	 var $helpers = array('Number');
 
+	 var $paginate = array(
+        'limit' => 9,
+        'order' => array(
+            'Property.name' => 'asc'
+        )
+    );
+
 	public function simple_search(){
 		$this->layout = 'property_layout';
 		$this->set('simple_search',true);
@@ -166,40 +173,27 @@ class PropertyController extends AppController {
 				)
 			)*/
 
-			$options = array('conditions' => array(
+			$options = array(
 				'PropertyAddress.state' => $this->data['PropertySearch']['state'],
 				'PropertyAddress.municipality' => $this->data['PropertySearch']['municipality'],
 				'PropertyAddress.quarter LIKE' => '%'.$this->data['PropertySearch']['quarter'].'%',
-				)
 			);
-			if($this->data['PropertySearch']['abalible_type']=='rent'){
-				//TODO minimize code
-				$options['conditions']['Property.avalible_for_rent'] = true;
-				if(is_numeric($this->data['PropertySearch']['min_price'])){
-					$options['conditions']['AND']['PropertyPaymentInformation']['rent_price >'] = $this->data['PropertySearch']['min_price'];
-				}
-				if(is_numeric($this->data['PropertySearch']['min_price'])){
-					$options['conditions']['AND']['PropertyPaymentInformation']['rent_price <'] = $this->data['PropertySearch']['min_price'];
-				}
-			}elseif($this->data['PropertySearch']['abalible_type']=='sell'){
-				$options['conditions']['Property.avalible_for_sell'] = true;
-				if(is_numeric($this->data['PropertySearch']['min_price'])){
-					$options['conditions']['AND']['PropertyPaymentInformation']['sale_price >'] = $this->data['PropertySearch']['min_price'];
-				}
-				if(is_numeric($this->data['PropertySearch']['max_price'])){
-					$options['conditions']['AND']['PropertyPaymentInformation']['sale_price <'] = $this->data['PropertySearch']['min_price'];
-				}
-			}else{
-				if(is_numeric($this->data['PropertySearch']['min_price'])){
-					$options['conditions']['AND']['OR']['PropertyPaymentInformation']['rent_price >'] = $this->data['PropertySearch']['min_price'];
-					$options['conditions']['AND']['OR']['PropertyPaymentInformation']['sale_price >'] = $this->data['PropertySearch']['min_price'];
-				}
-				if(is_numeric($this->data['PropertySearch']['max_price'])){
-					$options['conditions']['AND']['OR']['PropertyPaymentInformation']['rent_price <'] = $this->data['PropertySearch']['min_price'];
-					$options['conditions']['AND']['OR']['PropertyPaymentInformation']['sale_price >'] = $this->data['PropertySearch']['min_price'];
-				}
+			if($this->data['PropertySearch']['available_type']=='rent'){
+				$options['Property.available_for_rent'] = true;
+			}elseif($this->data['PropertySearch']['available_type']=='sell'){
+				$options['Property.available_for_sell'] = true;
 			}
 
+			$price = str_replace(",", "", $this->data['PropertySearch']['min_price']);
+			$price = str_replace("$ ", "", $price);
+			if(is_numeric($price)){
+				$options['PropertyPaymentInformation.'.$this->data['PropertySearch']['available_type'].'_price >='] = $price;
+			}
+			$price = str_replace(",", "", $this->data['PropertySearch']['max_price']);
+			$price = str_replace("$ ", "", $price);
+			if(is_numeric($price)){
+				$options['PropertyPaymentInformation.'.$this->data['PropertySearch']['available_type'].'_price <='] = $price;
+			}
 
 			$or_type_array = array();
 			foreach($this->data['PropertySearch']['Type'] as $type=>$value){
@@ -215,18 +209,15 @@ class PropertyController extends AppController {
 			}
 
 			if(count($or_type_array)>0){
-				$options['conditions']['AND']['OR']['PropertyDescription.type'] = $or_type_array;
+				$options['AND']['OR']['PropertyDescription.type'] = $or_type_array;
 			}
 			if(count($or_type_Antiquity)>0){
-				$options['conditions']['AND']['OR']['PropertyDescription.antiquity'] = $or_type_Antiquity;
+				$options['AND']['OR']['PropertyDescription.antiquity'] = $or_type_Antiquity;
 			}
-			
-			$this->set('found_properties', $this->Property->find('all',$options));
-
-			//debug($this->Property->find('all',$options));
     		if($this->data['AdvancedSearch']['on']){
     			//TODO hacerla busqueda avanzada
     		}
+    		$this->set('found_properties', $data = $this->paginate('Property', $options));
     	}else{
     		$this->redirect(array('action' => 'simple_search'));
     	}
