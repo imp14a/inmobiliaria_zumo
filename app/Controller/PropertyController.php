@@ -15,6 +15,23 @@ class PropertyController extends AppController {
         )
     );
 
+	public function index(){
+		$this->set('title_for_layout','Listado de Propiedades');
+        $this->set('properties', $this->Property->find('all'));
+	}
+
+	public function delete($id) {
+        if (!$this->request->is('post')) {
+            throw new MethodNotAllowedException();
+        }
+        if ($this->Property->delete($id)) {
+            $this->Session->setFlash('Propiedad eliminada.');
+            $this->redirect(array('action' => 'index'));
+        }else{
+        	$this->Session->setFlash('Ha ocurrido un error, intente de nuevo.');
+        }
+    }
+
 	public function simple_search(){
 		$this->layout = 'property_layout';
 		$this->set('simple_search',true);
@@ -80,7 +97,7 @@ class PropertyController extends AppController {
 		$this->set('title_for_layout','Mis Busquedas');	
 	}
 
-	public function add(){
+	public function add($id = null){
 		$this->set('title_for_layout','Registro de inmuebles');
 		$this->loadModel('PropertyDescription');
 		//Tipos
@@ -88,7 +105,8 @@ class PropertyController extends AppController {
 		preg_match_all("/'(.*?)'/", $type, $enums);
 		foreach($enums[1] as $value )
     	{
-        	$enum[$value] = $value;
+    		if($value != 'Cualquiera')
+        		$enum[$value] = $value;
     	}
 		$this->set('types', $enum);
 		//Antiguedad
@@ -97,7 +115,8 @@ class PropertyController extends AppController {
 		preg_match_all("/'(.*?)'/", $type, $enums);
 		foreach($enums[1] as $value )
     	{
-        	$enum[$value] = $value;
+    		if($value != 'Cualquiera')
+        		$enum[$value] = $value;
     	}
 		$this->set('antiquities', $enum);
 		//Informacion de ubicacion
@@ -107,13 +126,23 @@ class PropertyController extends AppController {
 		$this->State->recursive= -1;
 		$states = $this->State->find('all');
 		foreach ($states as $state){
-			$enum[$state['State']['name']] = $state['State']['name'];
+			$enum[utf8_encode($state['State']['name'])] = utf8_encode($state['State']['name']);
 		}
-		$this->set('states', $enum);			
-		if (!empty($this->request->data)) {						
-			$this->Property->saveAll($this->request->data, array('validate'=>'first'));
-			$this->Session->setFlash('Información almacenada.');
-            //$this->redirect(array('action' => 'adddetails', $this->Property->id));
+		$this->set('states', $enum);	
+
+		$this->Property->id = $id;
+        if ($this->request->is('get')) {
+            $this->request->data = $this->Property->read();
+        } 
+        else {		
+			if (!empty($this->request->data)) {						
+				if($this->Property->saveAll($this->request->data, array('validate'=>'first'))){
+					$this->Session->setFlash('Propiedad registrada.');
+					$this->redirect(array('action' => 'addnearplaces', $this->Property->id));					
+				}else{
+					$this->Session->setFlash('Ha ocurrido un error, por favor intente más tarde');
+				}
+			}
 		}
 	}
 
@@ -122,13 +151,15 @@ class PropertyController extends AppController {
         $this->Property->id = $id;
         if ($this->request->is('get')) {
             $this->request->data = $this->Property->read();
-            $this->set('state', $this->request->data['PropertyAddress']['state']);
         } 
         else {
-            if (empty($this->request->data)) {
-            }else{
-                $this->Property->saveAll($this->request->data, array('validate'=>'first'));
-                //Limpiar datos y regresar a la misma página
+            if (!empty($this->request->data)) {    
+            	if($this->Property->saveAll($this->request->data, array('validate'=>'first'))){
+            		$this->Session->setFlash('Lugares registrados.');
+					$this->redirect(array('action' => 'index'));					
+            	}else{
+            		$this->Session->setFlash('Ha ocurrido un error, por favor intente más tarde');
+            	}
             }
         }
 	}

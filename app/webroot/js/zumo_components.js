@@ -136,7 +136,75 @@ function setAdder(adder, model){
     adder.insert({bottom: addDiv});
 }
 
+function createNearPlace(container, newNearPlace){
 
+    var nearPlace = new Element('div', {
+        class: 'nearPlace'
+    })
+    nearPlace.insert({
+        bottom: new Element('img', {
+            src: newNearPlace.image            
+        }).setStyle({position: 'relative'})
+    }).insert({
+        bottom: new Element('input', {            
+            type: 'text',
+            placeholder: 'Ingrese el tipo de lugar',
+            name: 'data[PropertyNearPlace][' + newNearPlace.number + '][type]',
+            id: 'PropertyNearPlace' + newNearPlace.number + 'Type',
+            class: 'largeText'
+        }).setStyle({top: '-30px', position: 'relative'})
+    }).insert({
+        bottom: new Element('input', {            
+            type: 'text',
+            placeholder: 'Ingrese el nombre de lugar',
+            name: 'data[PropertyNearPlace][' + newNearPlace.number + '][name]',
+            id: 'PropertyNearPlace' + newNearPlace.number + 'Name',
+            class: 'largeText'
+        }).setStyle({position: 'relative', left: '-312px', top: '-10px'})
+    }).insert({
+        bottom: new Element('textarea', {            
+            type: 'text',
+            placeholder: 'Ingrese alguna descripción',
+            name: 'data[PropertyNearPlace][' + newNearPlace.number + '][description]',
+            id: 'PropertyNearPlace' + newNearPlace.number + 'Description',
+            class: 'largeText'
+        }).setStyle({position: 'relative', left: '31px', top: '-14px', height: '50px'})
+    }).insert({
+        bottom: new Element('img', {
+            src: 'http://wowinteractive.com.mx/inmobiliaria_zumo/app/webroot/css/img/close_delete.png',
+        }).setStyle({
+            position: 'relative', 
+            left: '340px', top: '-108px', 
+            cursor: 'pointer'
+        }).observe('click', function(){
+            nearPlace.remove();
+            newNearPlace.marker.setMap(null);
+        })
+    }).insert({
+        bottom: new Element('input', {
+            type: 'hidden',
+            name: 'data[PropertyNearPlace][' + newNearPlace.number + '][latitude]',
+            id: 'PropertyNearPlace' + newNearPlace.number + 'Latitude',
+            value: newNearPlace.location.ob
+        })
+    }).insert({
+        bottom: new Element('input', {
+            type: 'hidden',
+            name: 'data[PropertyNearPlace][' + newNearPlace.number + '][longitude]',
+            id: 'PropertyNearPlace' + newNearPlace.number + 'Longitude',
+            value: newNearPlace.location.pb
+        })
+    });
+    container.insert({bottom: nearPlace});
+    new ZumoCompleter('PropertyNearPlace' + newNearPlace.number + 'Type', 
+        "autocomplete_types", 
+        "http://wowinteractive.com.mx/inmobiliaria_zumo/index.php/PropertyNearPlace/getNearPlaceTypes.json",
+        {
+        indicator: "indicator1",
+        paramName: "type",
+        minChars:  1
+    });
+}
 
 function createExpandElement(button,expandElement,show,expandEvent){
     $(button).observe('click',function(event){
