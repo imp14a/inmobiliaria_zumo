@@ -149,42 +149,42 @@
                 <div style="width:auto; display:inline-block;">
                     <p class="semititle">Otras &Aacute;reas</p>
                      <div class="chekbox_group" style="width: 120px;">
-                        <?php echo $this->Form->checkbox('AdvancedSearch.Areas.dining_room',array('hiddenField' => false)); ?>
-                        <label for="AdvancedSearchAreasDiningRoom">Comedor</label>
-                        <?php echo $this->Form->checkbox('AdvancedSearch.Areas.kitchen',array('hiddenField' => false)); ?>
-                        <label for="AdvancedSearchAreasKitchen">Cocina</label>
-                        <?php echo $this->Form->checkbox('AdvancedSearch.Areas.living_room',array('hiddenField' => false)); ?>
-                        <label for="AdvancedSearchAreasLivingRoom">Estancia</label>
-                        <?php echo $this->Form->checkbox('AdvancedSearch.Areas.tv_room', array('hiddenField' => false)); ?>
-                         <label for="AdvancedSearchAreasTvRoom">Sala de TV</label>
-                         <?php echo $this->Form->checkbox('AdvancedSearch.Areas.laundry', array('hiddenField' => false)); ?>
-                         <label for="AdvancedSearchAreasLaundry">Cuarto de lavado</label>
+                        <?php echo $this->Form->checkbox('AdvancedSearch.Areas.Comedor',array('hiddenField' => false)); ?>
+                        <label for="AdvancedSearchAreasComedor">Comedor</label>
+                        <?php echo $this->Form->checkbox('AdvancedSearch.Areas.Cocina',array('hiddenField' => false)); ?>
+                        <label for="AdvancedSearchAreasCocina">Cocina</label>
+                        <?php echo $this->Form->checkbox('AdvancedSearch.Areas.Estancia',array('hiddenField' => false)); ?>
+                        <label for="AdvancedSearchAreasEstancia">Estancia</label>
+                        <?php echo $this->Form->checkbox('AdvancedSearch.Areas.Sala_de_TV', array('hiddenField' => false)); ?>
+                         <label for="AdvancedSearchAreasSalaDeTV">Sala de TV</label>
+                         <?php echo $this->Form->checkbox('AdvancedSearch.Areas.Cuarto_de_lavado', array('hiddenField' => false)); ?>
+                         <label for="AdvancedSearchAreasCuartoDeLavado">Cuarto de lavado</label>
                     </div>
                     <div class="chekbox_group" style="width: 140px;">
-                        <?php echo $this->Form->checkbox('AdvancedSearch.Areas.service_room',array('hiddenField' => false)); ?>
-                        <label for="AdvancedSearchAreasServiceRoom">Cuarto de servicio</label>
-                        <?php echo $this->Form->checkbox('AdvancedSearch.Areas.study_room',array('hiddenField' => false)); ?>
-                        <label for="AdvancedSearchAreasStudyRoom">Estudio</label>
-                        <?php echo $this->Form->checkbox('AdvancedSearch.Areas.terrace',array('hiddenField' => false)); ?>
-                        <label for="AdvancedSearchAreasTerrace">Terraza</label>
-                        <?php echo $this->Form->checkbox('AdvancedSearch.Areas.gym',array('hiddenField' => false)); ?>
-                        <label for="AdvancedSearchAreasGym">Gimnasio</label>
-                        <?php echo $this->Form->checkbox('AdvancedSearch.Areas.other', array('hiddenField' => false)); ?>
-                         <label for="AdvancedSearchAreasOther">Otro</label>
+                        <?php echo $this->Form->checkbox('AdvancedSearch.Areas.Cuarto_de_servicio',array('hiddenField' => false)); ?>
+                        <label for="AdvancedSearchAreasServiceCuartoDeServicio">Cuarto de servicio</label>
+                        <?php echo $this->Form->checkbox('AdvancedSearch.Areas.Estudio',array('hiddenField' => false)); ?>
+                        <label for="AdvancedSearchAreasEstudio">Estudio</label>
+                        <?php echo $this->Form->checkbox('AdvancedSearch.Areas.Terraza',array('hiddenField' => false)); ?>
+                        <label for="AdvancedSearchAreasTerraza">Terraza</label>
+                        <?php echo $this->Form->checkbox('AdvancedSearch.Areas.Gimnasio',array('hiddenField' => false)); ?>
+                        <label for="AdvancedSearchAreasGimnasio">Gimnasio</label>
+                        <?php echo $this->Form->checkbox('AdvancedSearch.Areas.Otro', array('hiddenField' => false)); ?>
+                         <label for="AdvancedSearchAreasOtro">Otro</label>
                     </div>
                 </div>
                 <div style="width:130px; display:inline-block;">
                     <p class="semititle">Servicios cercanos</p>
                      <div class="chekbox_group" style="width: 120px;">
-                        <?php echo $this->Form->checkbox('AdvancedSearch.Services.school',array('hiddenField' => false)); ?>
-                        <label for="AdvancedSearchServicesSchool">Escuela</label>
-                        <?php echo $this->Form->checkbox('AdvancedSearch.Services.bank',array('hiddenField' => false)); ?>
-                        <label for="AdvancedSearchServicesBank">Banco</label>
-                        <?php echo $this->Form->checkbox('AdvancedSearch.Services.park',array('hiddenField' => false)); ?>
-                        <label for="AdvancedSearchServicesPark">Parque</label>
-                        <?php echo $this->Form->checkbox('AdvancedSearch.Services.supermarket',array('hiddenField' => false)); ?>
-                        <label for="AdvancedSearchServicesSupermarket">Supermercado</label>
-                        <?php echo $this->Form->checkbox('AdvancedSearch.Services.hospital', array('hiddenField' => false)); ?>
+                        <?php echo $this->Form->checkbox('AdvancedSearch.Services.Escuela',array('hiddenField' => false)); ?>
+                        <label for="AdvancedSearchServicesEscuela">Escuela</label>
+                        <?php echo $this->Form->checkbox('AdvancedSearch.Services.Banco',array('hiddenField' => false)); ?>
+                        <label for="AdvancedSearchServicesBanco">Banco</label>
+                        <?php echo $this->Form->checkbox('AdvancedSearch.Services.Parque',array('hiddenField' => false)); ?>
+                        <label for="AdvancedSearchServicesParque">Parque</label>
+                        <?php echo $this->Form->checkbox('AdvancedSearch.Services.Supermercado',array('hiddenField' => false)); ?>
+                        <label for="AdvancedSearchServicesSupermercado">Supermercado</label>
+                        <?php echo $this->Form->checkbox('AdvancedSearch.Services.Hospital', array('hiddenField' => false)); ?>
                          <label for="AdvancedSearchServicesHospital">Hospital</label>
                     </div>
                 </div>
