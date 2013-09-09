@@ -127,7 +127,7 @@ class PropertyController extends AppController {
 		$this->State->recursive= -1;
 		$states = $this->State->find('all');
 		foreach ($states as $state){
-			$enum[utf8_encode($state['State']['name'])] = utf8_encode($state['State']['name']);
+			$enum[$state['State']['name']] = $state['State']['name'];
 		}
 		$this->set('states', $enum);	
 

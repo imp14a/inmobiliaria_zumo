@@ -397,22 +397,31 @@ ZumoFirstCheckOnlyElement.prototype = {
                 });
             }
         });
-    }/*,
-    verifySomeOneChecked:function(){ // verifica almenos uno de los opcionales esta checkado, si no checkea el primero
-        var someone = false;
+    }
+}
+
+
+ZumoTabComponent = Class.create();
+ZumoTabComponent.prototype = {
+    container:null,
+    initialize:function(container){
+        this.container = container;
         var that = this;
-        $(this.container).select('input').each(function(element){
-            console.log(element);
-            if(element.id!=that.firstElement){
-                someone = $(element).hasAttribute('checked');
-                if(someone) return;
-            }
+        $(container).select('.tab').each(function(tab){
+
+            $(tab).observe('click',function(){
+                that.updateTabContent(this);
+            });
         });
-        console.log(someone);
-        if(!someone){
-            $(this.firstElement).writeAttribute('checked');
-        }
-        this.firstChecked = true;
-        return someone;
-    }*/
+        $(container).select('.tabContent').each(function(tabContent){
+            $(tabContent).hide();
+        });
+    },
+    updateTabContent:function(element){
+        tabOpenId = $(element).readAttribute('for');
+        $(this.container).select('.tabContent').each(function(tab){
+            $(tab).hide();
+        });
+        $(tabOpenId).show(); 
+    }
 }

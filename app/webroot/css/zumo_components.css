@@ -313,3 +313,31 @@ table tr:nth-child(odd) td {
 	border-color: #666666;
 	background-color: #ffffbb;
 }
+
+.zumoTabs{
+	margin-top: 20px;
+}
+.zumoTabs .tabs{
+	
+}
+.zumoTabs .tabs .tab{
+	padding: 3px;
+	border: 1px solid black;
+	line-height: 14px;
+	width: 200px;
+	display: inline-block;
+	text-decoration: none;
+	font-size: 10px;
+	margin-right: 15px;
+	font-family: HouschkaPro-Medium;
+	background: url(img/show_more.png) no-repeat right;
+}
+
+.zumoTabs .tabs .tab.active{
+	background: url(img/show_less.png) no-repeat right;
+}
+
+.zumoTabs .tabContent{
+	margin-top: 20px;
+	border: 1px solid black;
+}
