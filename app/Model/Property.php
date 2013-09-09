@@ -9,7 +9,7 @@ class Property extends AppModel {
 		'PropertyPaymentInformation');
 
 	public $hasMany = array(
-        'PropertyArea', 'PropertyInformation', 'PropertyImage'
+        'PropertyArea', 'PropertyInformation', 'PropertyImage', 'PropertyNearPlace'
     );
 
 

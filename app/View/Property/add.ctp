@@ -167,6 +167,7 @@ function setAddress(latitude, longitude){
     	</span>
 		<div id="addServices"></div>
 		<?php echo $this->Form->end('GUARDAR'); ?>
+		<a class="activeButton" href="/inmobiliaria_zumo/index.php/property/index">CANCELAR</a>
 </div>
 <script>
 	var model_area = [];

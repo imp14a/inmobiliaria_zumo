@@ -12,6 +12,16 @@
     height: 400px;
     width: 80%;
   }
+div.autocomplete {
+    background-color: white;
+    margin: 0;
+    padding: 0;
+    position: relative !important;
+    height: 0;
+    left: 340px !important;
+    top: 10px !important;
+    z-index: 1;
+}
 </style>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 <script>
@@ -32,37 +42,54 @@ function initialize() {
     map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
     
     google.maps.event.addListener(map, 'dblclick', function(event) {
-        placeMarker(event.latLng, 'green');
+        placeMarker(event.latLng, false);
     });
 
     codeAddress();
     var latlng = new google.maps.LatLng($('PropertyLatitude').value, $('PropertyLongitude').value, true);
-    placeMarker(latlng, null);  
+    placeMarker(latlng, true);  
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
 
-function placeMarker(location, color) {
+var nearPlaceNumber = 65; //Letra inicial A
+
+function placeMarker(location, property) {
 	var marker = new google.maps.Marker({
 	    position: location,
 	    map: map,
         title: $('PropertyName').value
 	});
-    if(color){
-        marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
+    if(!property){
+        var icon = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=' + 
+            String.fromCharCode(nearPlaceNumber) + '|FFCC00|000000'
+        marker.setIcon(icon);
+        map.setZoom(16);
+        $('text_place').setStyle({display: 'block'});
+        var nearPlace = [];
+        nearPlace['number'] = nearPlaceNumber - 65;
+        nearPlace['image'] = icon;
+        nearPlace['marker'] = marker;
+        nearPlace['location'] = location;
+        createNearPlace($('place_container'), nearPlace);
+        nearPlaceNumber++;
+    }
+    else{
+        var infowindow = new google.maps.InfoWindow({
+            content: '<b>' + $('PropertyName').value +'</b>'
+        });
+        infowindow.open(map,marker);
     }
 }
 
 function codeAddress() {
-    var address = "Mexico, Estado de " + $('PropertyAddressState').value + ',' 
-                            + $('PropertyAddressMunicipalityGoogle').value + ',' 
-                            + 'Colonia '+$('PropertyAddressQuarterGoogle').value;
     var zoom =  16;
     //aplicamoz zoom
-    geocoder.geocode( { 'address': address}, function(results, status) {
+    geocoder.geocode( { 'latLng': new google.maps.LatLng($('PropertyLatitude').value, $('PropertyLongitude').value) },
+    function(results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
-            map.setCenter(results[0].geometry.location);
             map.setZoom(zoom);
+            map.setCenter(results[0].geometry.location);
         } else {
             alert('Geocode was not successful for the following reason: ' + status);
         }
@@ -73,17 +100,18 @@ function codeAddress() {
 <div class="plainContent">
 	<h3>Registro de inmuebles</h3><br>	
 	<?php echo $this->Form->create('Property'); ?>
+    <?php echo $this->Form->hidden('Property.id'); ?>
+    <?php echo $this->Form->hidden('Property.name'); ?>
     <?php echo $this->Form->hidden('Property.longitude'); ?>
     <?php echo $this->Form->hidden('Property.latitude'); ?>
-    <?php echo $this->Form->hidden('Property.name'); ?>
-	<?php echo $this->Form->hidden('PropertyAddress.municipality_google'); ?>
-	<?php echo $this->Form->hidden('PropertyAddress.quarter_google'); ?>
-	<?php echo $this->Form->hidden('PropertyAddress.state', array('value' => $state)); ?>
-	<?php echo $this->Form->input('PropertyNearPlace.type', array('label' => 'Tipo del lugar:', 'class' => 'largeText')); ?>
-	<?php echo $this->Form->input('PropertyNearPlace.name', array('label' => 'Nombre del lugar:', 'class' => 'largeText')); ?>
-	<?php echo $this->Form->input('PropertyNearPlace.description', array('label' => 'Descripción del lugar:', 'type' => 'textarea')); ?>
-    <br>    
-    <p class="semiTitle">Ubicaci&oacute;n</p>
+    <p>Dar doble clic para agregar un lugar cercano.</p>
 	<div id="map-canvas"></div>
+    <br>
+    <p id="text_place" class="semititle" style="display: none;">Lugares cercanos</p>
+    <div id="autocomplete_types" class="autocomplete"></div>
+    <span id="indicator1" style="display: none">
+        <?php echo $this->Html->image('ajax-loader.gif',array('alt'=>'Espere ...')); ?>
+    </span>
+    <div id="place_container"></div> 
 	<?php echo $this->Form->end('GUARDAR'); ?>
 </div>
