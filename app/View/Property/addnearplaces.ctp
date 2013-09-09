@@ -98,7 +98,7 @@ function codeAddress() {
 </script>
 
 <div class="plainContent">
-	<h3>Registro de inmuebles</h3><br>	
+	<h3>Registro de lugares cercanos</h3><br>	
 	<?php echo $this->Form->create('Property'); ?>
     <?php echo $this->Form->hidden('Property.id'); ?>
     <?php echo $this->Form->hidden('Property.name'); ?>

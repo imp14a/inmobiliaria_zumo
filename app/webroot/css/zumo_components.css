@@ -306,6 +306,12 @@ table tr:nth-child(even) td {
 	border-color: #666666;
 	background-color: #ffffff;
 }
+td.right{
+	text-align: right;
+}
+td.center{
+	text-align: center;
+}
 table tr:nth-child(odd) td {
 	border-width: 1px;
 	padding: 8px;
@@ -340,4 +346,5 @@ table tr:nth-child(odd) td {
 .zumoTabs .tabContent{
 	margin-top: 20px;
 	border: 1px solid black;
+	background-color: #FFFFF0;
 }

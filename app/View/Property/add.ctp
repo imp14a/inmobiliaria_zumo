@@ -102,6 +102,8 @@ function setAddress(latitude, longitude){
 </script>
 
 <div class="plainContent">
+	<a class="activeButton" href="/inmobiliaria_zumo/index.php/property/index">CANCELAR</a>
+	<p></p>
 	<h3>Registro de inmuebles</h3><br>	
 	<?php echo $this->Form->create('Property', array('type' => 'file')); ?>
 		<label style="float: left; margin-top: 2px; margin-right: 10px;">Tipo de inmueble</label>
@@ -166,8 +168,7 @@ function setAddress(latitude, longitude){
 	    <?php echo $this->Html->image('ajax-loader.gif',array('alt'=>'Espere ...')); ?>
     	</span>
 		<div id="addServices"></div>
-		<?php echo $this->Form->end('GUARDAR'); ?>
-		<a class="activeButton" href="/inmobiliaria_zumo/index.php/property/index">CANCELAR</a>
+		<?php echo $this->Form->end('GUARDAR'); ?>		
 </div>
 <script>
 	var model_area = [];
