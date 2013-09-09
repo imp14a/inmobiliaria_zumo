@@ -53,10 +53,6 @@
 </style>
 <div class="plainContent">
 
-	<!-- TODO Paginacion -->
-<!-- Muestra los enlaces para Anterior y Siguiente -->
-
-<!-- Muestra X de Y, donde X es la página actual e Y el total del páginas -->
 	<div class="paginator">
 		<div class="pagesControl">
 		<?php

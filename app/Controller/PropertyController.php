@@ -3,6 +3,7 @@
 App::Import('Model','PropertyAddress');
 App::Import('Model','Property');
 App::Import('Model','PropertyNearPlace');
+App::Import('Model','PropertyImage');
 
 class PropertyController extends AppController {
 
@@ -172,6 +173,16 @@ class PropertyController extends AppController {
     public function view($id = null){
     	$this->layout = 'property_layout';
 		$this->set('title_for_layout','Propiedad');
+
+		$this->Property->recursive = 1;
+
+		
+		$this->set('property_fist_image',$this->Property->findById($id));
+		
+		$pi = new PropertyImage();
+		
+		$this->set('property',$this->Property->findById($id));
+		
     }
 
     public function searchResult(){
@@ -179,30 +190,6 @@ class PropertyController extends AppController {
     	$this->set('simple_search',true);
 		$this->set('title_for_layout','Resultados de búsqueda');
     	if (!empty($this->data)) {
-    		/*array(
-				'PropertySearch' => array(
-					'abalible_type' => 'both',
-					'state' => 'MÃ©xico',
-					'municipality' => 'Metepec',
-					'quarter' => 'Santiaguito',
-					'Type' => array(
-						'any' => '1'
-					),
-					'Antiquity' => array(
-						'any' => '1'
-					),
-					'min_price' => 'el menor precio',
-					'max_price' => 'el mayor precio'
-				),
-				'AdvancedSearch' => array(
-					'on' => '0',
-					'rooms_number' => '1',
-					'bathrooms_number' => '1',
-					'parking_number' => '1',
-					'levels_number' => '1',
-					'contruction_meters' => '1'
-				)
-			)*/
 
 			$options = array(
 				'PropertyAddress.state' => $this->data['PropertySearch']['state'],
@@ -226,6 +213,7 @@ class PropertyController extends AppController {
 				$options['PropertyPaymentInformation.'.$this->data['PropertySearch']['available_type'].'_price <='] = $price;
 			}
 
+
 			$or_type_array = array();
 			foreach($this->data['PropertySearch']['Type'] as $type=>$value){
 				if($type=='any' && $value) break;
@@ -246,8 +234,16 @@ class PropertyController extends AppController {
 				$options['AND']['OR']['PropertyDescription.antiquity'] = $or_type_Antiquity;
 			}
     		if($this->data['AdvancedSearch']['on']){
-    			//TODO hacerla busqueda avanzada
+				$options['PropertyDescription.number_of_rooms >='] = $this->data['AdvancedSearch']['rooms_number'];
+				$options['PropertyDescription.number_of_bathrooms >='] = $this->data['AdvancedSearch']['bathrooms_number'];
+				$options['PropertyDescription.number_of_parkings >='] = $this->data['AdvancedSearch']['parking_number'];
+				$options['PropertyDescription.number_of_levels  >='] = $this->data['AdvancedSearch']['levels_number'];
+				$options['PropertyDescription.square_meters_of_construction >='] = $this->data['AdvancedSearch']['contruction_meters'];
+				/**
+				  TODO terminar la busqueda avanzada
+				 */
     		}
+
     		$this->set('found_properties', $data = $this->paginate('Property', $options));
     	}else{
     		$this->redirect(array('action' => 'simple_search'));
