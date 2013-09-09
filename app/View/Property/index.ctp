@@ -9,14 +9,22 @@
             <th>Nombre</th>
             <th>Renta</th>
             <th>Venta</th>
+            <th>Estado</th>
+            <th>Municipio</th>
+            <th>Precio de Renta</th>
+            <th>Precio de Venta</th>
             <th>Editar</th>
             <th>Borrar</th>
         </tr>
         <?php foreach ($properties as $property): ?>
         <tr>
             <td><?php echo $property['Property']['name']; ?></td>
-            <td><?php echo $property['Property']['available_for_rent'] ? "Sí" : "No"; ?></td>
-            <td><?php echo $property['Property']['available_for_sell'] ? "Sí" : "No"; ?></td>
+            <td class="center"><?php echo $property['Property']['available_for_rent'] ? "Sí" : "No"; ?></td>
+            <td class="center"><?php echo $property['Property']['available_for_sell'] ? "Sí" : "No"; ?></td>
+            <td><?php echo $property['PropertyAddress']['state']; ?></td>
+            <td><?php echo $property['PropertyAddress']['municipality']; ?></td>
+            <td class="right"><?php echo $property['PropertyPaymentInformation']['rent_price'] ? $property['PropertyPaymentInformation']['rent_price'] : "--"; ?></td>
+            <td class="right"><?php echo $property['PropertyPaymentInformation']['sale_price'] ? $property['PropertyPaymentInformation']['sale_price'] : "--"; ?></td>            
             <td><?php echo $this->Html->link('editar', array('controller' => 'property', 'action' => 'add', $property['Property']['id'])); ?>
             <td>
                 <?php echo $this->Form->postLink(

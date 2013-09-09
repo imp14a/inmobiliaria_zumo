@@ -306,10 +306,16 @@ table tr:nth-child(even) td {
 	border-color: #666666;
 	background-color: #ffffff;
 }
+td.right{
+	text-align: right;
+}
+td.center{
+	text-align: center;
+}
 table tr:nth-child(odd) td {
 	border-width: 1px;
 	padding: 8px;
 	border-style: solid;
 	border-color: #666666;
-	background-color: #ffffbb;
+	background-color: #FFFFF0;
 }
