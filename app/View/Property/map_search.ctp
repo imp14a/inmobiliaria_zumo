@@ -42,7 +42,6 @@ function codeAddress() {
 
     var zoom =  6;
     if($('PropertySearchMunicipality').value!=''){
-        console.log("entro");
       zoom +=6;
     }
     //aplicamoz zoom
@@ -107,32 +106,34 @@ function findNerbyProperties(){
                     $(obj).each(function(e){
                         position = new google.maps.LatLng(Number(e.Property.latitude),
                                                           Number(e.Property.longitude));
-                        console.log(e);
-                        console.log(position);
                         var marker = new google.maps.Marker({
                             map: map,
                             position: position,
                             animation: google.maps.Animation.DROP
                         });
 
-                        rent = e.Property.available_for_rent?'Renta '+e.PropertyPaymentInformation.rent_price:'';
-                        sell = e.Property.available_for_sell?'Venta '+e.PropertyPaymentInformation.sale_price:'';
-                        contector = (rent && sell)?' ,<br />':''; 
+                        rent_price = formatNumer(e.PropertyPaymentInformation.rent_price);
+                        sell_price = formatNumer(e.PropertyPaymentInformation.sale_price);
 
+                        rent = e.Property.available_for_rent?'Renta $ ' + rent_price:'';
+                        sell = e.Property.available_for_sell?'Venta $ ' + sell_price:'';
+                        
+                        contector = (rent!='' && sell!='')?' ,<br />':''; 
                         var infoStrin = e.PropertyDescription.type+',  '+rent+contector+sell+
-
                         '<br />'+e.PropertyDescription.square_meters_of_construction+' m<sup>2</sup> of contruction';
 
                         linkMoreInfo = "<a href='"+
                         "<?php echo $this->Html->url(array( "controller" => "property","action" => "view"));?>/"+
-                        e.Property.id+"'>+info</a>  ";
+                        e.Property.id+"' style='font-family: HouschkaPro-Medium; font-style: italic; text-decoration: none;'>+ info</a>  ";
 
                         var contentString = 
                             '<div id="marker_content" style="margin:0;padding: 10px;padding-bottom: 0;">'+
                                 '<div id="siteNotice">'+'</div>'+
-                                '<span class="firstHeading">'+e.Property.name+'</span>'+
+                                '<span style="font-family: HouschkaPro-DemiBold;font-size: 16px;">'
+                                    +e.Property.name+
+                                '</span>'+
                                 '<div id="bodyContent">'+
-                                    '<p>'+infoStrin+'</p>'
+                                    '<p style="font-family: HouschkaPro-Medium;">'+infoStrin+'</p>'
                                     +linkMoreInfo+
                                 '</div>'+
                             '</div>';
@@ -161,6 +162,11 @@ function findNerbyProperties(){
                 }
             }
         );
+
+    function formatNumer(c){
+        var n = Number(c);
+       return n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+    }
 }
 
 </script>

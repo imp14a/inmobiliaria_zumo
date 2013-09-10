@@ -322,6 +322,7 @@ table tr:nth-child(odd) td {
 
 .zumoTabs{
 	margin-top: 20px;
+	
 }
 .zumoTabs .tabs{
 	
@@ -345,6 +346,8 @@ table tr:nth-child(odd) td {
 
 .zumoTabs .tabContent{
 	margin-top: 20px;
+	margin-bottom: 50px;
 	border: 1px solid black;
-	background-color: #FFFFF0;
+	text-align: left;
+
 }

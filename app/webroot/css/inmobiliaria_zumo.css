@@ -60,7 +60,6 @@ body{
 	width: 74%;
 	margin-left: 13%;
 	margin-right: 13%;
-	height: 50px;
 	margin-top: 120px;
 }
 
@@ -111,7 +110,7 @@ body{
 
 .navigationbar{
 	margin-top: 80px;
-	width: 8%;
+	width: 10%;
 }
 
 .leftbar{

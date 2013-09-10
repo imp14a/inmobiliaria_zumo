@@ -76,12 +76,14 @@
 			<span id="imageIndex">1</span> | <span id="totalImages"><?php echo count($property['PropertyImage']); ?></span>
 	    </div>
 	</div>
-	<div id="property_images">
-		<div id="carousel-content">
-	    	<?php foreach($property['PropertyImage'] as $image):?>
-	        <div class="slide"><img style="width: 100%; height: 100%;" src="<?php echo $image['image']; ?>" alt="img"></div>
-	    	<?php endforeach;?>
-	    </div>
+	<div style="text-align:center; display:inline-block; width:100%;">
+		<div id="property_images" style="width: 100%;">
+			<div id="carousel-content">
+		    	<?php foreach($property['PropertyImage'] as $image):?>
+		        <div class="slide"><img style="width: 100%; height: 100%;" src="<?php echo $image['image']; ?>" alt="img"></div>
+		    	<?php endforeach;?>
+		    </div>
+		</div>
 	</div>
 	<div class="zumoTabs" id="zumoTabs">
 		<div class="tabs">
@@ -191,8 +193,14 @@
 			asdfadfjklhasdlf
 		</div>
 	</div>
-
 	<script>
+
+		imageProportion = 0.5625;
+
+		h = $('property_images').getWidth() * imageProportion;
+
+		$('property_images').setStyle();
+
 		new Carousel('property_images', $$('#carousel-content .slide'), $$('a.carousel-control'),{wheel:false});
 		var imagePage = 1;
 		var totalPages = Number($('totalImages').innerHTML);
