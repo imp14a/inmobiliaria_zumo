@@ -103,7 +103,7 @@ function setAdder(adder, model){
                 top: new Element('a',{
                     href: "#",
                     class: "dropbox-dropin-btn dropbox-dropin-default"                
-                }).setStyle({position: 'relative', top: '-30px'})
+                }).setStyle({position: 'absolute', top: '0px', width: '121px', 'font-weight': '100'})
                 .observe('click', function(){
                     var options = {
                         success: function(files) {                            
