@@ -9,13 +9,13 @@
 
 
 ?>
-    <style>
-      #map-canvas {
-        margin: 0;
-        padding: 0;
-        height: 400px;
-      }
-    </style>
+<style>
+#map-canvas {
+    margin: 0;
+    padding: 0;
+    height: 400px;
+}
+</style>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 <script>
 // Enable the visual refresh
@@ -44,7 +44,6 @@ function codeAddress() {
     if($('PropertySearchMunicipality').value!=''){
       zoom +=6;
     }
-    //aplicamoz zoom
     geocoder.geocode( { 'address': address}, function(results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
             map.setCenter(results[0].geometry.location);
@@ -59,19 +58,24 @@ function codeAddress() {
   <p class="semititle">Ubicaci&oacute;n</p>
        <div class="input_select" style='width:260px;'>
             <label>Estado</label>
-            <?php echo $this->Form->select('PropertySearch.state', $states,array('class' => 'selectZumo')); ?>
+              <div class="selectZumo">
+                <label for="PropertySearchState"></label>
+                <?php echo $this->Form->select('PropertySearch.state', $states,array('div' => false)); ?>
+            </div>
         </div>
         <div class="input_select" style='width:260px;'>
             <label>Delegaci&oacute;n o Municipio</label>
-            <?php $options = array();
-                echo $this->Form->select('PropertySearch.municipality', $options,array('class' => 'selectZumo'));
-            ?>
+              <div class="selectZumo">
+                <label for="PropertySearchMunicipality"></label>
+                <?php echo $this->Form->select('PropertySearch.municipality', array(),array('div' => false)); ?>
+            </div>
         </div>
         <div class="input_select" style='width:260px;'>
             <label>Colonia</label>
-            <?php $options = array();
-                echo $this->Form->select('PropertySearch.quarter', $options,array('class' => 'selectZumo'));
-            ?>
+              <div class="selectZumo">
+                <label for="PropertySearchQuarter"></label>
+                <?php echo $this->Form->select('PropertySearch.quarter', array(),array('div' => false)); ?>
+            </div>
         </div>
   <div class="property_abalible_type">
     <p class="semititle" style="margin-top: 10px;">Tipo de Operaci&oacute;n</p>

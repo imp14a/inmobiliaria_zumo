@@ -3,7 +3,7 @@
     echo $this->Html->css('zumo_components');
 ?>
 <div class="plainContent">
-    <h1>Listado de usuarios</h3><br>   
+    <h1>Listado de Propiedades</h3><br>   
     <table>
         <tr>
             <th>Nombre</th>

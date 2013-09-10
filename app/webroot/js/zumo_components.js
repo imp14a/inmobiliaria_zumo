@@ -110,7 +110,7 @@ function setAdder(adder, model){
                             $(id_text).value = files[0].link;                            
                             $(id_text + 'imageName').value = files[0].name;
                         },
-                        linkType: "preview",
+                        linkType: "direct",
                         multiselect: false,
                         extensions: ['.bmp', '.cr2', '.gif', '.ico', '.ithmb', '.jpeg', '.jpg', '.nef', '.png', '.raw', '.svg', '.tif', '.tiff', '.wbmp', '.webp']
                     };

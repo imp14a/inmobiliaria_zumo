@@ -25,22 +25,27 @@
                 echo $this->Form->radio('PropertySearch.available_type', $options,$attributes);
             ?>
         </div>
-	   <p class="semititle">Ubicaci&oacute;n</p>
-       <div class="input_select">
+        <p class="semititle">Ubicaci&oacute;n</p>
+        <div class="input_select">
             <label>Estado</label>
-            <?php echo $this->Form->select('state', $states,array('class' => 'selectZumo')); ?>
+            <div class="selectZumo">
+                <label for="PropertySearchState"></label>
+                <?php echo $this->Form->select('state', $states, array('class' => false)); ?>
+            </div>
         </div>
         <div class="input_select">
             <label>Delegaci&oacute;n o Municipio</label>
-            <?php $options = array();
-                echo $this->Form->select('municipality', $options,array('class' => 'selectZumo'));
-            ?>
+            <div class="selectZumo">
+                <label for="PropertySearchMunicipality"></label>
+                <?php echo $this->Form->select('municipality', array(), array('div' => false)); ?>
+            </div>
         </div>
         <div class="input_select" style="margin-top: 10px;">
             <label>Colonia</label>
-            <?php $options = array();
-                echo $this->Form->select('quarter', $options,array('class' => 'selectZumo'));
-            ?>
+            <div class="selectZumo">
+                <label for="PropertySearchQuarter"></label>
+                <?php echo $this->Form->select('quarter', array(), array('div' => false)); ?>
+            </div>
         </div>
         <div class='form_line'>
             <div class="chekbox_group" id='type_checkboxes'>
