@@ -91,11 +91,43 @@ function setAdder(adder, model){
                 })
             });
         }  
+        if(model.field == 'image'){
+            subAdder.insert({
+                top: new Element('input', {
+                    type: 'hidden',
+                    name: name, 
+                    id:   id_text                    
+                })
+            });
+            subAdder.insert({
+                top: new Element('a',{
+                    href: "#",
+                    class: "dropbox-dropin-btn dropbox-dropin-default"                
+                }).setStyle({position: 'relative', top: '-30px'})
+                .observe('click', function(){
+                    var options = {
+                        success: function(files) {                            
+                            $(id_text).value = files[0].link;                            
+                            $(id_text + 'imageName').value = files[0].name;
+                        },
+                        linkType: "preview",
+                        multiselect: false,
+                        extensions: ['.bmp', '.cr2', '.gif', '.ico', '.ithmb', '.jpeg', '.jpg', '.nef', '.png', '.raw', '.svg', '.tif', '.tiff', '.wbmp', '.webp']
+                    };
+                    Dropbox.choose(options);
+                }).update("Seleccionar imagen").insert({ 
+                    top: new Element('span',{
+                        class: "dropin-btn-status"
+                    })
+                })
+            });
+        }
+        console.log(model.field);
         subAdder = subAdder.insert({
             top: new Element('input', {
                 type:           typeof model.field_type != 'undefined' ? model.field_type : 'text', 
-                name:           typeof model.child != 'undefined' ? '' : name, 
-                id:             id_text,
+                name:           typeof model.child != 'undefined' || model.field == 'image' ? '' : name, 
+                id:             model.field == 'image' ? id_text + 'imageName' : id_text,
                 placeholder:    typeof model.placeholder != 'undefined' ? model.placeholder : '', 
                 bro_id:         typeof model.parent != 'undefined' ? id_text1 : '',
                 parent_id:      typeof model.parent != 'undefined' ? model.parent.id : ''
@@ -185,14 +217,14 @@ function createNearPlace(container, newNearPlace){
             type: 'hidden',
             name: 'data[PropertyNearPlace][' + newNearPlace.number + '][latitude]',
             id: 'PropertyNearPlace' + newNearPlace.number + 'Latitude',
-            value: newNearPlace.location.ob
+            value: newNearPlace.latitude
         })
     }).insert({
         bottom: new Element('input', {
             type: 'hidden',
             name: 'data[PropertyNearPlace][' + newNearPlace.number + '][longitude]',
             id: 'PropertyNearPlace' + newNearPlace.number + 'Longitude',
-            value: newNearPlace.location.pb
+            value: newNearPlace.longitude
         })
     });
     container.insert({bottom: nearPlace});

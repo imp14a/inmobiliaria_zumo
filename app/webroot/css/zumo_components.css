@@ -28,33 +28,18 @@ div.upload {
     margin-bottom: 10px;
 }
 
-div.upload label{    
-	position: absolute;
-	cursor: pointer;
-	width: 156px;
-	text-align: center;
-	z-index: 1;
-	margin-top: -1px;
-	background: #FFCC00;
-    border: thin #000 solid;
-}
-
-div.upload label:hover{    
-    font-family: HouschkaPro-DemiBold;
-}
-
 div.upload input {  
-	position: relative;  
-    width: 355px;
-    height: 15px;
-    left: 40px;
+	position: relative;
+	width: 246px;
+	height: 15px;
+	left: 135px;
 	top: 0px;	
 }
 
 div.upload img{
 	position: relative;
 	left: 395px;
-	top: -14px;
+	top: -49px;
 	cursor: pointer;
 }
 

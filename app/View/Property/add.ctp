@@ -14,6 +14,7 @@
     width: 80%;
   }
 </style>
+<script type="text/javascript" src="https://www.dropbox.com/static/api/1/dropins.js" id="dropboxjs" data-app-key="ss5b8kwknnoyi10"></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 <script>
 // Enable the visual refresh
@@ -55,8 +56,8 @@ function placeMarker(location) {
 	    map: map
 	});
 	markersArray.push(marker);
-	markersArray[0].setMap(map);	
-	setAddress(location.ob, location.pb);
+	markersArray[0].setMap(map);
+	setAddress(location);
 }
 
 function codeAddress() {
@@ -81,13 +82,24 @@ function codeAddress() {
     });
 }
 
-function setAddress(latitude, longitude){
+function setAddress(location){
+	var latitude;
+	var longitude;
+	var i = 0;
+	for(var propertyName in location) {
+		if(i==0)
+			latitude = location[propertyName];
+		else if(i==1)
+			longitude = location[propertyName];
+		else
+			break;
+		i++;	   
+	}
 	$('PropertyLatitude').value = latitude;
 	$('PropertyLongitude').value = longitude;
 	latlng = new google.maps.LatLng(latitude, longitude, true);
 	geocoder.geocode({'location': latlng}, function(results, status){
 	if (status == google.maps.GeocoderStatus.OK) {
-			console.log(results);
 			$('PropertyAddressQuarter').value = parseInt(results[0].address_components[0].long_name, 10) > 0 ? results[0].address_components[2].long_name : results[0].address_components[1].long_name;
 			$('PropertyAddressQuarterGoogle').value = parseInt(results[0].address_components[0].long_name, 10) > 0 ? results[0].address_components[2].long_name : results[0].address_components[1].long_name;
 			$('PropertyAddressMunicipalityGoogle').value = parseInt(results[0].address_components[0].long_name, 10) > 0 ? results[0].address_components[3].long_name : results[0].address_components[2].long_name;
@@ -187,7 +199,6 @@ function setAddress(latitude, longitude){
 
 	model_images['name'] = 'PropertyImage';
 	model_images['field'] = 'image';
-	model_images['field_type'] = 'file';
 	model_images['class'] = 'upload';
 	model_images['label'] = 'Añadir imágenes';
 	setAdder($('addImages'), model_images);

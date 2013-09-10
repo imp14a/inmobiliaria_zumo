@@ -70,7 +70,20 @@ function placeMarker(location, property) {
         nearPlace['number'] = nearPlaceNumber - 65;
         nearPlace['image'] = icon;
         nearPlace['marker'] = marker;
-        nearPlace['location'] = location;
+        var i = 0;
+        var latitude;
+        var longitude;
+        for(var propertyName in location) {
+            if(i==0)
+                latitude = location[propertyName];
+            else if(i==1)
+                longitude = location[propertyName];
+            else
+                break;
+            i++;       
+        }
+        nearPlace['latitude'] = latitude;
+        nearPlace['longitude'] = longitude;
         createNearPlace($('place_container'), nearPlace);
         nearPlaceNumber++;
     }
