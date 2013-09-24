@@ -2,6 +2,7 @@
 
 App::import('Model','PostalCode');
 App::uses('AuthComponent', 'Controller/Component');
+App::uses('Folder', 'Utility');
 
 class UserController extends AppController {
 
@@ -41,7 +42,7 @@ class UserController extends AppController {
         if ($this->User->delete($id)) {
             $this->Session->setFlash('Usuario eliminado.');
             $this->redirect(array('action' => 'index'));
-        else{
+        }else{
             $this->Session->setFlash('Ha ocurrido un error, intente de nuevo.');
         }
     }
@@ -111,6 +112,10 @@ class UserController extends AppController {
         }
         return parent::isAuthorized($user);
     }*/
+
+    public function dropboxAprobal(){
+
+    }
 }
 
 ?>

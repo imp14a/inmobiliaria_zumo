@@ -151,47 +151,43 @@
                 </div>
              </div>
              <div class="line">
-                <div style="width:auto; display:inline-block;">
+                <div style="width:auto; display:inline-block; margin-right:10px;">
                     <p class="semititle">Otras &Aacute;reas</p>
-                     <div class="chekbox_group" style="width: 120px;">
-                        <?php echo $this->Form->checkbox('AdvancedSearch.Areas.Comedor',array('hiddenField' => false)); ?>
-                        <label for="AdvancedSearchAreasComedor">Comedor</label>
-                        <?php echo $this->Form->checkbox('AdvancedSearch.Areas.Cocina',array('hiddenField' => false)); ?>
-                        <label for="AdvancedSearchAreasCocina">Cocina</label>
-                        <?php echo $this->Form->checkbox('AdvancedSearch.Areas.Estancia',array('hiddenField' => false)); ?>
-                        <label for="AdvancedSearchAreasEstancia">Estancia</label>
-                        <?php echo $this->Form->checkbox('AdvancedSearch.Areas.Sala_de_TV', array('hiddenField' => false)); ?>
-                         <label for="AdvancedSearchAreasSalaDeTV">Sala de TV</label>
-                         <?php echo $this->Form->checkbox('AdvancedSearch.Areas.Cuarto_de_lavado', array('hiddenField' => false)); ?>
-                         <label for="AdvancedSearchAreasCuartoDeLavado">Cuarto de lavado</label>
-                    </div>
-                    <div class="chekbox_group" style="width: 140px;">
-                        <?php echo $this->Form->checkbox('AdvancedSearch.Areas.Cuarto_de_servicio',array('hiddenField' => false)); ?>
-                        <label for="AdvancedSearchAreasServiceCuartoDeServicio">Cuarto de servicio</label>
-                        <?php echo $this->Form->checkbox('AdvancedSearch.Areas.Estudio',array('hiddenField' => false)); ?>
-                        <label for="AdvancedSearchAreasEstudio">Estudio</label>
-                        <?php echo $this->Form->checkbox('AdvancedSearch.Areas.Terraza',array('hiddenField' => false)); ?>
-                        <label for="AdvancedSearchAreasTerraza">Terraza</label>
-                        <?php echo $this->Form->checkbox('AdvancedSearch.Areas.Gimnasio',array('hiddenField' => false)); ?>
-                        <label for="AdvancedSearchAreasGimnasio">Gimnasio</label>
-                        <?php echo $this->Form->checkbox('AdvancedSearch.Areas.Otro', array('hiddenField' => false)); ?>
-                         <label for="AdvancedSearchAreasOtro">Otro</label>
-                    </div>
+                    <?php $i=0; foreach($areas as $area):?>
+                        <?php if($i%5==0 ): $close_div = 0; ?>
+                            <div class="chekbox_group" style="width: auto;">
+                        <?php  endif;?>
+                        <?php echo $this->Form->checkbox('AdvancedSearch.Areas.'
+                            .Inflector::slug($area['PropertyArea']['area_name']),array('hiddenField' => false)); ?>
+                            <label for="AdvancedSearchAreas<?php echo Inflector::camelize(
+                                    Inflector::slug($area['PropertyArea']['area_name'])
+                                ); ?>" > <?php echo $area['PropertyArea']['area_name'];?></label>
+                        <?php if($close_div==4): ?>
+                            </div>
+                        <?php endif; $close_div++;?>
+                    <?php $i++; endforeach;?>
+                    <?php if($close_div<4): ?>
+                        </div>
+                    <?endif;?>
                 </div>
-                <div style="width:130px; display:inline-block;">
+                <div style="width:auto; display:inline-block;">
                     <p class="semititle">Servicios cercanos</p>
-                     <div class="chekbox_group" style="width: 120px;">
-                        <?php echo $this->Form->checkbox('AdvancedSearch.Services.Escuela',array('hiddenField' => false)); ?>
-                        <label for="AdvancedSearchServicesEscuela">Escuela</label>
-                        <?php echo $this->Form->checkbox('AdvancedSearch.Services.Banco',array('hiddenField' => false)); ?>
-                        <label for="AdvancedSearchServicesBanco">Banco</label>
-                        <?php echo $this->Form->checkbox('AdvancedSearch.Services.Parque',array('hiddenField' => false)); ?>
-                        <label for="AdvancedSearchServicesParque">Parque</label>
-                        <?php echo $this->Form->checkbox('AdvancedSearch.Services.Supermercado',array('hiddenField' => false)); ?>
-                        <label for="AdvancedSearchServicesSupermercado">Supermercado</label>
-                        <?php echo $this->Form->checkbox('AdvancedSearch.Services.Hospital', array('hiddenField' => false)); ?>
-                         <label for="AdvancedSearchServicesHospital">Hospital</label>
-                    </div>
+                    <?php $i=0; foreach($services as $service):?>
+                        <?php if($i%5==0 ): $close_div = 0; ?>
+                            <div class="chekbox_group" style="width: auto;">
+                        <?php  endif;?>
+                        <?php echo $this->Form->checkbox('AdvancedSearch.Areas.'
+                            .Inflector::slug($service['PropertyNearPlace']['type']),array('hiddenField' => false)); ?>
+                            <label for="AdvancedSearchAreas<?php echo Inflector::camelize(
+                                    Inflector::slug($service['PropertyNearPlace']['type'])
+                                ); ?>" > <?php echo $service['PropertyNearPlace']['type'];?></label>
+                        <?php if($close_div==4): ?>
+                            </div>
+                        <?php endif; $close_div++;?>
+                    <?php $i++; endforeach;?>
+                    <?php if($close_div<4): ?>
+                        </div>
+                    <?endif;?>
                 </div>
              </div>
         </div>

@@ -202,11 +202,10 @@
 		$('property_images').setStyle();
 
 		new Carousel('property_images', $$('#carousel-content .slide'), $$('a.carousel-control'),{wheel:false});
-		var imagePage = 1;
 		var totalPages = Number($('totalImages').innerHTML);
 		$$('.carousel-control').each(function(control){
 			$(control).observe('click',function(){
-				newValue = imagePage;
+				newValue = Number($('imageIndex').innerHTML);
 				if($(control).readAttribute('rel') == "prev")
 					newValue -= 1;
 				else

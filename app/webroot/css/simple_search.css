@@ -17,6 +17,7 @@
     width: 300px;
     display: inline-block;
     float: left;
+    margin-left: 5px;
 }
 .chekbox_group label{
     display: block;

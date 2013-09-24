@@ -1,9 +1,11 @@
 <?php
 
-App::Import('Model','PropertyAddress');
+
 App::Import('Model','Property');
-App::Import('Model','PropertyNearPlace');
+App::Import('Model','PropertyArea');
 App::Import('Model','PropertyImage');
+App::Import('Model','PropertyAddress');
+App::Import('Model','PropertyNearPlace');
 
 class PropertyController extends AppController {
 
@@ -53,6 +55,21 @@ class PropertyController extends AppController {
 		}
 		$this->set('states',$states);
 
+		$pa = new PropertyArea();
+
+		$this->set('areas',$pa->find('all',
+			array('conditions'=>array('PropertyArea.area_name !='=>''),
+				'fields'=>array('PropertyArea.area_name'),
+				'group'=> array('PropertyArea.area_name'))));
+		
+
+		$pnp = new PropertyNearPlace();
+
+		$this->set('services',$pnp->find('all',
+			array('conditions'=>array('PropertyNearPlace.type !='=>''),
+				'fields'=>array('PropertyNearPlace.type'),
+				'group'=> array('PropertyNearPlace.type'))));
+
 	}
 
 	public function map_search(){
@@ -79,6 +96,7 @@ class PropertyController extends AppController {
 		$state = isset($_REQUEST['state']) ? $_REQUEST[ 'state' ] : '';
 		$municipality = isset($_REQUEST['municipality']) ? $_REQUEST[ 'municipality' ] : '';
 		$quarter = isset($_REQUEST['quarter']) ? $_REQUEST[ 'quarter' ] : '';
+		$available_type = isset($_REQUEST['available_type']) ? $_REQUEST[ 'available_type' ] : '';
 
 		$property = new Property(); 
 
@@ -87,7 +105,12 @@ class PropertyController extends AppController {
 				'PropertyAddress.municipality' => $municipality,
 				'PropertyAddress.quarter' => $quarter)
 			);
-		// TODO poner el paginador
+
+		if($available_type == 'rent')
+			$options['conditions']['Property.available_for_rent'] = 1;
+		if($available_type == 'sell')
+			$options['conditions']['Property.available_for_sell'] = 1;
+
 		$this->set('output',$property->find('all',$options));
 		
 	}
@@ -95,7 +118,7 @@ class PropertyController extends AppController {
 	public function user_searchs(){
 		$this->layout = 'property_layout';
 		$this->set('user_searchs',true);
-		$this->set('title_for_layout','Mis Busquedas');	
+		$this->set('title_for_layout','Mis Busquedas');
 	}
 
 	public function add($id = null){

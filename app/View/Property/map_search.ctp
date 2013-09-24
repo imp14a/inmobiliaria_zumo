@@ -23,6 +23,7 @@ google.maps.visualRefresh = true;
 
 var geocoder;
 var map;
+var markers = [];
 function initialize() {
   geocoder = new google.maps.Geocoder();
     var mapOptions = {
@@ -36,6 +37,8 @@ function initialize() {
 google.maps.event.addDomListener(window, 'load', initialize);
 
 function codeAddress() {
+    
+
     var address = "Mexico, Estado de " + $('PropertySearchState').value + ',' 
                             + $('PropertySearchMunicipality').value + ',' 
                             + 'Colonia '+$('PropertySearchQuarter').value;
@@ -52,6 +55,8 @@ function codeAddress() {
             alert('Geocode was not successful for the following reason: ' + status);
         }
     });
+    if( $('PropertySearchQuarter').value == '' ) return false;
+    return true;
 }
 </script>
 <div class="plainContent">
@@ -79,10 +84,11 @@ function codeAddress() {
         </div>
   <div class="property_abalible_type">
     <p class="semititle" style="margin-top: 10px;">Tipo de Operaci&oacute;n</p>
-    <?php 
-    $options = array('buy' => 'Compra', 'rent' => 'Renta', 'both'=>'Cualquiera');
-    $attributes = array('legend' => false);
-    echo $this->Form->radio('abalible_type', $options,$attributes);
+    <?php
+    echo $this->Form->hidden('PropertySearch.abalible_type');
+    $options = array('sell' => 'Compra', 'rent' => 'Renta', 'both'=>'Cualquiera');
+    $attributes = array('legend' => false,'value'=>'both');
+    echo $this->Form->radio('PropertySearch.abalible_type', $options,$attributes);
     ?>
   </div>
   <div id="map-canvas"></div>
@@ -90,19 +96,36 @@ function codeAddress() {
 <script>
 createUbicationAjaxSelects('PropertySearchState','PropertySearchMunicipality','PropertySearchQuarter');
 
-$('PropertySearchState').observe('change',codeAddress);
-$('PropertySearchMunicipality').observe('change',codeAddress);
+$('PropertySearchState').observe('change',findNerbyProperties);
+$('PropertySearchMunicipality').observe('change',findNerbyProperties);
 $('PropertySearchQuarter').observe('change',findNerbyProperties);
 
+$('PropertySearchAbalibleTypeRent').observe('change',updateType);
+$('PropertySearchAbalibleTypeSell').observe('change',updateType);
+$('PropertySearchAbalibleTypeBoth').observe('change',updateType);
+
+function updateType(element){
+    $('PropertySearchAbalibleType').value = $(element.srcElement).value;
+    findNerbyProperties();
+}
+
+function clearMarkers(){
+    while(markers.length>0){
+        var m = markers.pop();
+        m.setMap(null);
+    }
+}
 
 function findNerbyProperties(){
-    codeAddress();
+    clearMarkers();
+    if(!codeAddress())return;
     new Ajax.Request(
             'http://wowinteractive.com.mx/inmobiliaria_zumo/index.php/Property/getPropertyByStateMunicipalityAndQuarter.json', {
                 parameters: {
                     state: $('PropertySearchState').value,
                     municipality:$('PropertySearchMunicipality').value,
-                    quarter: $('PropertySearchQuarter').value
+                    quarter: $('PropertySearchQuarter').value,
+                    available_type: $('PropertySearchAbalibleType').value
                 },
                 onSuccess: function(response) {
                     obj = response.responseJSON;
@@ -116,6 +139,8 @@ function findNerbyProperties(){
                             animation: google.maps.Animation.DROP
                         });
 
+                        markers.push(marker);
+
                         rent_price = formatNumer(e.PropertyPaymentInformation.rent_price);
                         sell_price = formatNumer(e.PropertyPaymentInformation.sale_price);
 
@@ -123,7 +148,7 @@ function findNerbyProperties(){
                         sell = e.Property.available_for_sell?'Venta $ ' + sell_price:'';
                         
                         contector = (rent!='' && sell!='')?' ,<br />':''; 
-                        var infoStrin = e.PropertyDescription.type+',  '+rent+contector+sell+
+                        var infoStrin = e.PropertyDescription.type+'<br />'+rent+contector+sell+
                         '<br />'+e.PropertyDescription.square_meters_of_construction+' m<sup>2</sup> of contruction';
 
                         linkMoreInfo = "<a href='"+
