@@ -41,7 +41,7 @@ class UserController extends AppController {
         if ($this->User->delete($id)) {
             $this->Session->setFlash('Usuario eliminado.');
             $this->redirect(array('action' => 'index'));
-        else{
+        }else{
             $this->Session->setFlash('Ha ocurrido un error, intente de nuevo.');
         }
     }
