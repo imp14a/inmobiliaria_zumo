@@ -22,6 +22,20 @@ div.slider div.range {
 
 /* Estilizacion de componentes */
 
+div.loginContent {
+	padding: 30px;
+	background: #FFCC00;
+}
+
+div.loginContent label{
+	position: relative;
+	left: 10px;
+}
+
+div.loginContent input[type=text], input[type=password]{	
+	border: none !important;
+}
+
 div.upload {
     width: 157px;
     height: 15px;   
