@@ -82,12 +82,14 @@ class UserController extends AppController {
     /**
      * Login & logout
      */
-    /*public function beforeFilter() {
+    public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->allow('add', 'register', 'login', 'logout');
+        //$this->Auth->allow('add', 'register', 'login', 'logout');
     }
 
+
     public function login() {
+        $this->layout = "modal";
         if ($this->request->is('post')) {
             if ($this->Auth->login()) {
                 return $this->redirect($this->Auth->redirectUrl());
@@ -96,6 +98,11 @@ class UserController extends AppController {
         }
     }
 
+    public function register(){
+        $this->layout = "modal";
+    }
+
+    /*
     public function logout() {
         return $this->redirect($this->Auth->logout());
     }
@@ -112,10 +119,6 @@ class UserController extends AppController {
         }
         return parent::isAuthorized($user);
     }*/
-
-    public function dropboxAprobal(){
-
-    }
 }
 
 ?>

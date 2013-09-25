@@ -4,7 +4,6 @@
 
   echo $this->Html->css('zumo_components');
   echo $this->Html->css('simple_search');
-  echo $this->Html->script('scriptaculous/scriptaculous');
   echo $this->Html->script('zumo_components');
 
 

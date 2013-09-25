@@ -36,7 +36,9 @@ $cakeDescription = __d('inmobiliaria_zumo', 'Inmobiliaria Zumo');
 		echo $this->Html->css('inmobiliaria_zumo');
 		echo $this->fetch('css');
 		echo $this->Html->script('prototype');
+		echo $this->Html->script('scriptaculous/scriptaculous');
 		echo $this->Html->script('hover_efect_buttons');
+		echo $this->Html->script('lightwindow');
 		echo $this->fetch('script');
 	?>
 </head>
@@ -100,7 +102,5 @@ $cakeDescription = __d('inmobiliaria_zumo', 'Inmobiliaria Zumo');
 	<?php echo $this->element('sql_dump'); ?>
 </body>
 <script type="text/javascript">
-	$('login').observe('click', getLogin);
-	$('register').observe('click', getUserRegister);
 </script>
 </html>

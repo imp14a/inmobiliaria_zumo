@@ -3,7 +3,6 @@
 
 	echo $this->Html->css('zumo_components');
 	echo $this->Html->css('zumo_search_results');
-	echo $this->Html->script('scriptaculous/scriptaculous');
 	echo $this->Html->script('zumo_components');
 
 ?>

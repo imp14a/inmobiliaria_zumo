@@ -22,37 +22,6 @@ div.slider div.range {
 
 /* Estilizacion de componentes */
 
-div.loginContent {
-	padding: 30px;
-	background: #FFCC00;
-	width: 180px;	
-	font-size: 9pt;
-	line-height: 1.5;
-	position: relative;
-	top: -70px;
-}
-
-div.loginContent .activeButton{	
-	background: #FFF;	
-}
-
-div.loginContent label{
-	position: relative;
-	left: 10px;
-}
-
-div.loginContent input[type=email]{
-	position: relative;
-	left: 10px;
-	border: none !important;
-	width: 160px;
-}
-
-div.loginContent input[type=text], input[type=password]{	
-	border: none !important;
-	width: 160px;
-}
-
 div.upload {
     width: 157px;
     height: 15px;   
