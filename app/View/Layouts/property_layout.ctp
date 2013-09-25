@@ -52,10 +52,10 @@ $cakeDescription = __d('inmobiliaria_zumo', 'Inmobiliaria Zumo');
 					,array('controller' => 'InmobiliariaZumo', 'action' => 'index'),
 					array('escape'=>false)); ?>
 			<div class="userGroupButtons">
-				<!-- TOOD en este caso dependera si el usuario a iniciado session -->
-				<?php echo $this->Html->link('INICIAR SESIÓN' ,array('controller' => 'User', 'action' => 'login'));?>
+				<!-- TODO en este caso dependera si el usuario a iniciado session -->
+				<?php echo $this->Html->link('INICIAR SESIÓN' ,array(/*'controller' => 'User', 'action' => 'login', */'id' => 'login'));?>
 				|
-				<?php echo $this->Html->link('REGISTRARSE' ,array('controller' => 'User', 'action' => 'register'));?>
+				<?php echo $this->Html->link('REGISTRARSE' ,array(/*'controller' => 'User', 'action' => 'register', */'id' => 'register'));?>
 			</div>
 		</div>
 		<div class="navigationbar leftbar">
@@ -116,4 +116,8 @@ $cakeDescription = __d('inmobiliaria_zumo', 'Inmobiliaria Zumo');
 	</div>
 	<?php echo $this->element('sql_dump'); ?>
 </body>
+<script type="text/javascript">
+	$('login').observe('click', getLogin);
+	$('register').observe('click', getUserRegister);
+</script>
 </html>

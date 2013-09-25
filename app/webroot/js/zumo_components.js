@@ -457,3 +457,84 @@ ZumoTabComponent.prototype = {
         $(tabOpenId).show(); 
     }
 }
+
+
+function getLogin(){
+    var content = new Element('div', {class: 'loginContent'});
+    content.insert("<h3>INICIAR SESI&Oacute;N</h3><br>"+      
+        "<form action=\"http://wowinteractive.com.mx/inmobiliaria_zumo/index.php/user/add/\" label=\"\" id=\"UserAddForm\" method=\"post\" accept-charset=\"utf-8\"><div style=\"display:none;\"><input type=\"hidden\" name=\"_method\" value=\"POST\"></div>"+   
+        "<label>Correo electrónico</label>"+
+        "<div class=\"input email\"><label for=\"UserEmail\"></label><input name=\"data[User][email]\" maxlength=\"150\" type=\"email\" id=\"UserEmail\"></div>"+
+        "<label>Contraseña (mínimo 6 cacteres)</label>"+
+        "<div class=\"input password\"><label for=\"UserPassword\"></label><input name=\"data[User][password]\" type=\"password\" id=\"UserPassword\"></div>"+       
+        "<div class=\"submit\">"+
+            "<input type=\"submit\" class=\"activeButton\" value=\"ENTRAR\">"+
+            "<input type=\"button\" id=\"closeLogin\" class=\"activeButton\" value=\"CANCELAR\">" +
+        "</div></form>");
+    $$('div.userGroupButtons')[0].insert(content);
+    $('closeLogin').observe('click', function(){
+        content.remove();
+    });
+}
+
+function getUserRegister(){
+    var content = new Element('div', {class: 'loginContent'});
+    content.insert("<h3>REGISTRARSE</h3><br>"+
+                "<p>Recibe en tu correo electrónico noticias sobre propiedades que podrían interesarte de acuerdo "+ 
+                "a los filtros de las búsquedas que guardes. Este servicio es gratuito y puede ser dado de baja cuando tú lo decidas.</p><br>"+
+                "<form action=\"http://wowinteractive.com.mx/inmobiliaria_zumo/index.php/user/add/\" label=\"\" id=\"UserAddForm\" method=\"post\" accept-charset=\"utf-8\">"+
+                "<div style=\"display:none;\">"+
+                    "<input type=\"hidden\" name=\"_method\" value=\"POST\">"+
+                "</div>"+
+                "<label>Nombre Usuario</label>"+
+                "<div class=\"input text\">"+
+                    "<label for=\"UserUsername\"></label>"+
+                    "<input name=\"data[User][username]\" maxlength=\"60\" type=\"text\" id=\"UserUsername\">"+
+                "</div>"+
+                "<label>Correo electrónico</label>"+
+                "<div class=\"input email\"><label for=\"UserEmail\"></label><input name=\"data[User][email]\" maxlength=\"150\" type=\"email\" id=\"UserEmail\"></div>"+
+                "<label>Contraseña (mínimo 6 cacteres)</label>"+
+                "<div class=\"input password\"><label for=\"UserPassword\"></label>"+
+                    "<input name=\"data[User][password]\" type=\"password\" id=\"UserPassword\">"+
+                "</div>"+
+                "<label>Confirmar Contraseña</label>"+
+                "<div class=\"input password\"><label for=\"UserPassword\"></label>"+
+                    "<input name=\"data[User][password]\" type=\"password\" id=\"UserPassword\">"+
+                "</div>"+
+                "<div class=\"submit\">"+
+                    "<input type=\"submit\" class=\"activeButton\" value=\"REGISTRARSE\">"+
+                    "<input type=\"button\" id=\"closeLogin\" class=\"activeButton\" value=\"CANCELAR\">" +
+                "</div>"+
+            "</form>");
+    $$('div.userGroupButtons')[0].insert(content);
+    $('closeLogin').observe('click', function(){
+        content.remove();
+    });
+}
+
+/*
+
+        <form action="/inmobiliaria_zumo/index.php/user/add/" label="" id="UserAddForm" method="post" accept-charset="utf-8">
+            <div style="display:none;">
+                <input type="hidden" name="_method" value="POST">
+            </div>       
+            <label>Nombre Usuario</label>
+            <div class="input text">
+                <label for="UserUsername"></label>
+                <input name="data[User][username]" maxlength="60" type="text" id="UserUsername">
+            </div>        
+            <label>Correo electrónico</label>
+            <div class="input email"><label for="UserEmail"></label><input name="data[User][email]" maxlength="150" type="email" id="UserEmail"></div>              
+            <label>Contraseña (mínimo 6 cacteres)</label>
+            <div class="input password"><label for="UserPassword"></label>
+                <input name="data[User][password]" type="password" id="UserPassword">
+            </div>
+            <label>Confirmar Contraseña</label>
+            <div class="input password"><label for="UserPassword"></label>
+                <input name="data[User][password]" type="password" id="UserPassword">
+            </div>
+            <div class="submit">
+                <input type="submit" value="REGISTRARSE">
+            </div>
+        </form>
+*/
