@@ -13,7 +13,7 @@
 
 </style>
 
-<div class="plainContent">
+<div class="plainContent" style="margin-left:10%; margin-left:0;">
 
     <?php echo $this->Form->create('PropertySearch',array( 'url' =>array('controller'=>'Property','action'=>'searchResult'))); ?>
         <p class="semititle">Operaci&oacute;n</p>
@@ -175,9 +175,9 @@
                         <?php if($i%5==0 ): $close_div = 0; ?>
                             <div class="chekbox_group" style="width: auto;">
                         <?php  endif;?>
-                        <?php echo $this->Form->checkbox('AdvancedSearch.Areas.'
+                        <?php echo $this->Form->checkbox('AdvancedSearch.Services.'
                             .Inflector::slug($service['PropertyNearPlace']['type']),array('hiddenField' => false)); ?>
-                            <label for="AdvancedSearchAreas<?php echo Inflector::camelize(
+                            <label for="AdvancedSearchServices<?php echo Inflector::camelize(
                                     Inflector::slug($service['PropertyNearPlace']['type'])
                                 ); ?>" > <?php echo $service['PropertyNearPlace']['type'];?></label>
                         <?php if($close_div==4): ?>

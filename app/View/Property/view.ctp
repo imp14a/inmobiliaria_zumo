@@ -9,24 +9,6 @@
 
 ?>
 <style>
-.paginator{
-	display: block;
-}
-.paginator .pagesInfo{
-	float: right;
-}
-.paginator .pagesControl{
-	float: right;
-	margin-left: 10px;
-	width: 30px;
-	display: block;
-}
-.paginator .pagesControl a{
-	text-decoration:none;
-}
-.paginator .pagesControl a:hover{
-	font-weight: bold;
-}
 #property_images {
     width: 670px;
     height: 400px;
@@ -43,20 +25,19 @@
 /**
  *  View property CSS 
  */
-.nformationLine{
+.informationLine{
 	margin-top: 5px;
 }
 
 .informationCell{
 	display: inline-block;
-	width: 50px;
 	margin-left: 20px;
 }
 .informationCell label{
 	display: block;
 }
 .informationCell span{
-	font-weight: bold;
+	font-family: HouschkaPro-Bold;
 }
 .informationSeparator{
 	width: 30px;
@@ -94,8 +75,8 @@
 			 <a for="property_plane" class="tab" href="javascript:void(0);">PLANTA ARQUITECTONICA</a>
 		</div>
 		<div class="tabContent" id="property_information">
-			<span >INFORMACI&Oacute;N</span>
-			<div clas="informationLine">
+			<span style="margin-left:30px; ">INFORMACI&Oacute;N</span>
+			<div class="informationLine">
 				<?php if($property['Property']['available_for_rent']): ?>
 					<div class="informationCell">
 						<label>Renta</label>
@@ -120,14 +101,14 @@
 					<span> <?php echo $property['PropertyAddress']['street'].', '.$property['PropertyAddress']['exterior_number']; ?></span>
 				</div>
 			</div>
-			<div clas="informationLine">
+			<div class="informationLine">
 				<div class="informationCell" style="width: 350px;">
 					<label>Estado, Delegacion o Municipio, Colonia</label>
 					<span> <?php echo $property['PropertyAddress']['state'].', '.
 					$property['PropertyAddress']['municipality'].', '.$property['PropertyAddress']['quarter']; ?></span>
 				</div>
 			</div>
-			<div clas="informationLine">
+			<div class="informationLine">
 				<div class="informationCell" style="width: 80px;">
 					<label>Tipo</label>
 					<span> <?php echo $property['PropertyDescription']['type']; ?></span>
@@ -137,7 +118,7 @@
 					<span> <?php echo $property['PropertyDescription']['antiquity']; ?></span>
 				</div>
 			</div>
-			<div clas="informationLine">
+			<div class="informationLine">
 				<div class="informationCell">
 					<label>Recamaras</label>
 					<span> <?php echo $property['PropertyDescription']['number_of_rooms']; ?></span>
@@ -151,7 +132,7 @@
 					<span> <?php echo $property['PropertyDescription']['number_of_parkings']; ?></span>
 				</div>
 			</div>
-			<div clas="informationLine">
+			<div class="informationLine">
 				<div class="informationCell" style="width: 80px;">
 					<label>m<sup>2</sup> contrucci&oacute;n</label>
 					<span> <?php echo $property['PropertyDescription']['square_meters_of_construction']; ?></span>
@@ -165,7 +146,7 @@
 					<span> <?php echo $property['PropertyDescription']['number_of_levels']; ?></span>
 				</div>
 			</div>
-			<div clas="informationLine">
+			<div class="informationLine">
 				<div class="informationCell" style="width: 80px;">
 					<label>Otras Areas</label>
 					<!-- TODO dividir las areas en tres por tres -->
@@ -175,7 +156,7 @@
 				</div>
 			</div>
 			<div class="informationSeparator"></div>
-			<div clas="informationLine">
+			<div class="informationLine">
 				<!-- TODO Organizar categoria -->
 				<?php foreach($property['PropertyInformation'] as $information):?>
 				<div class="informationCell" style="width: 80px;">

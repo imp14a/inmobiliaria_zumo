@@ -158,13 +158,13 @@ input[type=submit]:hover{
 }
 
 .selectZumo {
-    width: 240px;
+    width: 230px;
     height: 15px;
     overflow: hidden;
     background: url(img/show_options.png) no-repeat right;
     border: 1px solid #000;
     background-position-y: -1px;
-	background-position-x: 223px;
+	background-position-x: 213px;
 	margin-left: 10px;
 	margin-bottom: 10px;
 }
@@ -333,7 +333,9 @@ table tr:nth-child(odd) td {
 .zumoTabs .tabContent{
 	margin-top: 20px;
 	margin-bottom: 50px;
+	padding-top: 15px;
 	border: 1px solid black;
 	text-align: left;
+	font-family: HouschkaPro-Medium;
 
 }

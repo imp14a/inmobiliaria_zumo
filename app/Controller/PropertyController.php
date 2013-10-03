@@ -15,7 +15,8 @@ class PropertyController extends AppController {
         'limit' => 9,
         'order' => array(
             'Property.name' => 'asc'
-        )
+        ),
+        'recursive'=>2
     );
 
 	public function index(){
@@ -263,15 +264,50 @@ class PropertyController extends AppController {
 				$options['PropertyDescription.number_of_levels  >='] = $this->data['AdvancedSearch']['levels_number'];
 				$options['PropertyDescription.square_meters_of_construction >='] = $this->data['AdvancedSearch']['contruction_meters'];
 				/**
-				  TODO terminar la busqueda avanzada
+				  TODO probar de todo!
 				 */
-    		}
+				if(count($this->data['AdvancedSearch']['Areas'])>0){
+					$areas = array();
+					foreach($this->data['AdvancedSearch']['Areas'] as $area=>$selected){
+						array_push($areas, $area);
+					}
+					$this->paginate['joins'][0]=array('table' => 'property_areas',
+										        'alias' => 'PropertyArea',
+										        'type' => 'INNER',
+										        'conditions' => array(
+										            'Property.id = PropertyArea.property_id'
+										         )
+										  );
+					$this->paginate['group'] = array('Property.id');
+					//$this->Paginator->settings = $paginate;
+					$options['PropertyArea.area_name'] = $areas ;
+				}
+				if(count($this->data['AdvancedSearch']['Services'])>0){
+					$services = array();
+					foreach($this->data['AdvancedSearch']['Services'] as $service=>$selected){
+						array_push($services, $service);
+					}
+					$this->paginate['joins'][1]=array('table' => 'property_near_places',
+										        'alias' => 'PropertyNearPlace',
+										        'type' => 'INNER',
+										        'conditions' => array(
+										            'Property.id = PropertyArea.property_id'
+										         )
+										  );
+					$options['PropertyNearPlace.type'] = $services;
+					
+				}
 
-    		$this->set('found_properties', $data = $this->paginate('Property', $options));
-    	}else{
-    		$this->redirect(array('action' => 'simple_search'));
-    	}
-    }
+				//prepare array
+				/*debug($this->data);
+				die();*/
+			}
+			$this->Property->recursive = 2;
+			$this->set('found_properties', $this->paginate('Property', $options));
+		}else{
+			$this->redirect(array('action' => 'simple_search'));
+		}
+	}
 
 }
 
