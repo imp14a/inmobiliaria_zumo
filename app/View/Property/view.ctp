@@ -3,12 +3,17 @@
 
 	echo $this->Html->css('zumo_components');
 	echo $this->Html->css('zumo_property_view');
-	echo $this->Html->script('scriptaculous/scriptaculous');
 	echo $this->Html->script('zumo_components');
 	echo $this->Html->script('carousel');
 
 ?>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 <style>
+#map-canvas {
+    margin: 0;
+    padding: 0;
+    height: 400px;
+}
 #property_images {
     width: 670px;
     height: 400px;
@@ -147,28 +152,43 @@
 				</div>
 			</div>
 			<div class="informationLine">
-				<div class="informationCell" style="width: 80px;">
-					<label>Otras Areas</label>
-					<!-- TODO dividir las areas en tres por tres -->
-					<?php foreach($property['PropertyArea'] as $area):?>
-						<span> <?php echo $area['area_name']; ?></span>
-					<?php endforeach;?>
-				</div>
+				<label style="display:block;margin-left: 20px;">Otras Areas</label>
+				<?php $i=1; foreach($property['PropertyArea'] as $area): ?>
+					<?php if( $i==1 ): ?>
+						<div class="informationCell" style="width: 50px; float:left;">
+					<?php endif;?>
+					<span> <?php echo $area['area_name']; ?></span>
+					<?php if ($i==3): ?>
+						</div>
+					<?php $i=0; endif;?>
+				<?php $i++; endforeach;?>
+				<?php if($i<3): ?>
+					</div>
+				<?php endif;?>
 			</div>
-			<div class="informationSeparator"></div>
-			<div class="informationLine">
-				<!-- TODO Organizar categoria -->
-				<?php foreach($property['PropertyInformation'] as $information):?>
+			<div class="informationSeparator" style="clear:left;"></div>
+			<div class="informationLine" >
+				<?php foreach($property['PropertyInformation'] as $category=>$elements):?>
 				<div class="informationCell" style="width: 80px;">
-					<label><?php echo $information['category']; ?></label>
-					
-					<span> <?php echo $information['name']; ?></span>
+					<label><?php echo $category; ?></label>
+					<?php foreach($elements as $element): ?>
+						<span> <?php echo $element['name']; ?></span>
+					<?php endforeach; ?>
 				</div>
 				<?php endforeach;?>
 			</div>
 		</div>
 		<div class="tabContent" id="property_nearby">
-			asdfjkasdfkashd
+			¿QU&Eacute; HAY CERCA? <span class="expandInfo">1 km a la redonda</span>
+			<div id="property_location" lat="<?php echo $property['Property']['latitude']; ?>" 
+				lon="<?php echo $property['Property']['longitude']; ?>" style="display:none;" />
+			<div id="nearPlaces">
+				<div class="category" name="">
+					<div >
+				</div>
+			</div>			
+			<?php debug($property);  ?>
+			<div id="map-canvas"></div>
 		</div>
 		<div class="tabContent" id="property_plane">
 			asdfadfjklhasdlf
@@ -200,5 +220,46 @@
 		});
 
 		new ZumoTabComponent('zumoTabs');
-	</script>
+
+// Enable the visual refresh
+google.maps.visualRefresh = true;
+
+var geocoder;
+var map;
+var markers = [];
+function initialize() {
+  geocoder = new google.maps.Geocoder();
+    var mapOptions = {
+        zoom: 5,
+        center: new google.maps.LatLng(22.913,-101.929),
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+function codeAddress() {
+    
+
+    var address = "Mexico, Estado de " + $('PropertySearchState').value + ',' 
+                            + $('PropertySearchMunicipality').value + ',' 
+                            + 'Colonia '+$('PropertySearchQuarter').value;
+
+    var zoom =  6;
+    if($('PropertySearchMunicipality').value!=''){
+      zoom +=6;
+    }
+    geocoder.geocode( { 'address': address}, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            map.setCenter(results[0].geometry.location);
+            map.setZoom(zoom);
+        } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+        }
+    });
+    if( $('PropertySearchQuarter').value == '' ) return false;
+    return true;
+}
+</script>
 </div>

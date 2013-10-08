@@ -204,7 +204,7 @@ class PropertyController extends AppController {
 		$this->set('property_fist_image',$this->Property->findById($id));
 		
 		$pi = new PropertyImage();
-		
+
 		$this->set('property',$this->Property->findById($id));
 		
     }

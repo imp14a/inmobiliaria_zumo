@@ -9,11 +9,7 @@
 
 ?>
 <style>
-#map-canvas {
-    margin: 0;
-    padding: 0;
-    height: 400px;
-}
+
 </style>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 <script>
