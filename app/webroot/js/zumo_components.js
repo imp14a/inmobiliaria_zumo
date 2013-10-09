@@ -238,25 +238,6 @@ function createNearPlace(container, newNearPlace){
     });
 }
 
-function createExpandElement(button,expandElement,show,expandEvent){
-    $(button).observe('click',function(event){
-        if($(this).hasClassName('active')){
-            $(this).removeClassName('active');
-            Effect.SlideUp(expandElement);
-            event.expanded = false;
-        }else{
-            $(this).addClassName('active');
-            Effect.SlideDown(expandElement);
-            event.expanded = true;
-        }
-        expandEvent(event);
-    });
-
-    if(!show){
-        $(expandElement).hide();
-    }
-}
-
 var ZumoCompleter = Class.create(Ajax.Autocompleter, {
 
     initialize: function($super, id_search, id_list, url, options) {
@@ -455,5 +436,29 @@ ZumoTabComponent.prototype = {
             $(tab).hide();
         });
         $(tabOpenId).show(); 
+    }
+}
+
+ZumoExpander = Class.create();
+ZumoExpander.prototype = {
+    initialize:function(trigger,expandElement,show,expandEvent){
+
+        $(trigger).observe('click',function(event){
+            if($(this).hasClassName('active')){
+                $(this).removeClassName('active');
+                Effect.SlideUp(expandElement,{ duration: 0.5 });
+                event.expanded = false;
+            }else{
+                $(this).addClassName('active');
+                Effect.SlideDown(expandElement,{ duration: 0.5 });
+                event.expanded = true;
+            }
+            if(typeof expandEvent!='undefined')
+                expandEvent(event);
+        });
+
+        if(!show){
+            $(expandElement).hide();
+        }
     }
 }

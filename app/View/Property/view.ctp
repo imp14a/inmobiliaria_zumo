@@ -8,11 +8,94 @@
 
 ?>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+<script>
+google.maps.visualRefresh = true;
+
+
+var map;
+var markers = [];
+
+
+function initialize() {
+
+	latitude = $('property_location').readAttribute('lat');
+	longitude = $('property_location').readAttribute('lon');
+	position = new google.maps.LatLng(Number(latitude),Number(longitude));
+    var mapOptions = {
+        zoom: 14,
+        center: position,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+	
+    map.setCenter(position);
+
+    var urlIconColor ="http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|FEEE69";
+    
+	var pinImage = new google.maps.MarkerImage(urlIconColor,
+        new google.maps.Size(21, 34),
+        new google.maps.Point(0,0),
+        new google.maps.Point(10, 34)
+        );
+    var marker = new google.maps.Marker({
+        map: map,
+        position: position,
+        icon: pinImage,
+        animation: google.maps.Animation.DROP
+    });
+
+    markers.push(marker);
+
+
+    $$('.NearPlace').each(function(element,index){
+
+    	var let='ABCDEFGHIJKLMNOPQRSTUVWXYZ'.charAt(index);
+    	var urlIconletter ="http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld="+let+"|FE7569|000000";
+
+    	placeLat = $(element).readAttribute('lat');
+    	placeLon = $(element).readAttribute('lon');
+    	placePosition = new google.maps.LatLng(Number(placeLat),Number(placeLon));
+
+    	var pinImage = new google.maps.MarkerImage(urlIconletter,
+    		new google.maps.Size(21, 34),
+	        new google.maps.Point(0,0),
+	        new google.maps.Point(10, 34)
+	        );
+	    var marker = new google.maps.Marker({
+	        map: map,
+	        position: placePosition,
+	        icon: pinImage,
+	        animation: google.maps.Animation.DROP
+	    });
+	    $(element).select('.markerIcon').each(function(element){
+	    	$(element).setAttribute('src',urlIconletter);
+	    })
+
+	    /*setStyle({
+	    	'background-image':urlIconletter,
+	    	'background-repeat':'no-repeat',
+	    	'padding-left':'25px'}
+	    );*/
+
+	    markers.push(marker);
+    });
+
+}
+
+
+
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+
+
+</script>
 <style>
 #map-canvas {
     margin: 0;
     padding: 0;
     height: 400px;
+    margin-bottom: 20px;
 }
 #property_images {
     width: 670px;
@@ -50,6 +133,26 @@
 	height: 5px;
 	border-bottom: 2px solid black;
 	margin-left: 15px;
+}
+.NearPlace{
+	margin-top: 5px;
+	display: inline-block;
+	line-height: 32px;
+	width: auto;
+	margin-left: 10px;
+	font-family: HouschkaPro-Bold;
+}
+.NearPlace img{
+	float: left;
+	margin-right: 5px;
+	height: 30px;
+	margin-bottom: 5px;
+}
+.PlacesCategory{
+	width: 28%;
+	display: inline-block;
+	margin-left: 2%;
+	float: left;
 }
 </style>
 <div class="plainContent" style="padding-top:0;">
@@ -181,14 +284,24 @@
 		<div class="tabContent" id="property_nearby">
 			¿QU&Eacute; HAY CERCA? <span class="expandInfo">1 km a la redonda</span>
 			<div id="property_location" lat="<?php echo $property['Property']['latitude']; ?>" 
-				lon="<?php echo $property['Property']['longitude']; ?>" style="display:none;" />
-			<div id="nearPlaces">
-				<div class="category" name="">
-					<div >
-				</div>
-			</div>			
-			<?php debug($property);  ?>
+				lon="<?php echo $property['Property']['longitude']; ?>" style="display:none;" ></div>
 			<div id="map-canvas"></div>
+			<div id="nearPlaces">
+				<?php foreach($property['PropertyNearPlace'] as $name=>$category): ?>
+					<div class="PlacesCategory">
+						<a id="<?php echo Inflector::camelize( Inflector::slug($name) ); ?>" 
+							class="expandButton" href="javascript:void(0);"><?php echo $name; ?> </a>
+						<div class="expandCategory" id="expander<?php echo Inflector::camelize( Inflector::slug($name) ); ?>">
+							<?php foreach($category as $place):?>
+								<span class="NearPlace" lat="<?php echo $place['latitude']; ?>" lon="<?php echo $place['longitude']; ?>">
+									<img alr="let" class="markerIcon" src="" /><?php echo $place['name']; ?>
+								</span>
+							<?php endforeach;?>
+						</div>
+					</div>
+				<?php endforeach;?>
+			</div>
+			<div style="clear:left"></div>
 		</div>
 		<div class="tabContent" id="property_plane">
 			asdfadfjklhasdlf
@@ -221,45 +334,10 @@
 
 		new ZumoTabComponent('zumoTabs');
 
-// Enable the visual refresh
-google.maps.visualRefresh = true;
+		$$('.expandButton').each(function(element){
+			new ZumoExpander(element,"expander"+element.id);
+		});
 
-var geocoder;
-var map;
-var markers = [];
-function initialize() {
-  geocoder = new google.maps.Geocoder();
-    var mapOptions = {
-        zoom: 5,
-        center: new google.maps.LatLng(22.913,-101.929),
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-    map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-}
 
-google.maps.event.addDomListener(window, 'load', initialize);
-
-function codeAddress() {
-    
-
-    var address = "Mexico, Estado de " + $('PropertySearchState').value + ',' 
-                            + $('PropertySearchMunicipality').value + ',' 
-                            + 'Colonia '+$('PropertySearchQuarter').value;
-
-    var zoom =  6;
-    if($('PropertySearchMunicipality').value!=''){
-      zoom +=6;
-    }
-    geocoder.geocode( { 'address': address}, function(results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
-            map.setCenter(results[0].geometry.location);
-            map.setZoom(zoom);
-        } else {
-            alert('Geocode was not successful for the following reason: ' + status);
-        }
-    });
-    if( $('PropertySearchQuarter').value == '' ) return false;
-    return true;
-}
-</script>
+	</script>
 </div>

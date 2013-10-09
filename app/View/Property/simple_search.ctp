@@ -219,7 +219,7 @@ $$('.spiner').each(function(spiner){
     new ZumoSpiner(spiner);
 });
 
-createExpandElement('advancedSearch','expandElements',false,function(event){
+new ZumoExpander('advancedSearch','expandElements',false,function(event){
    $('AdvancedSearchOn').value = event.expanded;
 });
 
