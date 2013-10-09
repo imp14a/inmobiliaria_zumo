@@ -51,6 +51,7 @@ $cakeDescription = __d('inmobiliaria_zumo', 'Inmobiliaria Zumo');
 					array('escape'=>false)); ?>
 			<div class="userGroupButtons">
 			<!-- TODO en este caso dependera si el usuario a iniciado session -->
+			<?php echo $session;//$session->read('Auth.User'); ?> <!--devuelve el registro completo del usuario-->
 			<?php echo $this->Html->link('INICIAR SESIÓN' ,array('controller' => 'User', 'action' => 'login'),
 				array('id'=>"login",'class'=>"lightwindow", 'title'=>"Login","params"=>
 				"lightwindow_width=290,lightwindow_height=200,lightwindow_type=page,lightwindow_iframe_embed=true"));?>

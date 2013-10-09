@@ -4,6 +4,24 @@ class User extends AppModel {
 
 	public $name = 'User';
 
+    public $validate = array(
+        'password' => array(
+            'length' => array(                              
+                'rule' => array('minLength', 6),
+                'message' => 'Debe ingresar por lo menos 6 caracteres.',
+            ),
+            'passwordequal'  => array(
+                'rule' => 'checkpasswords',
+                'message' => 'Las contraseñas no coinciden.'
+            )
+        )
+    );
+
+    public function checkpasswords()
+    {
+        return strcmp($this->data['User']['password'],$this->data['User']['password_confirm']) == 0;
+    }
+
 	public $hasMany = array(
         'SearchSaved' => array(
             'className' => 'SearchSavedByUser',

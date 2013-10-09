@@ -100,6 +100,19 @@ class UserController extends AppController {
 
     public function register(){
         $this->layout = "modal";
+        if (!empty($this->request->data)) {
+            if (isset($this->request->data['User']['password'])) {
+                //$this->request->data['User']['password'] = AuthComponent::password($this->request->data['User']['password']);
+            }       
+            if($this->User->saveAll($this->request->data, array('validate'=>'first'))){
+                $this->Auth->login($this->data);
+                $this->redirect($this->referer());
+            }else{
+                //TODO: Mostrar errores
+                $this->Session->setFlash(__('Ha ocurrido en error, intente de nuevo.'));
+            } 
+        }
+        var_dump($this->Auth);
     }
 
     /*

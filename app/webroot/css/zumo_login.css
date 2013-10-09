@@ -1,11 +1,11 @@
 div.loginContent {
 	padding: 30px;
 	background: #FFCC00;
-	width: 180px;	
 	font-size: 9pt;
 	line-height: 1.5;
 	width: 230px;
 	position: relative;
+	margin: 0 auto;
 }
 
 div.loginContent .activeButton{	
@@ -22,9 +22,11 @@ div.loginContent input[type=email]{
 	left: 10px;
 	border: none !important;
 	width: 160px;
+	height: 15px;
 }
 
 div.loginContent input[type=text], input[type=password]{	
 	border: none !important;
 	width: 160px;
+	height: 15px;
 }

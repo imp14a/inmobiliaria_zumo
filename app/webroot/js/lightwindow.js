@@ -161,7 +161,7 @@ lightwindow.prototype = {
 							'<div id="lightwindow_title_bar" >'+
 								'<div id="lightwindow_title_bar_inner" >'+
 									'<span id="lightwindow_title_bar_title"></span>'+
-									'<a id="lightwindow_title_bar_close_link" >close</a>'+
+									'<a id="lightwindow_title_bar_close_link" >Cerrar</a>'+
 								'</div>'+
 							'</div>'+
 							'<div id="lightwindow_stage" >'+
@@ -1470,7 +1470,7 @@ lightwindow.prototype = {
 		}
 				
 		if (this.element.title != 'null') {		
-			$('lightwindow_title_bar_title').innerHTML = this.element.title;
+			$('lightwindow_title_bar_title').innerHTML = ''; //this.element.title;
 		} else {
 			$('lightwindow_title_bar_title').innerHTML = '';
 		}
