@@ -189,10 +189,11 @@ class PropertyController extends AppController {
         }
 	}
 
-	/*public function beforeFilter() {
+	public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->allow('add', 'simple_search', 'map_search');
-    }*/
+        //$this->Auth->allow('simple_search', 'map_search');
+        //$this->Auth->deny('index');
+    }
 
     public function view($id = null){
     	$this->layout = 'property_layout';
