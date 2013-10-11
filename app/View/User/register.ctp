@@ -7,25 +7,25 @@
 
 <div class="loginContent">
     <h3>REGISTRARSE</h3>
-    <p>Recibe en tu correo electrónico noticias sobre propiedades que podrían interesarte de acuerdo  a los filtros de las búsquedas que guardes. Este servicio es gratuito y puede ser dado de baja cuando tú lo decidas.</p>
+    <p>Recibe en tu correo electr&oacute;nico noticias sobre propiedades que podr&iacute;an interesarte de acuerdo  a los filtros de las b&uacute;squedas que guardes. Este servicio es gratuito y puede ser dado de baja cuando t&uacute; lo decidas.</p>
 
     <?php echo $this->Form->create('User');?>
-        <label>Nombre Usuario</label>
+        <label>Nombre usuario</label>
         <div class="input text">
             <?php echo $this->Form->input('username',array('label'=>false)); ?>
         </div>
-        <label>Correo electrónico</label>
+        <label>Correo electr&oacute;nico</label>
         <div class="input email">
             <?php echo $this->Form->input('email',array('type'=>'email','label'=>false)); ?>
         </div>
-        <label>Contraseña (mínimo 6 cacteres)</label>
+        <label>Contrase&ntilde;a (m&iacute;nimo 6 cacteres)</label>
         <div class="input password">
-            <?php echo $this->Form->password('password');/*, 'error' => array(
+            <?php echo $this->Form->input('password',array('label'=>false));/*, 'error' => array(
             'minlength' => __('Debe ingresar por lo menos 6 caracteres.', true)));*/ ?>
         </div>
-        <label>Confirmar Contraseña</label>
+        <label>Confirmar Contrase&ntilde;a</label>
         <div class="input password">
-            <?php echo $this->Form->password('password_confirm');/*, 'error' => array(
+            <?php echo $this->Form->input('password_confirm', array('label'=>false,'type' => 'password'));/*, 'error' => array(
             'checkpasswords' => __('DLas contraseñas no coinciden.', true)));*/ ?>
         </div>
         <div class="submit" style="margin-left: 10px;">
