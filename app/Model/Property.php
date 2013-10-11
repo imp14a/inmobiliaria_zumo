@@ -6,7 +6,15 @@ class Property extends AppModel {
 	public $useTable = 'properties';
 
 	public $hasOne = array( 'PropertyAddress','PropertyDescription',
-		'PropertyPaymentInformation');
+		'PropertyPaymentInformation',
+		'DefaultImage' => array(
+            'className' => 'PropertyImage',
+            'conditions' => array('DefaultImage.type' => 'default')
+        ),
+        'ArchitecturalPlant' => array(
+            'className' => 'PropertyImage',
+            'conditions' => array('ArchitecturalPlant.type' => 'planta')
+        ));
 
 	public $hasMany = array(
         'PropertyArea', 'PropertyInformation', 'PropertyImage', 'PropertyNearPlace'

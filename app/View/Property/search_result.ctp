@@ -24,7 +24,7 @@
 		<div class="gridContainer">
 		<?php foreach($found_properties as $property): ?>
 		<div class="gridElement">
-			<img class="mainImage" width="100%" height="auto" src="<?php echo $property['PropertyImage'][0]['image']; ?>" />
+			<img class="mainImage" width="100%" height="auto" src="<?php echo $property['DefaultImage']['image']; ?>" />
 			<div class="information">
 				<span style="font-family: HouschkaPro-DemiBold;font-size: 16px; margin-top:15px;">
 					<?php echo $property['Property']['name']; ?>

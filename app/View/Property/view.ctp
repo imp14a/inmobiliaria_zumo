@@ -3,6 +3,7 @@
 
 	echo $this->Html->css('zumo_components');
 	echo $this->Html->css('zumo_property_view');
+	echo $this->Html->css('inmibiliaria_zumo_property_add');
 	echo $this->Html->script('zumo_components');
 	echo $this->Html->script('carousel');
 
@@ -91,78 +92,23 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
 </script>
 <style>
-#map-canvas {
-    margin: 0;
-    padding: 0;
-    height: 400px;
-    margin-bottom: 20px;
-}
-#property_images {
-    width: 670px;
-    height: 400px;
-    overflow: hidden;
-}
-#carousel-content {
-    width: 10500px;
-}
-#carousel-content .slide {
-    float: left;
-    width: 670px;
-    height: 400px;
-}
-/**
- *  View property CSS 
- */
-.informationLine{
-	margin-top: 5px;
-}
-
-.informationCell{
+.propertyImagesContainer{
+	width: 100%;
 	display: inline-block;
-	margin-left: 20px;
-}
-.informationCell label{
-	display: block;
-}
-.informationCell span{
-	font-family: HouschkaPro-Bold;
-}
-.informationSeparator{
-	width: 30px;
-	display: block;
-	height: 5px;
-	border-bottom: 2px solid black;
-	margin-left: 15px;
-}
-.NearPlace{
-	margin-top: 5px;
-	display: inline-block;
-	line-height: 32px;
-	width: auto;
-	margin-left: 10px;
-	font-family: HouschkaPro-Bold;
-}
-.NearPlace img{
-	float: left;
-	margin-right: 5px;
-	height: 30px;
-	margin-bottom: 5px;
-}
-.PlacesCategory{
-	width: 28%;
-	display: inline-block;
-	margin-left: 2%;
-	float: left;
+	position: relative;
+	padding-top: 50%; /* "height" will be 3/4 of width */
 }
 </style>
 <div class="plainContent" style="padding-top:0;">
 	<div class="paginator">
 		<div class="pagesControl">
-		<a href="javascript:void(0);" class="carousel-control" rel="prev" id="next_image"> &lt; </span>
-		<a href="javascript:void(0);" class="carousel-control"  rel="next" id="previously_image"> &gt; </span>
+			<a href="javascript:void(0);" class="carousel-control" rel="prev" id="next_image"> &lt; </span>
+			<a href="javascript:void(0);" class="carousel-control"  rel="next" id="previously_image"> &gt; </span>
 		</div>
-		<div class="pagesInfo">
-			<span id="imageIndex">1</span> | <span id="totalImages"><?php echo count($property['PropertyImage']); ?></span>
+		<div class="propertyImagesContainer">
+			<div class="pagesInfo">
+				<span id="imageIndex">1</span> | <span id="totalImages"><?php echo count($property['PropertyImage']); ?></span>
+	    	</div>
 	    </div>
 	</div>
 	<div style="text-align:center; display:inline-block; width:100%;">
@@ -304,7 +250,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 			<div style="clear:left"></div>
 		</div>
 		<div class="tabContent" id="property_plane">
-			asdfadfjklhasdlf
+			<img alr="let" src="<?php echo $property['ArchitecturalPlant']['image']; ?>" />
 		</div>
 	</div>
 	<script>

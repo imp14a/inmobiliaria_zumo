@@ -1,0 +1,65 @@
+#map-canvas {
+    margin: 0;
+    padding: 0;
+    height: 400px;
+    margin-bottom: 20px;
+}
+#property_images {
+    width: 670px;
+    height: 400px;
+    overflow: hidden;
+}
+#carousel-content {
+    width: auto;
+}
+#carousel-content .slide {
+    float: left;
+    width: 670px;
+    height: 400px;
+}
+
+
+/**
+ *  View property CSS 
+ */
+.informationLine{
+	margin-top: 5px;
+}
+
+.informationCell{
+	display: inline-block;
+	margin-left: 20px;
+}
+.informationCell label{
+	display: block;
+}
+.informationCell span{
+	font-family: HouschkaPro-Bold;
+}
+.informationSeparator{
+	width: 30px;
+	display: block;
+	height: 5px;
+	border-bottom: 2px solid black;
+	margin-left: 15px;
+}
+.NearPlace{
+	margin-top: 5px;
+	display: inline-block;
+	line-height: 32px;
+	width: auto;
+	margin-left: 10px;
+	font-family: HouschkaPro-Bold;
+}
+.NearPlace img{
+	float: left;
+	margin-right: 5px;
+	height: 30px;
+	margin-bottom: 5px;
+}
+.PlacesCategory{
+	width: 28%;
+	display: inline-block;
+	margin-left: 2%;
+	float: left;
+}

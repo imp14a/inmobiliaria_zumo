@@ -13,15 +13,9 @@
     /*outline: 1px solid grey;*/
 }
 .grid .gridElement{
-	/*width: 30%;
-	height: 28%;
-	float: left;
-	position: relative;
-	display: inline-block;*/
 	margin-right: 1%;
 	margin-top: 1%;
 	float: left;
-    /*outline: 1px solid steelblue;*/
     width: 31%;
     height: 35.33%;
     position: relative;
