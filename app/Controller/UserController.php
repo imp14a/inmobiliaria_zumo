@@ -84,44 +84,40 @@ class UserController extends AppController {
      */
     public function beforeFilter() {
         parent::beforeFilter();
-        //$this->Auth->allow('register', 'login', 'logout');
+        $this->Auth->allow('register', 'login', 'logout');
     }
 
 
     public function login() {
         $this->layout = "modal";
         if ($this->request->is('post')) {
-            if ($this->Auth->login($this->request->data['User'])) {
-                return $this->redirect('/property/index');
+            if ($this->Auth->login()) {
+                $this->redirect($this->Auth->redirect());
             }
-            $this->Session->setFlash('Usuario o contraseña inválidos, intente de nuevo.');
+            $this->Session->setFlash('Usuario o contraseña erroneos, intente de nuevo.');
         }
     }
 
     public function register(){
         $this->layout = "modal";
-        /*if (!$this->Auth->user('isAdmin')) {
-            $this->Session->setFlash('Tienes acceso de administrador');
-        }*/
         if (!empty($this->request->data)) { 
             if($this->User->save($this->request->data)){
-               /* if($this->Auth->login()){
+                if($this->Auth->login()){
                     $this->redirect($this->referer());    
-                }*/
-                
+                }
             }else{
                 //TODO: Mostrar errores
-                $this->Session->setFlash(__('Ha ocurrido en error, intente de nuevo.'));
+                $this->Session->setFlash(__('Ha ocurrido un error, intente de nuevo.'));
             } 
         }
     }
 
-    /*
+    
     public function logout() {
         return $this->redirect($this->Auth->logout());
     }
 
-    public function isAuthorized($user) {
+    /*public function isAuthorized($user) {
         if (in_array($this->action, array('add', 'login', 'logout'))) {
             return true;
         }

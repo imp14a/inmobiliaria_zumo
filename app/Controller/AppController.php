@@ -59,13 +59,24 @@ class AppController extends Controller {
         )*/
     );
 
-    /*public function beforeFilter() {
-        //$this->Auth->allow('*');
+    public function beforeFilter() {
+    	$this->Auth->userModel = 'User';
+    	$this->Auth->authorize = array('Controller');
+    	$this->Auth->loginAction = array('controller' => 'user', 'action' => 'login');
+		$this->Auth->authenticate = array(
+		    'Form' => array(
+		        'fields' => array('username' => 'email', 'password' => 'password'),
+		    ),
+		);
+    	$this->Auth->loginRedirect = array('controller' => 'property', 'action' => 'map_search');
+    	$this->Auth->logoutRedirect = array('controller' => 'inmobiliariazumo', 'action' => 'index');
+        $this->Auth->allow('index', 'about', 'alliances', 'contact');
     } 
 
+    
     public function isAuthorized($user) {
 	    // Admin can access every action
-	    if (isset($user['isAdmin']) && $user['isAdmin'] === 1) {
+	    if (isset($user['isAdmin']) && $user['isAdmin']) {
 	        return true;
 	    }
 

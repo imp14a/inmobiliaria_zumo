@@ -7,14 +7,14 @@
 <div class="loginContent">
 	<div class="loginContainer">
 		<h3>INICIAR SESI&Oacute;N</h3>
-		<?php echo $this->Form->create();?>
+		<?php echo $this->Form->create('User');?>
 	        <label>Correo electrónico</label>
 	        <div class="input email">
-	        	<?php echo $this->Form->input('User.email',array('type'=>'email','label'=>false)); ?>
+	        	<?php echo $this->Form->input('email',array('type'=>'email','label'=>false)); ?>
 	        </div>
 	        <label>Contraseña (mínimo 6 cacteres)</label>
 	        <div class="input password">
-	        	<?php echo $this->Form->password('User.password'); ?>
+	        	<?php echo $this->Form->input('password', array('label'=>false)); ?>
 	        </div>
 	        <div class="submit">
 	            <input type="submit" class="activeButton" value="ENTRAR">

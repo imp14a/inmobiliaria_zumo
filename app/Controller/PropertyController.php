@@ -191,8 +191,8 @@ class PropertyController extends AppController {
 
 	public function beforeFilter() {
         parent::beforeFilter();
-        //$this->Auth->allow('simple_search', 'map_search');
-        //$this->Auth->deny('index');
+        $this->Auth->allow('simple_search', 'map_search');
+        $this->Auth->deny('index');
     }
 
     public function view($id = null){
@@ -309,6 +309,21 @@ class PropertyController extends AppController {
 			$this->redirect(array('action' => 'simple_search'));
 		}
 	}
+
+	public function isAuthorized($user) {
+        if (in_array($this->action, array('simple_search', 'map_search', 
+        	'getPropertyByStateMunicipalityAndQuarter',
+        	'user_searchs', 'searchResult', 'view'))) {
+            return true;
+        }
+
+        if (in_array($this->action, array('index', 'add', 'addnearplaces', 'delete'))) {
+            if (isset($user['isAdmin']) && $user['isAdmin']) {
+                return true;
+            }
+        }
+        return parent::isAuthorized($user);
+    }
 
 }
 
