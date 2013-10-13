@@ -19,6 +19,14 @@ class InmobiliariaZumoController extends AppController {
 		$this->set('title_for_layout', 'COMPONENTES');
 	}
 
+	public function contact(){
+		$this->set('title_for_layout', 'CONTACTO');	
+	}
+
+	public function downloadables(){
+		$this->set('title_for_layout', 'DESCARGABLES');		
+	}
+
 }
 
 ?>

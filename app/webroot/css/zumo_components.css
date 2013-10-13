@@ -372,3 +372,9 @@ table tr:nth-child(odd) td {
 .search_item label{
 	cursor: pointer;
 }
+
+.document_view{
+	background: #ccc;
+	height: 350px;
+	margin-bottom: 25px;
+}
