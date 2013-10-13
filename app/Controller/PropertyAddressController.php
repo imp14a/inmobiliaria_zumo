@@ -72,6 +72,11 @@ class PropertyAddressController extends AppController {
 		$this->set('output',$out);
 	}
 
+	public function beforeFilter() {
+        parent::beforeFilter();
+        $this->Auth->allow('getQuartersForMunicipality', 'getMunicipalityForState');
+    }
+
 }
 
 ?>

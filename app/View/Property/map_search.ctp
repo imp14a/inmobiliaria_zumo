@@ -86,7 +86,7 @@ function codeAddress() {
     echo $this->Form->radio('PropertySearch.abalible_type', $options,$attributes);
     ?>
   </div>
-  <div id="map-canvas"></div>
+  <div id="map-canvas" style="height: 500px;"></div>
 </div>
 <script>
 createUbicationAjaxSelects('PropertySearchState','PropertySearchMunicipality','PropertySearchQuarter');

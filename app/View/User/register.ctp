@@ -33,4 +33,5 @@
             <input type="button" class="lightwindow_action activeButton" rel="deactivate" value="CANCELAR">
         </div>
     <?php echo $this->Form->end();?>
+    <?php if($this->Session->check('Message')){ echo $this->Session->flash();} ?>
 </div>

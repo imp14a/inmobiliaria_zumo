@@ -1,3 +1,42 @@
+function setUserSearches(element, user_id){
+    var description = new Element('div', {class: 'search_description'});
+    new Ajax.Request(
+        'http://wowinteractive.com.mx/inmobiliaria_zumo/index.php/UserSearch/getSearchesByUser.json', {
+            parameters: {user_id: user_id},
+            onSuccess: function(response) {  
+                obj = response.responseJSON;                   
+                $(obj).each(function(search){
+                    search = JSON.parse(search);
+                    var item = new Element('div', {class: 'search_item'});
+                    item.insert({
+                        bottom: new Element('label').update(search.date).observe('click', function(){
+                            description.update('');
+                            description.insert(new Element('p').update(search.description));
+                            description.setStyle({top: (Element.cumulativeOffset(item).top - 110) + 'px'});
+                            item.insert(description);
+                        })
+                    });
+                    item.insert({
+                        bottom: new Element('img').observe('click', function(){
+                            new Ajax.Request(
+                                'http://wowinteractive.com.mx/inmobiliaria_zumo/index.php/UserSearch/delete.json', {
+                                parameters: {user_search_id: search.id},
+                                onSuccess: function(response) {                                      
+                                    item.remove();
+                                },
+                                onFailure: function(){
+                                    alert('Ocurrio un problema, intente de nuevo.');
+                                }
+                            });
+                        })
+                    });
+                    element.insert(item);
+                });
+            }
+        }
+    );
+}
+
 
 function createUbicationAjaxSelects(state,municipality,quarter,showAll){    
     $(state).observe('change',function(){

@@ -7,7 +7,14 @@
 
 ?>
 <div class="plainContent" >
-
+	<div class="saveSearch" style="float: left;">
+		<?php echo $this->Form->create('UserSearch', array( 'url' =>array('controller'=>'UserSearch','action'=>'save_search'), 'style' => 'position: relative;
+		top: -10px;'));?>
+		<?php echo $this->Form->input('description', array('type' => 'hidden', 'value' => $search_description)); ?>
+		<?php echo $this->Form->input('algo', array('type' => 'hidden', 'value' => $options_db)); ?>
+		<?php echo $this->Form->input('date', array('type' => 'hidden', 'value' => date('d-m-Y | H:i'))); ?>
+		<?php echo $this->Form->end("GUARDAR BÚSQUEDA"); ?>
+	</div>
 	<div class="paginator">
 		<div class="pagesControl">
 		<?php
@@ -17,7 +24,7 @@
 		</div>
 		<div class="pagesInfo">
 			<?php echo $this->paginator->counter(array(
-	    		'format' => 'Resultados Búsqueda: %count%  paginas %page% | %pages%')); ?>
+	    		'format' => 'Resultados Búsqueda: %count%  página %page% | %pages%')); ?>
 	    </div>
 	</div>
 	<div class="grid">
@@ -27,7 +34,8 @@
 			<img class="mainImage" width="100%" height="auto" src="<?php echo $property['DefaultImage']['image']; ?>" />
 			<div class="information">
 				<span style="font-family: HouschkaPro-DemiBold;font-size: 16px; margin-top:15px;">
-					<?php echo $property['Property']['name']; ?>
+				<?php echo $property['Property']['name']; ?>
+ 				<?php echo $this->Form->input('Property.id', array('type' => 'hidden', 'value' => $property['Property']['id'])); ?>
 				</span>
 				<span style=""><?php echo $property['PropertyDescription']['type']; ?></span>
 				<?php if($property['Property']['available_for_rent']): ?>

@@ -6,6 +6,7 @@ App::Import('Model','PropertyArea');
 App::Import('Model','PropertyImage');
 App::Import('Model','PropertyAddress');
 App::Import('Model','PropertyNearPlace');
+App::uses('CakeNumber', 'Utility');
 
 class PropertyController extends AppController {
 
@@ -191,7 +192,8 @@ class PropertyController extends AppController {
 
 	public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->allow('simple_search', 'map_search');
+        $this->Auth->allow('simple_search', 'map_search', 'getPropertyByStateMunicipalityAndQuarter',
+        	'view', 'searchResult');
         $this->Auth->deny('index');
     }
 
@@ -216,39 +218,57 @@ class PropertyController extends AppController {
 		$this->set('title_for_layout','Resultados de búsqueda');
     	if (!empty($this->data)) {
 
+    		$location = $this->data['PropertySearch']['state'].", ".$this->data['PropertySearch']['municipality'];
 			$options = array(
 				'PropertyAddress.state' => $this->data['PropertySearch']['state'],
 				'PropertyAddress.municipality' => $this->data['PropertySearch']['municipality'],
 				'PropertyAddress.quarter LIKE' => '%'.$this->data['PropertySearch']['quarter'].'%',
 			);
+			$rent_sell = "";
 			if($this->data['PropertySearch']['available_type']=='rent'){
 				$options['Property.available_for_rent'] = true;
+				$rent_sell = "Renta";
 			}elseif($this->data['PropertySearch']['available_type']=='sell'){
 				$options['Property.available_for_sell'] = true;
+				$rent_sell = "Venta";
 			}
 
 			$price = str_replace(",", "", $this->data['PropertySearch']['min_price']);
 			$price = str_replace("$ ", "", $price);
+			$price_desc = $price;
 			if(is_numeric($price)){
 				$options['PropertyPaymentInformation.'.$this->data['PropertySearch']['available_type'].'_price >='] = $price;
-			}
+				$price_desc = CakeNumber::currency($price);
+			}			
 			$price = str_replace(",", "", $this->data['PropertySearch']['max_price']);
 			$price = str_replace("$ ", "", $price);
+			$price_desc0 = $price;
 			if(is_numeric($price)){
 				$options['PropertyPaymentInformation.'.$this->data['PropertySearch']['available_type'].'_price <='] = $price;
+				$price_desc0 = CakeNumber::currency($price);
 			}
+			$price_desc = $price_desc." - ".$price_desc0;
 
-
+			$property_type = "";
 			$or_type_array = array();
 			foreach($this->data['PropertySearch']['Type'] as $type=>$value){
-				if($type=='any' && $value) break;
+				if($type=='any' && $value) {
+					$property_type = "Cualquiera";
+					break;
+				}
 				$type = str_replace("_", " ", $type);
+				$property_type = $property_type.", ".$value;
 				array_push($or_type_array, $type);
 			}
+			$property_antiquity = "";
 			$or_type_Antiquity = array();
 			foreach($this->data['PropertySearch']['Antiquity'] as $type=>$value){
-				if($type=='any' && $value) break;
+				if($type=='any' && $value){
+					$property_antiquity = "Cualquiera";
+					break;
+				}
 				$type = str_replace("_", " ", $type);
+				$property_antiquity = $property_antiquity.", ".$value;
 				array_push($or_type_Antiquity, $type);
 			}
 
@@ -303,8 +323,14 @@ class PropertyController extends AppController {
 				/*debug($this->data);
 				die();*/
 			}
+			$search_description = $property_type.", ".$rent_sell."<br>";
+			$search_description = $search_description.$location."<br>";
+			$search_description = $search_description.$price_desc."<br>";
+			$search_description = $search_description.$property_antiquity."<br>";
 			$this->Property->recursive = 2;
+			$this->set('search_description', $search_description);
 			$this->set('found_properties', $this->paginate('Property', $options));
+			$this->set('options_db', serialize($options));
 		}else{
 			$this->redirect(array('action' => 'simple_search'));
 		}

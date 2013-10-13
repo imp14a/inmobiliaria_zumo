@@ -36,27 +36,7 @@ class AppController extends Controller {
 	public $components = array(
 		'RequestHandler',
         'Session',
-        'Auth'/* => array(
-        	'authenticate' => array(
-	            'Form' => array(
-	                'fields' => array('username' => 'email')
-	            )
-        	),
-        	'loginAction' => array(
-         	   	'controller' => 'user',
-            	'action' => 'login'
-          	),
-          	'authorize' => array('Controller')
-        )
-        /*Auth' => array(
-            'loginRedirect' => array('controller' => 'inmobiliariazumo', 'action' => 'index'),
-            'logoutRedirect' => array('controller' => 'inmobiliariazumo', 'action' => 'index'),
-            'authorize' => array('Controller'),
-            'loginAction' => array(
-	            'controller' => 'user',
-	            'action' => 'login'
-	        ),
-        )*/
+        'Auth'
     );
 
     public function beforeFilter() {

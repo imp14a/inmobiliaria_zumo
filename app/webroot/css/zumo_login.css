@@ -6,6 +6,8 @@ div.loginContent {
 	width: 230px;
 	position: relative;
 	margin: 0 auto;
+	font-family: HouschkaPro-Medium;
+	font-size: 12px;
 }
 
 div.loginContent .activeButton{	
@@ -29,4 +31,6 @@ div.loginContent input[type=text], input[type=password]{
 	border: none !important;
 	width: 160px;
 	height: 15px;
+	font-size: 12px;
+	font-family: HouschkaPro-Medium;
 }

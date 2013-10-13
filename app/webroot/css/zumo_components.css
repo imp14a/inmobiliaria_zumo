@@ -339,3 +339,36 @@ table tr:nth-child(odd) td {
 	font-family: HouschkaPro-Medium;
 
 }
+
+.search_item{
+	border:1px solid;
+	width: 250px;
+	text-align: center;
+	margin-bottom: 15px;
+}
+
+.search_description{
+	border: 1px solid;
+	position: absolute;
+	left: 280px;
+	padding: 10px;
+}
+
+.search_description p{
+	text-align: left;
+	margin-bottom: 0px;
+}
+
+.search_item img{
+	width: 17px;
+	height: 17px;
+	background: url(img/close_delete.png) no-repeat;
+	position: relative;
+	top: 3px;
+	left: 60px;
+	cursor: pointer;
+}
+
+.search_item label{
+	cursor: pointer;
+}

@@ -21,6 +21,11 @@ class PropertyAreaController extends AppController {
 		$this->set('output', $out);
 	}
 
+	public function beforeFilter() {
+        parent::beforeFilter();
+        $this->Auth->allow('getPropertyAreas');
+    }
+
 }
 
 ?>

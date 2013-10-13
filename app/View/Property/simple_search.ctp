@@ -167,7 +167,7 @@
                     <?php $i++; endforeach;?>
                     <?php if($close_div<4): ?>
                         </div>
-                    <?endif;?>
+                    <?php endif;?>
                 </div>
                 <div style="width:auto; display:inline-block;">
                     <p class="semititle">Servicios cercanos</p>
@@ -186,7 +186,7 @@
                     <?php $i++; endforeach;?>
                     <?php if($close_div<4): ?>
                         </div>
-                    <?endif;?>
+                    <?php endif;?>
                 </div>
              </div>
         </div>

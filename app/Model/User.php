@@ -28,9 +28,7 @@ class User extends AppModel {
     }
 
 	public $hasMany = array(
-        'SearchSaved' => array(
-            'className' => 'SearchSavedByUser',
-        )
+        'UserSearch'
     );
 
     public function isAdmin($user) {

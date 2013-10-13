@@ -3,6 +3,7 @@
 	display: inline-block;
 	position: relative;
 	padding-top: 50%; /* "height" will be 3/4 of width */
+	top: -20px;
 }
 .grid .gridContainer{
 	position: absolute;

@@ -92,9 +92,9 @@ class UserController extends AppController {
         $this->layout = "modal";
         if ($this->request->is('post')) {
             if ($this->Auth->login()) {
-                $this->redirect($this->Auth->redirect());
+                $this->redirect($this->referer());
             }
-            $this->Session->setFlash('Usuario o contraseña erroneos, intente de nuevo.');
+            $this->Session->setFlash('Usuario o contraseña incorrectos, intente de nuevo.');
         }
     }
 
@@ -106,8 +106,7 @@ class UserController extends AppController {
                     $this->redirect($this->referer());    
                 }
             }else{
-                //TODO: Mostrar errores
-                $this->Session->setFlash(__('Ha ocurrido un error, intente de nuevo.'));
+                $this->Session->setFlash('Ha ocurrido un error, intente de nuevo.');
             } 
         }
     }
@@ -117,18 +116,18 @@ class UserController extends AppController {
         return $this->redirect($this->Auth->logout());
     }
 
-    /*public function isAuthorized($user) {
-        if (in_array($this->action, array('add', 'login', 'logout'))) {
+    public function isAuthorized($user) {
+        if (in_array($this->action, array('register', 'login', 'logout', 'getPostalCode'))) {
             return true;
         }
 
-        if (in_array($this->action, array('index', 'edit', 'delete'))) {
-            if ($this->User->isAdmin($user)) {
+        if (in_array($this->action, array('index', 'add', 'delete'))) {
+            if (isset($user['isAdmin']) && $user['isAdmin']) {
                 return true;
             }
         }
         return parent::isAuthorized($user);
-    }*/
+    }
 }
 
 ?>
