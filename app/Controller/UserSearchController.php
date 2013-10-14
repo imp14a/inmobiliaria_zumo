@@ -17,6 +17,15 @@ class UserSearchController extends AppController {
 		}
 	}
 
+	public function delete_all(){
+		if ($this->UserSearch->deleteAll(array('UserSearch.user_id' => $this->Auth->user('id')), false)) {
+            $this->Session->setFlash('Se han eliminado todas las búsquedas.');
+            $this->redirect(array('action' => 'index'));
+        }else{
+        	$this->Session->setFlash('Ha ocurrido un error, intente de nuevo.');
+        }
+	}
+
 	public function delete(){
 		$this->layout = "ajax";
 		$user_search_id = utf8_decode(isset($_REQUEST['user_search_id']) ? $_REQUEST['user_search_id'] : '');
@@ -53,7 +62,7 @@ class UserSearchController extends AppController {
     }
 
     public function isAuthorized($user) {
-        if (in_array($this->action, array('save_search', 'index', 'getSearchesByUser', 'delete'))) {
+        if (in_array($this->action, array('save_search', 'index', 'getSearchesByUser', 'delete', 'delete_all'))) {
             return true;
         }
         return parent::isAuthorized($user);

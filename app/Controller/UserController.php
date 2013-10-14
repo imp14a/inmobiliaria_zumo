@@ -87,18 +87,19 @@ class UserController extends AppController {
         $this->Auth->allow('register', 'login', 'logout');
     }
 
-
     public function login() {
+        $this->set('title_for_layout','Ingresa');
         $this->layout = "modal";
         if ($this->request->is('post')) {
             if ($this->Auth->login()) {
-                $this->redirect($this->referer());
+                $this->redirect($this->Auth->redirectUrl());
             }
             $this->Session->setFlash('Usuario o contraseña incorrectos, intente de nuevo.');
         }
     }
 
     public function register(){
+        $this->set('title_for_layout','Registro');
         $this->layout = "modal";
         if (!empty($this->request->data)) { 
             if($this->User->save($this->request->data)){
@@ -110,7 +111,6 @@ class UserController extends AppController {
             } 
         }
     }
-
     
     public function logout() {
         return $this->redirect($this->Auth->logout());
@@ -120,14 +120,9 @@ class UserController extends AppController {
         if (in_array($this->action, array('register', 'login', 'logout', 'getPostalCode'))) {
             return true;
         }
-
-        if (in_array($this->action, array('index', 'add', 'delete'))) {
-            if (isset($user['isAdmin']) && $user['isAdmin']) {
-                return true;
-            }
-        }
         return parent::isAuthorized($user);
     }
+
 }
 
 ?>
