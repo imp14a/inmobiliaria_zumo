@@ -6,6 +6,7 @@
 
 <div class="loginContent">
 	<div class="loginContainer">
+		<?php echo $this->Session->flash('auth'); ?>
 		<h3>INICIAR SESI&Oacute;N</h3>
 		<?php echo $this->Form->create('User');?>
 	        <label>Correo electrónico</label>

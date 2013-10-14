@@ -48,7 +48,9 @@ class AppController extends Controller {
 		        'fields' => array('username' => 'email', 'password' => 'password'),
 		    ),
 		);
-    	$this->Auth->loginRedirect = array('controller' => 'property', 'action' => 'map_search');
+		$this->Auth->authError = "Acceso denegado.";
+		$this->Auth->unauthorizedRedirect = array('controller' => 'user', 'action' => 'login');
+		$this->Auth->loginRedirect = array('controller' => 'inmobiliariazumo', 'action' => 'index');
     	$this->Auth->logoutRedirect = array('controller' => 'inmobiliariazumo', 'action' => 'index');
         $this->Auth->allow('index', 'about', 'alliances', 'contact');
     } 
@@ -59,7 +61,6 @@ class AppController extends Controller {
 	    if (isset($user['isAdmin']) && $user['isAdmin']) {
 	        return true;
 	    }
-
 	    // Default deny
 	    return false;
 	}

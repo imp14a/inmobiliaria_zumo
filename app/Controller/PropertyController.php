@@ -342,12 +342,6 @@ class PropertyController extends AppController {
         	'user_searchs', 'searchResult', 'view'))) {
             return true;
         }
-
-        if (in_array($this->action, array('index', 'add', 'addnearplaces', 'delete'))) {
-            if (isset($user['isAdmin']) && $user['isAdmin']) {
-                return true;
-            }
-        }
         return parent::isAuthorized($user);
     }
 
