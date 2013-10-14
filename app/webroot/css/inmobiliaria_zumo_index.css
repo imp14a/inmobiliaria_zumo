@@ -6,21 +6,21 @@
 body{
 	background-image: url(img/index_background.png);
 	background-repeat: no-repeat;
-	background-size: 100%;
+	background-size: 100% 100%;
 	min-width: 1024px;
+	min-height: 600px;
 	width: 100%;
 	height: 100%;
 }
 .logo_vertical{
-	width: 80%;
-	height: 720px;
-	display: block;
-	margin-left: 10%;
-	margin-right: 10%;
+	
+	display: inline-block;
+	width: 114px;
+	height: 124px;
+	margin-top: 35%;
 	background-image: url(img/zumo_logo_vertical.png);
 	background-repeat: no-repeat;
 	background-position: center;
-
 }
 
 .indexinfo{
@@ -28,9 +28,9 @@ body{
 	font-size: 12px;
 	line-height: 18px;
 	text-align: justify;
-	margin-left: 27%;
-	margin-right: 27%;
-	margin-top: -150px;
+	margin-left: 20%;
+	margin-right: 20%;
+	margin-top: 50px;
 }
 .indexinfo .column{
 	width: 250px;
@@ -38,9 +38,10 @@ body{
 	margin-left: 20px;
 }
 #content{
-	width: auto !important;
+	
 	margin-left: 0 !important;
 	margin-right: 0 !important;
-	height: auto !important;
+	height: 100% !important;
 	margin-top: 0 !important;
+	text-align: center;
 }

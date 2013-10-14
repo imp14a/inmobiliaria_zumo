@@ -80,14 +80,16 @@ $cakeDescription = __d('inmobiliaria_zumo', 'Inmobiliaria Zumo');
 			</ul>
 		</div>
 		<div id="content">
-			<div class='logo_vertical'></div>
-			<div class='indexinfo'>
-				<p class='column'>Somos una organizaci&oacute;n de profesionales inmobiliarios con productos y servicios especializados que cubren las necesidades de personas que desean vender, comprar o rentar una vivienda.
-				</p>
-				<p class='column'>
-					Brindamos asesor&iacute;a y representaci&oacute;n profesional a quienes desean realizar transacciones inmobiliarias. 
-				</p>
+			<div class='logo_vertical'>
+				
 			</div>
+			<div class='indexinfo'>
+					<p >
+						Somos una organizaci&oacute;n de profesionales inmobiliarios con productos y servicios especializados que cubren las necesidades de personas que desean vender, comprar o rentar una vivienda.<br />
+						Brindamos asesor&iacute;a y representaci&oacute;n profesional a quienes desean realizar transacciones inmobiliarias.
+					</p>
+				</div>
+			
 		</div>
 	</div>
 	<?php echo $this->element('sql_dump'); ?>
