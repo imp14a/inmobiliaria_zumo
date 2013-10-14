@@ -17,8 +17,13 @@
 	position: relative;
 	padding-top: 50%; /* "height" will be 3/4 of width */
 }
+
 </style>
 <div class="plainContent" style="padding-top:0;">
+	<div class="saveSearch" style="float: left;">
+		<?php echo $this->Html->link('AGREGAR A FAVORITOS',
+		array('controller'=>'UserFavorites','action'=>'add',$property['Property']['id']),array('class'=>'favoriteslink')); ?>
+	</div>
 	<div class="paginator">
 		<div class="pagesControl">
 			<a href="javascript:void(0);" class="carousel-control" rel="prev" id="next_image"> &lt; </a>

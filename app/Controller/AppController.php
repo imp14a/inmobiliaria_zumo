@@ -50,8 +50,8 @@ class AppController extends Controller {
 		);
 		$this->Auth->authError = "Acceso denegado.";
 		$this->Auth->unauthorizedRedirect = array('controller' => 'user', 'action' => 'login');
-		$this->Auth->loginRedirect = array('controller' => 'inmobiliariazumo', 'action' => 'index');
-    	$this->Auth->logoutRedirect = array('controller' => 'inmobiliariazumo', 'action' => 'index');
+		$this->Auth->loginRedirect = array('controller' => 'Property','action'=>'simple_search');
+    	$this->Auth->logoutRedirect = array('controller' => 'InmobiliariaZumo');
         $this->Auth->allow('index', 'about', 'alliances', 'contact');
     } 
 

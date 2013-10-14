@@ -79,11 +79,12 @@ $cakeDescription = __d('inmobiliaria_zumo', 'Inmobiliaria Zumo');
 							<?php echo $this->Html->link('BÚSQUEDA EN MAPA' ,array('controller' => 'Property', 'action' => 'map_search'),array('class'=>isset($map_search)?'active':''));
 							?>
 						</li>
-						<!-- TODO poner mis busquedas cuando este activo -->
+						<?php if($this->Session->read('Auth.User')): ?>
 						<li>
-							<?php echo $this->Html->link('MIS BUSQUEDAS' ,array('controller' => 'Property', 'action' => 'user_searchs'),array('class'=>isset($user_searchs)?'active':''));
+							<?php echo $this->Html->link('MIS BUSQUEDAS' ,array('controller' => 'Property', 'action' => 'user_searchs'),array('class'=>isset($user_searchs)?'active':'')) ;
 							?>
 						</li>
+						<?php endif;?>
 					</ul>
 				</li>
 				<li><?php echo $this->Html->link($this->Html->div('button news','<span class="title">NOTICIAS</span>')

@@ -91,6 +91,7 @@ class PropertyController extends AppController {
 		foreach($address->find('all',$options) as $state){
 			$states[$state['PropertyAddress']['state']] = $state['PropertyAddress']['state'];
 		}
+		$this->Session->write('Auth.redirect',array('controller'=>'Property'));
 		$this->set('states',$states);
 	}
 
