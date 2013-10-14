@@ -311,10 +311,11 @@ table tr:nth-child(odd) td {
 	
 }
 .zumoTabs .tabs{
-	
+	text-align: center;
 }
 .zumoTabs .tabs .tab{
 	padding: 3px;
+	text-align: left;
 	border: 1px solid black;
 	line-height: 14px;
 	width: 200px;
@@ -328,6 +329,7 @@ table tr:nth-child(odd) td {
 
 .zumoTabs .tabs .tab.active{
 	background: url(img/show_less.png) no-repeat right;
+
 }
 
 .zumoTabs .tabContent{
@@ -337,7 +339,20 @@ table tr:nth-child(odd) td {
 	border: 1px solid black;
 	text-align: left;
 	font-family: HouschkaPro-Medium;
+	display: inline-block;
+	width: 100%;
+	padding-bottom: 15px;
 
+}
+.zumoTabs .closeContainer{
+	background: url(img/close_delete.png) no-repeat;
+	float: right;
+	display: block;
+	margin-top: -5px;
+	margin-right: 10px;
+	width: 16px;
+	height: 16px;
+	cursor: pointer;
 }
 
 .search_item{

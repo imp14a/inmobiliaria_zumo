@@ -9,88 +9,7 @@
 
 ?>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-<script>
-google.maps.visualRefresh = true;
 
-
-var map;
-var markers = [];
-
-
-function initialize() {
-
-	latitude = $('property_location').readAttribute('lat');
-	longitude = $('property_location').readAttribute('lon');
-	position = new google.maps.LatLng(Number(latitude),Number(longitude));
-    var mapOptions = {
-        zoom: 14,
-        center: position,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-    map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-	
-    map.setCenter(position);
-
-    var urlIconColor ="http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|FEEE69";
-    
-	var pinImage = new google.maps.MarkerImage(urlIconColor,
-        new google.maps.Size(21, 34),
-        new google.maps.Point(0,0),
-        new google.maps.Point(10, 34)
-        );
-    var marker = new google.maps.Marker({
-        map: map,
-        position: position,
-        icon: pinImage,
-        animation: google.maps.Animation.DROP
-    });
-
-    markers.push(marker);
-
-
-    $$('.NearPlace').each(function(element,index){
-
-    	var let='ABCDEFGHIJKLMNOPQRSTUVWXYZ'.charAt(index);
-    	var urlIconletter ="http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld="+let+"|FE7569|000000";
-
-    	placeLat = $(element).readAttribute('lat');
-    	placeLon = $(element).readAttribute('lon');
-    	placePosition = new google.maps.LatLng(Number(placeLat),Number(placeLon));
-
-    	var pinImage = new google.maps.MarkerImage(urlIconletter,
-    		new google.maps.Size(21, 34),
-	        new google.maps.Point(0,0),
-	        new google.maps.Point(10, 34)
-	        );
-	    var marker = new google.maps.Marker({
-	        map: map,
-	        position: placePosition,
-	        icon: pinImage,
-	        animation: google.maps.Animation.DROP
-	    });
-	    $(element).select('.markerIcon').each(function(element){
-	    	$(element).setAttribute('src',urlIconletter);
-	    })
-
-	    /*setStyle({
-	    	'background-image':urlIconletter,
-	    	'background-repeat':'no-repeat',
-	    	'padding-left':'25px'}
-	    );*/
-
-	    markers.push(marker);
-    });
-
-}
-
-
-
-
-google.maps.event.addDomListener(window, 'load', initialize);
-
-
-
-</script>
 <style>
 .propertyImagesContainer{
 	width: 100%;
@@ -102,24 +21,25 @@ google.maps.event.addDomListener(window, 'load', initialize);
 <div class="plainContent" style="padding-top:0;">
 	<div class="paginator">
 		<div class="pagesControl">
-			<a href="javascript:void(0);" class="carousel-control" rel="prev" id="next_image"> &lt; </span>
-			<a href="javascript:void(0);" class="carousel-control"  rel="next" id="previously_image"> &gt; </span>
+			<a href="javascript:void(0);" class="carousel-control" rel="prev" id="next_image"> &lt; </a>
+			<a href="javascript:void(0);" class="carousel-control"  rel="next" id="previously_image"> &gt; </a>
 		</div>
-		<div class="propertyImagesContainer">
-			<div class="pagesInfo">
-				<span id="imageIndex">1</span> | <span id="totalImages"><?php echo count($property['PropertyImage']); ?></span>
-	    	</div>
-	    </div>
+		<div class="pagesInfo">
+			<span id="imageIndex">1</span> | <span id="totalImages"><?php echo count($property['PropertyImage']); ?></span>
+		</div>
 	</div>
+	
 	<div style="text-align:center; display:inline-block; width:100%;">
-		<div id="property_images" style="width: 100%;">
+		<div id="property_images">
 			<div id="carousel-content">
 		    	<?php foreach($property['PropertyImage'] as $image):?>
-		        <div class="slide"><img style="width: 100%; height: 100%;" src="<?php echo $image['image']; ?>" alt="img"></div>
+		        <div class="slide" ><img style="width: 100%; height: 100%;" src="<?php echo $image['image']; ?>" alt="img"></div>
 		    	<?php endforeach;?>
 		    </div>
 		</div>
 	</div>
+
+
 	<div class="zumoTabs" id="zumoTabs">
 		<div class="tabs">
 			 <a for="property_information" class="tab" href="javascript:void(0);">INFORMAC&Iacute;ON</a>
@@ -233,7 +153,10 @@ google.maps.event.addDomListener(window, 'load', initialize);
 				lon="<?php echo $property['Property']['longitude']; ?>" style="display:none;" ></div>
 			<div id="map-canvas"></div>
 			<div id="nearPlaces">
-				<?php foreach($property['PropertyNearPlace'] as $name=>$category): ?>
+				<?php $i=1; foreach($property['PropertyNearPlace'] as $name=>$category): ?>
+					<?php if( $i==1 ): ?>
+						<div style="width: 100%; display:inline-block; margin-top:10px;">
+					<?php endif;?>
 					<div class="PlacesCategory">
 						<a id="<?php echo Inflector::camelize( Inflector::slug($name) ); ?>" 
 							class="expandButton" href="javascript:void(0);"><?php echo $name; ?> </a>
@@ -245,7 +168,13 @@ google.maps.event.addDomListener(window, 'load', initialize);
 							<?php endforeach;?>
 						</div>
 					</div>
-				<?php endforeach;?>
+					<?php if ($i==3): ?>
+						</div>
+					<?php $i=0; endif;?>
+				<?php $i++; endforeach;?>
+				<?php if($i<3): ?>
+					</div>
+				<?php endif;?>
 			</div>
 			<div style="clear:left"></div>
 		</div>
@@ -254,7 +183,9 @@ google.maps.event.addDomListener(window, 'load', initialize);
 		</div>
 	</div>
 	<script>
-
+		google.maps.visualRefresh = true;
+		var map;
+		var markers = [];
 		imageProportion = 0.5625;
 
 		h = $('property_images').getWidth() * imageProportion;
@@ -277,8 +208,75 @@ google.maps.event.addDomListener(window, 'load', initialize);
 				$('imageIndex').update(newValue);
 			});
 		});
+		var options=[];
+		options["property_nearby"] = {
+			response:function(){
+				if(map!=null) return;
+				latitude = $('property_location').readAttribute('lat');
+				longitude = $('property_location').readAttribute('lon');
+				position = new google.maps.LatLng(Number(latitude),Number(longitude));
+			    var mapOptions = {
+			        zoom: 14,
+			        center: position,
+			        mapTypeId: google.maps.MapTypeId.ROADMAP
+			    };
+			    map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+				
+			    map.setCenter(position);
 
-		new ZumoTabComponent('zumoTabs');
+			    var urlIconColor ="http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|FEEE69";
+			    
+				var pinImage = new google.maps.MarkerImage(urlIconColor,
+			        new google.maps.Size(21, 34),
+			        new google.maps.Point(0,0),
+			        new google.maps.Point(10, 34)
+			        );
+			    var marker = new google.maps.Marker({
+			        map: map,
+			        position: position,
+			        icon: pinImage,
+			        animation: google.maps.Animation.DROP
+			    });
+
+			    markers.push(marker);
+
+
+			    $$('.NearPlace').each(function(element,index){
+
+			    	var let='ABCDEFGHIJKLMNOPQRSTUVWXYZ'.charAt(index);
+			    	var urlIconletter ="http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld="+let+"|FE7569|000000";
+
+			    	placeLat = $(element).readAttribute('lat');
+			    	placeLon = $(element).readAttribute('lon');
+			    	placePosition = new google.maps.LatLng(Number(placeLat),Number(placeLon));
+
+			    	var pinImage = new google.maps.MarkerImage(urlIconletter,
+			    		new google.maps.Size(21, 34),
+				        new google.maps.Point(0,0),
+				        new google.maps.Point(10, 34)
+				        );
+				    var marker = new google.maps.Marker({
+				        map: map,
+				        position: placePosition,
+				        icon: pinImage,
+				        animation: google.maps.Animation.DROP
+				    });
+				    $(element).select('.markerIcon').each(function(element){
+				    	$(element).setAttribute('src',urlIconletter);
+				    })
+
+				    /*setStyle({
+				    	'background-image':urlIconletter,
+				    	'background-repeat':'no-repeat',
+				    	'padding-left':'25px'}
+				    );*/
+
+				    markers.push(marker);
+			    });
+			 }
+			};
+
+		new ZumoTabComponent('zumoTabs',options);
 
 		$$('.expandButton').each(function(element){
 			new ZumoExpander(element,"expander"+element.id);

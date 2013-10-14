@@ -456,25 +456,56 @@ ZumoFirstCheckOnlyElement.prototype = {
 ZumoTabComponent = Class.create();
 ZumoTabComponent.prototype = {
     container:null,
-    initialize:function(container){
+    elementFunctions:null,
+    initialize:function(container,functions){
         this.container = container;
+        this.elementFunctions = functions;
         var that = this;
         $(container).select('.tab').each(function(tab){
 
             $(tab).observe('click',function(){
+                
                 that.updateTabContent(this);
+
             });
         });
         $(container).select('.tabContent').each(function(tabContent){
+
+            buttonClose = new Element('a', {class: 'closeContainer'});
+            $(buttonClose).observe('click',function(){
+                that.closeTabs(true);
+            });
+            $(tabContent).insert( {top:buttonClose });
             $(tabContent).hide();
         });
     },
     updateTabContent:function(element){
-        tabOpenId = $(element).readAttribute('for');
-        $(this.container).select('.tabContent').each(function(tab){
-            $(tab).hide();
+        if($(element).hasClassName('active')) return;
+        var tabOpenId = $(element).readAttribute('for');
+        this.closeTabs(false);
+        $(element).addClassName('active');
+        $(tabOpenId).addClassName('active');
+        Effect.SlideDown(tabOpenId,{ duration: 0.5 });
+        if(typeof this.elementFunctions[tabOpenId]!= "undefined")
+            this.elementFunctions[tabOpenId].response();
+    },
+    closeTabs:function(slideUp){
+        
+        $$('.tab').each(function(t){
+            $(t).removeClassName("active");
         });
-        $(tabOpenId).show(); 
+        $(this.container).select('.tabContent').each(function(tab){
+            console.log(tab);
+            if(slideUp){
+                if($(tab).hasClassName('active'))
+                    Effect.SlideUp(tab,{ duration: 0.5 });
+            }
+            else{
+                $(tab).hide();
+            }
+            $(tab).removeClassName('active');
+            
+        });
     }
 }
 
