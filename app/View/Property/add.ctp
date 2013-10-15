@@ -173,7 +173,7 @@ function setAddress(location){
 	    <?php echo $this->Html->image('ajax-loader.gif',array('alt'=>'Espere ...')); ?>
     	</span>
 		<p class="semititle">Im&aacute;genes</p>
-		<div id="addImages"></div>
+		<div id="addImages"><?php echo $this->Form->input('user_id_dropbox',array('label' => 'Dropbox ID')); ?></div>
 		<p class="semititle">Servicios</p>
 		<div id="autocomplete_categories" class="autocomplete"></div>
 		<span id="indicator2" style="display: none">

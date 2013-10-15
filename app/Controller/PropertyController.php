@@ -162,7 +162,7 @@ class PropertyController extends AppController {
             $this->request->data = $this->Property->read();
         } 
         else {		
-			if (!empty($this->request->data)) {						
+			if (!empty($this->request->data)) {	
 				if($this->Property->saveAll($this->request->data, array('validate'=>'first'))){
 					$this->Session->setFlash('Propiedad registrada.');
 					$this->redirect(array('action' => 'addnearplaces', $this->Property->id));					

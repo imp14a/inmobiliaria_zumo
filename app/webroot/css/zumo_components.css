@@ -33,13 +33,13 @@ div.upload input {
 	position: absolute;
 	width: 246px;
 	height: 15px;
-	left: 124px;
+	left: 90px;
 	top: 2px;
 }
 
 div.upload img{
 	position: absolute;
-	left: 383px;
+	left: 350px;
 	top: 2px;
 	cursor: pointer;
 }
@@ -59,7 +59,6 @@ input[type=text], input[type=number], input[type=password]{
 	border: thin #000 solid;
 	margin-left: 10px;
 	margin-bottom: 10px;
-	font-family: HouschkaPro-Light;	
 }
 
 input[type=text]:hover, input[type=number]:hover, input[type=password]:hover{
@@ -77,12 +76,15 @@ input[type=text]:hover, input[type=number]:hover, input[type=password]:hover{
 
 .addText input[type=text]{
 	width: 213px;
+	height: 15px;
+	position: relative;
+	top: -3px;
+	padding-left: 5px;
 }
 
 .addText img{
 	cursor: pointer;
 	position: relative;
-	height: 15px;
 	left: 2px;
 	top: 3px;
 }
@@ -141,20 +143,16 @@ input[type=submit]:hover{
 }
 
 .selectZumo select {
-	float: left;
 	cursor: pointer;
 	background: transparent;
-	width: 288px;
-	font-size: 10pt;
-	border:none;
-    outline:none;
-    display: inline-block;	
-	-webkit-appearance: none;
-	-moz-appearance: none;
-	font-family: HouschkaPro-Medium;
-	position: relative;
-	left: -2px;
-	top: -2px;	
+    width: 245px;
+    font-size: 11px;
+    line-height: 1;
+    border: 0;
+    border-radius: 0;
+    height: 15px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
 }
 
 .selectZumo {

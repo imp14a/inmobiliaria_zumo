@@ -106,6 +106,11 @@ function setAdder(adder, model){
             $(model.parent.id).focus();
             return;
         }
+        if(model.field == 'image' && $('PropertyUserIdDropbox').value.trim().length == 0){
+            alert('Debe ingresar el Dropbox ID.');
+            $('PropertyUserIdDropbox').focus();
+            return;
+        }
         var name = 'data[' + model.name + '][' + model.number + '][' + model.field + ']';
         var id_text_aux = model.field.split('_');
         id_text = model.name + model.number;
@@ -142,11 +147,11 @@ function setAdder(adder, model){
                 top: new Element('a',{
                     href: "#",
                     class: "dropbox-dropin-btn dropbox-dropin-default"                
-                }).setStyle({position: 'absolute', top: '0px', width: '121px', 'font-weight': '100'})
+                }).setStyle({position: 'absolute', top: '0px', width: '86px', 'font-weight': '100'})
                 .observe('click', function(){
                     var options = {
                         success: function(files) {                            
-                            $(id_text).value = files[0].link;                            
+                            $(id_text).value = 'https://dl.dropboxusercontent.com/u/'+$('PropertyUserIdDropbox').value+'/'+files[0].name;                            
                             $(id_text + 'imageName').value = files[0].name;
                         },
                         linkType: "direct",
@@ -154,7 +159,7 @@ function setAdder(adder, model){
                         extensions: ['.bmp', '.cr2', '.gif', '.ico', '.ithmb', '.jpeg', '.jpg', '.nef', '.png', '.raw', '.svg', '.tif', '.tiff', '.wbmp', '.webp']
                     };
                     Dropbox.choose(options);
-                }).update("Seleccionar imagen").insert({ 
+                }).update("Seleccionar").insert({ 
                     top: new Element('span',{
                         class: "dropin-btn-status"
                     })
