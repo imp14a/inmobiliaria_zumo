@@ -46,6 +46,7 @@ class AppController extends Controller {
 		$this->Auth->authenticate = array(
 		    'Form' => array(
 		        'fields' => array('username' => 'email', 'password' => 'password'),
+		        'scope' => array('emailConfirmed' => '1')
 		    ),
 		);
 		$this->Auth->authError = "Acceso denegado.";

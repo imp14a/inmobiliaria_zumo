@@ -12,9 +12,8 @@
 <style>
 
 </style>
-
+<?php echo $this->Session->flash('auth'); ?>
 <div class="plainContent" style="margin-left:10%; margin-left:0;">
-
     <?php echo $this->Form->create('PropertySearch',array( 'url' =>array('controller'=>'Property','action'=>'searchResult'))); ?>
         <p class="semititle">Operaci&oacute;n</p>
         <div class="property_abalible_type" id="property_abalible_type">
@@ -242,4 +241,8 @@ $('PropertySearchSimpleSearchForm').observe('submit',function(event){
     }
 });
 
+$('flashMessage').setStyle({'position': 'relative', 'margin-bottom': '10px'});
+new Effect.Fade('flashMessage', { duration:3, afterFinish: function() { 
+            $('flashMessage').remove(); 
+        }  });
 </script>
