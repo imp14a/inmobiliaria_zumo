@@ -60,7 +60,17 @@ function placeMarker(location) {
 	setAddress(location);
 }
 
+var valueMunicipality = "";
+var isFired = false;
+
 function codeAddress() {
+	if(isFired){
+		console.log(valueMunicipality);
+		$('PropertyAddressMunicipality').setValue(valueMunicipality);
+		isFired = false;
+		valueMunicipality = "";
+		return;
+	}
 	$('PropertyAddressQuarter').value = '';
     $('PropertyAddressStreet').value = '';            
     $('PropertyAddressPostalCode').value = '';
@@ -100,12 +110,20 @@ function setAddress(location){
 	latlng = new google.maps.LatLng(latitude, longitude, true);
 	geocoder.geocode({'location': latlng}, function(results, status){
 	if (status == google.maps.GeocoderStatus.OK) {
+		    $('PropertyAddressState').setValue(results[0].address_components[5].long_name);		    
+		    isFired = true;
+			oEvent = document.createEvent('HTMLEvents');
+            oEvent.initEvent('change',false, false);
+            element = $('PropertyAddressState');
+            element.dispatchEvent(oEvent);            
 			$('PropertyAddressQuarter').value = parseInt(results[0].address_components[0].long_name, 10) > 0 ? results[0].address_components[2].long_name : results[0].address_components[1].long_name;
 			$('PropertyAddressQuarterGoogle').value = parseInt(results[0].address_components[0].long_name, 10) > 0 ? results[0].address_components[2].long_name : results[0].address_components[1].long_name;
 			$('PropertyAddressMunicipalityGoogle').value = parseInt(results[0].address_components[0].long_name, 10) > 0 ? results[0].address_components[3].long_name : results[0].address_components[2].long_name;
             $('PropertyAddressStreet').value = parseInt(results[0].address_components[0].long_name, 10) > 0 ? results[0].address_components[1].long_name : results[0].address_components[0].long_name;            
             $('PropertyAddressPostalCode').value = parseInt(results[0].address_components[0].long_name, 10) > 0 ? results[0].address_components[7].long_name : results[0].address_components[5].long_name;            
-            $('PropertyAddressInteriorNumber').value = parseInt(results[0].address_components[0].long_name, 10) > 0 ? results[0].address_components[0].long_name : '';            
+            $('PropertyAddressInteriorNumber').value = parseInt(results[0].address_components[0].long_name, 10) > 0 ? results[0].address_components[0].long_name : '';
+   valueMunicipality = parseInt(results[0].address_components[0].long_name, 10) > 0 ? results[0].address_components[3].long_name : results[0].address_components[2].long_name;
+   $('PropertyAddressMunicipality').setValue(valueMunicipality);
         } else {
             alert('Geocode was not successful for the following reason: ' + status);
         }

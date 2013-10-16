@@ -104,7 +104,7 @@ class UserController extends AppController {
         if (!empty($this->request->data)) { 
             if($this->User->save($this->request->data)){
                 if($this->Auth->login()){
-                    $this->redirect($this->referer());    
+                    $this->redirect(array('controller' => 'property', 'action' => 'simple_search'));    
                 }
             }else{
                 $this->Session->setFlash('Ha ocurrido un error, intente de nuevo.');
