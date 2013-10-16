@@ -22,6 +22,11 @@ body,html{
 	position: absolute;
 }
 
+#flashMessage.error{
+	position: relative;
+	margin: 10px;
+}
+
 #header {
 	width: 100%;
 	height: 100px;

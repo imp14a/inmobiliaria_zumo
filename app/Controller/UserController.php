@@ -29,6 +29,7 @@ class UserController extends AppController {
                     $this->Session->setFlash('Usuario Registrado!');
                     $this->redirect(array('action' => 'login'));
                 }else{
+                    //debug($this->User->validationErrors);
                     $this->Session->setFlash(__('Ha ocurrido en error, intente de nuevo.'));
                 }
             }

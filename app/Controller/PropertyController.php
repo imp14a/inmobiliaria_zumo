@@ -6,6 +6,7 @@ App::Import('Model','PropertyArea');
 App::Import('Model','PropertyImage');
 App::Import('Model','PropertyAddress');
 App::Import('Model','PropertyNearPlace');
+App::Import('Model','UserFavorite');
 App::uses('CakeNumber', 'Utility');
 
 class PropertyController extends AppController {
@@ -198,14 +199,20 @@ class PropertyController extends AppController {
         $this->Auth->deny('index');
     }
 
+
+
     public function view($id = null){
     	$this->layout = 'property_layout';
 		$this->set('title_for_layout','Propiedad');
-
 		$this->Property->recursive = 1;
-
-		
 		$this->set('property_fist_image',$this->Property->findById($id));
+		$uf = new UserFavorite();
+		$user_id = 0;
+		if($this->Session->read('Auth.User')){
+			$user_id = $this->Session->read('Auth.User.id');
+		}
+		$res = $uf->findByPropertyIdAndUserId($id,$user_id);
+		$this->set('is_in_favorites',count($res)>0);
 		
 		$pi = new PropertyImage();
 

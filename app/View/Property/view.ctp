@@ -21,7 +21,8 @@
 </style>
 <div class="plainContent" style="padding-top:0;">
 	<div class="saveSearch" style="float: left;">
-		<?php echo $this->Html->link('AGREGAR A FAVORITOS',
+		<?php echo $is_in_favorites?$this->Html->link('QUITAR DE FAVORITOS',
+		array('controller'=>'UserFavorites','action'=>'remove',$property['Property']['id']),array('class'=>'favoriteslink')):$this->Html->link('AGREGAR A FAVORITOS',
 		array('controller'=>'UserFavorites','action'=>'add',$property['Property']['id']),array('class'=>'favoriteslink')); ?>
 	</div>
 	<div class="paginator">
