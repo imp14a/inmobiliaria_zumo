@@ -474,14 +474,18 @@ ZumoTabComponent.prototype = {
             });
         });
         $(container).select('.tabContent').each(function(tabContent){
-
-            buttonClose = new Element('a', {class: 'closeContainer'});
-            $(buttonClose).observe('click',function(){
-                that.closeTabs(true);
-            });
-            $(tabContent).insert( {top:buttonClose });
+            if(typeof functions['closeButton']=='undefined'){
+                buttonClose = new Element('a', {class: 'closeContainer'});
+                $(buttonClose).observe('click',function(){
+                    that.closeTabs(true);
+                });
+                $(tabContent).insert( {top:buttonClose });
+            }
             $(tabContent).hide();
         });
+        if(typeof functions['defaultOpen']!='undefined')
+            this.updateTabContent(functions['defaultOpen']);
+            //$();
     },
     updateTabContent:function(element){
         if($(element).hasClassName('active')) return;

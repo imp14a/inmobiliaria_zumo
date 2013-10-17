@@ -82,7 +82,7 @@ $cakeDescription = __d('inmobiliaria_zumo', 'Inmobiliaria Zumo');
 						</li>
 						<?php if($this->Session->read('Auth.User')): ?>
 						<li>
-							<?php echo $this->Html->link('MIS BUSQUEDAS' ,array('controller' => 'Property', 'action' => 'user_searchs'),array('class'=>isset($user_searchs)?'active':'')) ;
+							<?php echo $this->Html->link('MIS BUSQUEDAS' ,array('controller' => 'UserSearch'),array('class'=>isset($user_searchs)?'active':'')) ;
 							?>
 						</li>
 						<?php endif;?>

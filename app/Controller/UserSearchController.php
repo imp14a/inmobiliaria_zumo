@@ -1,8 +1,18 @@
 <?php
 
 App::Import('Model','UserSearch');
+App::Import('Model','UserFavorite');
 
 class UserSearchController extends AppController {
+
+	public $uses = array("Property");
+	var $paginate = array(
+        'limit' => 9,
+        'order' => array(
+            'Property.name' => 'asc'
+        ),
+        'recursive'=>2
+    );
 
 	public function save_search(){
 		if (!empty($this->request->data)) {			
@@ -39,7 +49,22 @@ class UserSearchController extends AppController {
 	}
 
 	public function index(){
+		$this->layout = 'property_layout';
+		$this->set('user_searchs',true);
 		$this->set('title_for_layout','Mis búsquedas');
+
+		$user_id = $this->Session->read('Auth.User.id');
+
+		$uf = new UserFavorite();
+		$userFavorites = $uf->findByUserId($user_id);
+
+		$q = array();
+		foreach($userFavorites as $favorite){
+			array_push($q, $favorite['property_id']);
+		}
+		$options = array('Property.id'=>$q);
+
+		$this->set('found_properties', $this->paginate('Property', $options));
 	}
 
 	public function getSearchesByUser(){

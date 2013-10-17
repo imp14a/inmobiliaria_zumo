@@ -20,8 +20,6 @@ class UserFavoritesController extends AppController {
 
 	public function remove($property_id=null){
 		if($this->Session->read('Auth.User')){
-			
-
 			$uf = new UserFavorite();
 			$found = $uf->findByPropertyIdAndUserId($property_id,$this->Session->read('Auth.User.id'));
 			
