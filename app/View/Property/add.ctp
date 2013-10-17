@@ -190,8 +190,17 @@ function setAddress(location){
 		<span id="indicator1" style="display: none">
 	    <?php echo $this->Html->image('ajax-loader.gif',array('alt'=>'Espere ...')); ?>
     	</span>
-		<p class="semititle">Im&aacute;genes</p>
-		<div id="addImages"><?php echo $this->Form->input('user_id_dropbox',array('label' => 'Dropbox ID')); ?></div>
+		<p class="semititle">Im&aacute;genes de la propiedad</p>
+		<?php echo $this->Form->input('user_id_dropbox',array('label' => 'Dropbox ID'));?>
+		<p class="semititle">Im&aacute;gen default de la propiedad</p>
+		<?php echo $this->Form->input('PropertyImage.0.type', array('type'=>'hidden', '
+		value'=>'default')); ?>
+		<div class="upload"><input type="text" name="" id="PropertyImage0ImageimageDefault" placeholder="" bro_id="" parent_id=""><a id="aImgDefault" href="#" class="dropbox-dropin-btn dropbox-dropin-default" style="position: absolute; top: 0px; width: 86px; font-weight: 100;"><span class="dropin-btn-status"></span>Seleccionar</a><input type="hidden" name="data[PropertyImage][0][image]" id="PropertyImage0ImageDefault"><img src="http://wowinteractive.com.mx/inmobiliaria_zumo/app/webroot/css/img/close_delete.png"></div>
+		<p class="semititle">Im&aacute;gen de planta arquitect&oacute;nica de la propiedad</p>
+		<?php echo $this->Form->input('PropertyImage.1.type', array('type'=>'hidden', '
+		value'=>'planta')); ?>
+		<div class="upload"><input type="text" name="" id="PropertyImage1ImageimagePlanta" placeholder="" bro_id="" parent_id=""><a id="aImgPlanta" href="#" class="dropbox-dropin-btn dropbox-dropin-default" style="position: absolute; top: 0px; width: 86px; font-weight: 100;"><span class="dropin-btn-status"></span>Seleccionar</a><input type="hidden" name="data[PropertyImage][1][image]" id="PropertyImage1ImagePlanta"><img src="http://wowinteractive.com.mx/inmobiliaria_zumo/app/webroot/css/img/close_delete.png"></div>
+		<div id="addImages"><p class="semititle">Im&aacute;genes para vista de resultado</p></div>
 		<p class="semititle">Servicios</p>
 		<div id="autocomplete_categories" class="autocomplete"></div>
 		<span id="indicator2" style="display: none">
@@ -219,7 +228,7 @@ function setAddress(location){
 	model_images['field'] = 'image';
 	model_images['class'] = 'upload';
 	model_images['label'] = 'Añadir imágenes';
-	setAdder($('addImages'), model_images);
+	setAdder($('addImages'), model_images, 1);
 
 	model_category['name'] = 'PropertyInformation';
 	model_category['field'] = 'category';	
@@ -246,4 +255,47 @@ function setAddress(location){
 	$('PropertyAddressState').observe('change', codeAddress);
 	$('PropertyAddressMunicipality').observe('change', codeAddress);
 
+	$('aImgDefault').observe('click', function(){
+		if(!validateDropboxID()) return;
+        var options = {
+            success: function(files) {                            
+                $('PropertyImage0ImageDefault').value = 'https://dl.dropboxusercontent.com/u/'+$('PropertyUserIdDropbox').value+'/'+files[0].name;                            
+                $('PropertyImage0ImageimageDefault').value = files[0].name;
+            },
+            linkType: "direct",
+            multiselect: false,
+            extensions: ['.bmp', '.cr2', '.gif', '.ico', '.ithmb', '.jpeg', '.jpg', '.nef', '.png', '.raw', '.svg', '.tif', '.tiff', '.wbmp', '.webp']
+        };
+        Dropbox.choose(options);
+    }).update("Seleccionar").insert({ 
+        top: new Element('span',{
+            class: "dropin-btn-status"
+        })
+    });
+    $('aImgPlanta').observe('click', function(){
+    	if(!validateDropboxID()) return;
+        var options = {
+            success: function(files) {                            
+                $('PropertyImage1ImagePlanta').value = 'https://dl.dropboxusercontent.com/u/'+$('PropertyUserIdDropbox').value+'/'+files[0].name;                            
+                $('PropertyImage1ImageimagePlanta').value = files[0].name;
+            },
+            linkType: "direct",
+            multiselect: false,
+            extensions: ['.bmp', '.cr2', '.gif', '.ico', '.ithmb', '.jpeg', '.jpg', '.nef', '.png', '.raw', '.svg', '.tif', '.tiff', '.wbmp', '.webp']
+        };
+        Dropbox.choose(options);
+    }).update("Seleccionar").insert({ 
+        top: new Element('span',{
+            class: "dropin-btn-status"
+        })
+    });
+
+    function validateDropboxID(){
+    	if($('PropertyUserIdDropbox').value.trim().length == 0){
+            alert('Debe ingresar el Dropbox ID.');
+            $('PropertyUserIdDropbox').focus();
+            return false;
+        }	
+        return true;
+    }   
 </script>

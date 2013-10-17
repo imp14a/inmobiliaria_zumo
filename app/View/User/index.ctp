@@ -3,7 +3,9 @@
     echo $this->Html->css('zumo_components');
 ?>
 <div class="plainContent">
-    <h1>Listado de usuarios</h3><br>   
+    <h1>Listado de usuarios</h3>
+    <?php if($this->Session->check('Message')){ echo $this->Session->flash();} ?>  
+    <br>
     <table>
         <tr>
             <th>Usuario</th>
@@ -25,6 +27,6 @@
             </td>
         </tr>
         <?php endforeach; ?>
-        <a class="activeButton" href="/inmobiliaria_zumo/index.php/user/add/">AGREGAR USUARIO</a>
+        <a class="activeButton" href="/inmobiliaria_zumo/index.php/user/add/">AGREGAR USUARIO</a><a class="activeButton" href="/inmobiliaria_zumo/index.php/inmobiliariazumo/panelAdministration">CANCELAR</a>
     </table>
 </div>

@@ -55,13 +55,13 @@ textarea{
  	font-family: HouschkaPro-Light;
 }
 
-input[type=text], input[type=number], input[type=password]{
+input[type=text], input[type=number], input[type=password], input[type=email]{
 	border: thin #000 solid;
 	margin-left: 10px;
 	margin-bottom: 10px;
 }
 
-input[type=text]:hover, input[type=number]:hover, input[type=password]:hover{
+input[type=text]:hover, input[type=number]:hover, input[type=password]:hover, input[type=email]:hover{
 	border: thin #FFCC00 solid;
 }
 

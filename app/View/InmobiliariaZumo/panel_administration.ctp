@@ -2,7 +2,7 @@
     echo $this->Html->css('zumo_components');
 ?>
 <div class="plainContent">
-	<h3>Panel de administraci&oacute;n</h3>
+	<h1>Panel de administraci&oacute;n</h1>
 	<table>
 		<?php echo $this->Html->tableHeaders(array('Listado', 'Ver')); ?>
 

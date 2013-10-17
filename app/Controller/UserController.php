@@ -25,9 +25,9 @@ class UserController extends AppController {
                 if (isset($this->request->data['User']['password'])) {
                     $this->request->data['User']['password'] = AuthComponent::password($this->request->data['User']['password']);
                 }
-                if($this->User->save($this->request->data)){
+                if($this->User->save($this->request->data, false)){
                     $this->Session->setFlash('Usuario Registrado!');
-                    $this->redirect(array('action' => 'login'));
+                    $this->redirect(array('action' => 'index'));
                 }else{
                     //debug($this->User->validationErrors);
                     $this->Session->setFlash(__('Ha ocurrido en error, intente de nuevo.'));

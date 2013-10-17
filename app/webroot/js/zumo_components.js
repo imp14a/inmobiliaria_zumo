@@ -93,8 +93,8 @@ function createUbicationAjaxSelects(state,municipality,quarter,showAll){
     
 }
 
-function setAdder(adder, model){
-    model['number'] = 0;
+function setAdder(adder, model, number){
+    model['number'] = typeof number != 'undefined' ? number : 0;
     var id_text1;
     var id_text;
     var addDiv = new Element('div', {class: 'addDiv', 'style': model.isChild ? 'margin-left: 10px' : 'margin-left: 0px'}).insert({
@@ -166,7 +166,6 @@ function setAdder(adder, model){
                 })
             });
         }
-        console.log(model.field);
         subAdder = subAdder.insert({
             top: new Element('input', {
                 type:           typeof model.field_type != 'undefined' ? model.field_type : 'text', 
