@@ -53,7 +53,7 @@ class AppController extends Controller {
 		$this->Auth->unauthorizedRedirect = array('controller' => 'user', 'action' => 'login');
 		$this->Auth->loginRedirect = array('controller' => 'Property','action'=>'simple_search');
     	$this->Auth->logoutRedirect = array('controller' => 'InmobiliariaZumo');
-        $this->Auth->allow('index', 'about', 'alliances', 'contact');
+        $this->Auth->allow('index', 'about', 'alliances', 'contact','news');
     } 
 
     

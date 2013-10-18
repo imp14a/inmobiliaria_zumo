@@ -149,7 +149,7 @@ class UserController extends AppController {
         $message = 'Hola, ' . utf8_encode($name) . ', para confirmar tu correo da clic en la siguiente dirección: ' . $confirmation_link;
         App::uses('CakeEmail', 'Network/Email');
         $email = new CakeEmail('gmail');
-        $email->from('rgarcia.cejudo@gmail.com');
+        $email->from(Configure::read('email.info'));
         $email->to($receiver);
         $email->subject('Confirmación de correo');
         $email->send($message);

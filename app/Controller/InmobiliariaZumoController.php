@@ -20,7 +20,18 @@ class InmobiliariaZumoController extends AppController {
 	}
 
 	public function contact(){
-		$this->set('title_for_layout', 'CONTACTO');	
+		$this->set('title_for_layout', 'CONTACTO');
+		if(!empty($this->data)){
+			
+			$message = '			Hola, se recivio informacion de contacto de parte de: ' . $this->data['ContactMessage']['username'] . '<'.$this->data['ContactMessage']['email'].' >,
+			 con el siguiente mensaje: 
+
+			 '.$this->data['ContactMessage']['message'].'
+
+			  Contáctalo.' ;
+			$this->send_mail($this->data['ContactMessage']['email'],$this->data['ContactMessage']['username'],$message);
+			$this->Session->setFlash("El mensaje fue enviado correctamente, nosotros nos pondremos en contacto.");
+		}
 	}
 
 	public function downloadables(){
@@ -31,8 +42,21 @@ class InmobiliariaZumoController extends AppController {
         $this->set('title_for_layout','Panel de administración');
     }
 
+    public function news(){
+    	$this->set('title_for_layout', 'NOTICIAS');	
+    }
+
     public function isAuthorized($user){
         return parent::isAuthorized($user);
+    }
+
+    public function send_mail($receiver = null, $name = null, $message = null) { 
+    	App::uses('CakeEmail', 'Network/Email');
+        $email = new CakeEmail('gmail');
+        $email->from(Configure::read('email.admin'));
+        $email->to($receiver);
+        $email->subject('Correo contacto: '.utf8_encode($name));
+        $email->send($message);
     }
 }
 
