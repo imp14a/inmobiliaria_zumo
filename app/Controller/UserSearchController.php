@@ -5,6 +5,8 @@ App::Import('Model','UserFavorite');
 
 class UserSearchController extends AppController {
 
+	var $components = array('Session');
+
 	public $uses = array("Property");
 	var $paginate = array(
         'limit' => 9,
@@ -17,8 +19,8 @@ class UserSearchController extends AppController {
 	public function save_search(){
 		if (!empty($this->request->data)) {			
 			$this->request->data['UserSearch']['user_id'] = $this->Auth->user('id');			
-			var_dump($this->request->data);
-			if($this->UserSearch->saveAll($this->request->data, array('validate'=>'first'))){
+			$us = new UserSearch();
+   			if($us->save($this->request->data, false)){
 				$this->Session->setFlash('Búsqueda registrada.');
 				$this->redirect(array('action' => 'index'));					
 			}else{
@@ -76,7 +78,8 @@ class UserSearchController extends AppController {
 			'order' => array('UserSearch.date')
 		);
 		$out = array();
-		foreach($this->UserSearch->find('all', $options) as $res){
+		$us = new UserSearch();
+		foreach($us->find('all', $options) as $res){
 			array_push($out, utf8_encode(json_encode($res['UserSearch'])));
 		}
 		$this->set('output', $out);

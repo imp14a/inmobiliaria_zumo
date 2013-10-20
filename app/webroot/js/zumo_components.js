@@ -12,6 +12,9 @@ function setUserSearches(element, user_id){
                         bottom: new Element('label').update(search.date).observe('click', function(){
                             description.update('');
                             description.insert(new Element('p').update(search.description));
+                            description.insert(new Element('a', {
+                                href: 'Property/searchResult/'+search.id
+                            }).update('Ver'));
                             description.setStyle({top: (Element.cumulativeOffset(item).top - 110) + 'px'});
                             item.insert(description);
                         })

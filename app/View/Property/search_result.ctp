@@ -8,12 +8,16 @@
 ?>
 <div class="plainContent" >
 	<div class="saveSearch" style="float: left;">
-		<?php echo $this->Form->create('UserSearch', array( 'url' =>array('controller'=>'UserSearch','action'=>'save_search'), 'style' => 'position: relative;
-		top: -10px;'));?>
-		<?php echo $this->Form->input('description', array('type' => 'hidden', 'value' => $search_description)); ?>
-		<?php echo $this->Form->input('algo', array('type' => 'hidden', 'value' => $options_db)); ?>
-		<?php echo $this->Form->input('date', array('type' => 'hidden', 'value' => date('d-m-Y | H:i'))); ?>
-		<?php echo $this->Form->end("GUARDAR BÚSQUEDA"); ?>
+		<?php 
+			if(!$isUserSearch){
+				echo $this->Form->create('UserSearch', array( 'url' =>array('controller'=>'UserSearch','action'=>'save_search'), 'style' => 'position: relative;
+					top: -10px;'));
+				echo $this->Form->input('description', array('type' => 'hidden', 'value' => $search_description));
+				echo $this->Form->input('algo', array('type' => 'hidden', 'value' => $options_db));
+				echo $this->Form->input('date', array('type' => 'hidden', 'value' => date('d-m-Y | H:i')));
+				$this->Form->end("GUARDAR BÚSQUEDA"); 
+			}
+		?>		
 	</div>
 	<div class="paginator">
 		<div class="pagesControl">
