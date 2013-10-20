@@ -44,6 +44,11 @@ div.upload img{
 	cursor: pointer;
 }
 
+input[type=file]{
+	margin-left: 10px;
+	margin-top: 10px;
+}
+
 label {
 	font-family: HouschkaPro-Medium;
 }
@@ -388,6 +393,7 @@ table tr:nth-child(odd) td {
 
 .document_view{
 	background: #ccc;
-	height: 350px;
+	height: 400px;
 	margin-bottom: 25px;
+	display: inline;
 }

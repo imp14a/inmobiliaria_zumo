@@ -107,10 +107,7 @@ class UserController extends AppController {
             if($this->User->save($this->request->data)){
                 $this->send_mail($this->request->data['User']['email'], $this->request->data['User']['username']);
                 $this->request->data = null;
-                $this->Session->setFlash('En breve recibirá un correo para confirmar su registro.');
-                //if($this->Auth->login()){
-                //    $this->redirect(array('controller' => 'property', 'action' => 'simple_search'));    
-                //}
+                $this->Session->setFlash('En breve recibirá un correo para confirmar su registro.');            
             }else{
                 $this->Session->setFlash('Ha ocurrido un error, intente de nuevo.');
             }
