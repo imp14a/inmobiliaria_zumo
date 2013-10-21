@@ -22,14 +22,10 @@ class UserController extends AppController {
         } 
         else {
             if (!empty($this->request->data)) {
-                if (isset($this->request->data['User']['password'])) {
-                    $this->request->data['User']['password'] = AuthComponent::password($this->request->data['User']['password']);
-                }
                 if($this->User->save($this->request->data, false)){
                     $this->Session->setFlash('Usuario Registrado!');
                     $this->redirect(array('action' => 'index'));
                 }else{
-                    //debug($this->User->validationErrors);
                     $this->Session->setFlash(__('Ha ocurrido en error, intente de nuevo.'));
                 }
             }
@@ -107,10 +103,7 @@ class UserController extends AppController {
             if($this->User->save($this->request->data)){
                 $this->send_mail($this->request->data['User']['email'], $this->request->data['User']['username']);
                 $this->request->data = null;
-                $this->Session->setFlash('En breve recibirá un correo para confirmar su registro.');
-                //if($this->Auth->login()){
-                //    $this->redirect(array('controller' => 'property', 'action' => 'simple_search'));    
-                //}
+                $this->Session->setFlash('En breve recibirá un correo para confirmar su registro.');            
             }else{
                 $this->Session->setFlash('Ha ocurrido un error, intente de nuevo.');
             }

@@ -9,7 +9,7 @@
 		<?php echo $this->Html->tableCells(array(
 	    array('Propiedades', $this->Html->link('ver', array('controller' => 'property', 'action' => 'index'))),
 	    array('Usuarios', $this->Html->link('ver', array('controller' => 'user', 'action' => 'index'))),
-	    array('Descargables', $this->Html->link('ver', array('controller' => 'files', 'action' => 'index')))
+	    array('Descargables', $this->Html->link('ver', array('controller' => 'downloadable', 'action' => 'index')))
 		)); ?>
 </table>
 </div>

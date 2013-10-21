@@ -7,6 +7,7 @@ App::Import('Model','PropertyImage');
 App::Import('Model','PropertyAddress');
 App::Import('Model','PropertyNearPlace');
 App::Import('Model','UserFavorite');
+App::Import('Model','UserSearch');
 App::uses('CakeNumber', 'Utility');
 
 class PropertyController extends AppController {
@@ -220,7 +221,7 @@ class PropertyController extends AppController {
 		
     }
 
-    public function searchResult(){
+    public function searchResult($id = null){
     	$this->layout = 'property_layout';
     	$this->set('simple_search',true);
 		$this->set('title_for_layout','Resultados de búsqueda');
@@ -339,6 +340,14 @@ class PropertyController extends AppController {
 			$this->set('search_description', $search_description);
 			$this->set('found_properties', $this->paginate('Property', $options));
 			$this->set('options_db', serialize($options));
+			$this->set('isUserSearch', false);
+		}else if($id != null){
+			$us = new UserSearch();
+			$us->id = $id;
+			$us_db = $us->read();
+			$options = unserialize($us_db['UserSearch']['algo']);
+			$this->set('found_properties', $this->paginate('Property', $options));
+			$this->set('isUserSearch', true);
 		}else{
 			$this->redirect(array('action' => 'simple_search'));
 		}

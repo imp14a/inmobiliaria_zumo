@@ -1,6 +1,7 @@
 <?php 
     echo $this->Html->script('zumo_components');
     echo $this->Html->css('zumo_components');
+    App::uses('CakeNumber', 'Utility');
 ?>
 <div class="plainContent">
     <h1>Listado de Propiedades</h3>
@@ -25,8 +26,8 @@
             <td class="center"><?php echo $property['Property']['available_for_sell'] ? "Sí" : "No"; ?></td>
             <td><?php echo $property['PropertyAddress']['state']; ?></td>
             <td><?php echo $property['PropertyAddress']['municipality']; ?></td>
-            <td class="right"><?php echo $property['PropertyPaymentInformation']['rent_price'] ? $property['PropertyPaymentInformation']['rent_price'] : "--"; ?></td>
-            <td class="right"><?php echo $property['PropertyPaymentInformation']['sale_price'] ? $property['PropertyPaymentInformation']['sale_price'] : "--"; ?></td>            
+            <td class="right"><?php echo $property['PropertyPaymentInformation']['rent_price'] ? CakeNumber::currency($property['PropertyPaymentInformation']['rent_price']) : "--"; ?></td>
+            <td class="right"><?php echo $property['PropertyPaymentInformation']['sale_price'] ? CakeNumber::currency($property['PropertyPaymentInformation']['sale_price']) : "--"; ?></td>            
             <td><?php echo $this->Html->link('editar', array('controller' => 'property', 'action' => 'add', $property['Property']['id'])); ?>
             <td>
                 <?php echo $this->Form->postLink(
