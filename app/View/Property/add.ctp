@@ -195,11 +195,11 @@ function setAddress(location){
 		<p class="semititle">Im&aacute;gen default de la propiedad</p>
 		<?php echo $this->Form->input('PropertyImage.0.type', array('type'=>'hidden', '
 		value'=>'default')); ?>
-		<div class="upload"><input type="text" name="" id="PropertyImage0ImageimageDefault" placeholder="" bro_id="" parent_id=""><a id="aImgDefault" href="#" class="dropbox-dropin-btn dropbox-dropin-default" style="position: absolute; top: 0px; width: 86px; font-weight: 100;"><span class="dropin-btn-status"></span>Seleccionar</a><input type="hidden" name="data[PropertyImage][0][image]" id="PropertyImage0ImageDefault"><img src="http://wowinteractive.com.mx/inmobiliaria_zumo/app/webroot/css/img/close_delete.png"></div>
+		<div class="upload"><input type="text" name="" id="PropertyImage0ImageimageDefault" placeholder="" bro_id="" parent_id=""><a id="aImgDefault" href="#" class="dropbox-dropin-btn dropbox-dropin-default" style="position: absolute; top: 0px; width: 86px; font-weight: 100;"><span class="dropin-btn-status"></span>Seleccionar</a><input type="hidden" name="data[PropertyImage][0][image]" id="PropertyImage0ImageDefault"><img src="/app/webroot/css/img/close_delete.png"></div>
 		<p class="semititle">Im&aacute;gen de planta arquitect&oacute;nica de la propiedad</p>
 		<?php echo $this->Form->input('PropertyImage.1.type', array('type'=>'hidden', '
 		value'=>'planta')); ?>
-		<div class="upload"><input type="text" name="" id="PropertyImage1ImageimagePlanta" placeholder="" bro_id="" parent_id=""><a id="aImgPlanta" href="#" class="dropbox-dropin-btn dropbox-dropin-default" style="position: absolute; top: 0px; width: 86px; font-weight: 100;"><span class="dropin-btn-status"></span>Seleccionar</a><input type="hidden" name="data[PropertyImage][1][image]" id="PropertyImage1ImagePlanta"><img src="http://wowinteractive.com.mx/inmobiliaria_zumo/app/webroot/css/img/close_delete.png"></div>
+		<div class="upload"><input type="text" name="" id="PropertyImage1ImageimagePlanta" placeholder="" bro_id="" parent_id=""><a id="aImgPlanta" href="#" class="dropbox-dropin-btn dropbox-dropin-default" style="position: absolute; top: 0px; width: 86px; font-weight: 100;"><span class="dropin-btn-status"></span>Seleccionar</a><input type="hidden" name="data[PropertyImage][1][image]" id="PropertyImage1ImagePlanta"><img src="/app/webroot/css/img/close_delete.png"></div>
 		<div id="addImages"><p class="semititle">Im&aacute;genes para vista de resultado</p></div>
 		<p class="semititle">Servicios</p>
 		<div id="autocomplete_categories" class="autocomplete"></div>

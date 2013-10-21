@@ -1,7 +1,7 @@
 function setUserSearches(element, user_id){
     var description = new Element('div', {class: 'search_description'});
     new Ajax.Request(
-        'http://wowinteractive.com.mx/inmobiliaria_zumo/index.php/UserSearch/getSearchesByUser.json', {
+        '/index.php/UserSearch/getSearchesByUser.json', {
             parameters: {user_id: user_id},
             onSuccess: function(response) {  
                 obj = response.responseJSON;                   
@@ -19,7 +19,7 @@ function setUserSearches(element, user_id){
                     item.insert({
                         bottom: new Element('img').observe('click', function(){
                             new Ajax.Request(
-                                'http://wowinteractive.com.mx/inmobiliaria_zumo/index.php/UserSearch/delete.json', {
+                                '/index.php/UserSearch/delete.json', {
                                 parameters: {user_search_id: search.id},
                                 onSuccess: function(response) {                                      
                                     item.remove();
@@ -47,7 +47,7 @@ function createUbicationAjaxSelects(state,municipality,quarter,showAll){
             parametersForState = {state: $(state).value};
         
         new Ajax.Request(
-            'http://wowinteractive.com.mx/inmobiliaria_zumo/index.php/PropertyAddress/getMunicipalityForState.json', {
+            '/index.php/PropertyAddress/getMunicipalityForState.json', {
                 parameters: parametersForState,
                 onSuccess: function(response) {                                        
                     obj = response.responseJSON;                   
@@ -71,7 +71,7 @@ function createUbicationAjaxSelects(state,municipality,quarter,showAll){
     if(typeof quarter!='undefined' && quarter!=null){
         $(municipality).observe('change',function(){
             new Ajax.Request(
-                'http://wowinteractive.com.mx/inmobiliaria_zumo/index.php/PropertyAddress/getQuartersForMunicipality.json', {
+                '/index.php/PropertyAddress/getQuartersForMunicipality.json', {
                     parameters: {municipality: $(municipality).value},
                     onSuccess: function(response) {
                         obj = response.responseJSON;
@@ -181,7 +181,7 @@ function setAdder(adder, model, number){
             })                                   
         }).insert({
             bottom: new Element('img', {
-                src: 'http://wowinteractive.com.mx/inmobiliaria_zumo/app/webroot/css/img/close_delete.png'
+                src: '/app/webroot/css/img/close_delete.png'
                 }).observe('click', function(){
                     subAdder.remove();
                 })
@@ -246,7 +246,7 @@ function createNearPlace(container, newNearPlace){
         }).setStyle({position: 'relative', left: '31px', top: '-14px', height: '50px'})
     }).insert({
         bottom: new Element('img', {
-            src: 'http://wowinteractive.com.mx/inmobiliaria_zumo/app/webroot/css/img/close_delete.png',
+            src: '/app/webroot/css/img/close_delete.png',
         }).setStyle({
             position: 'relative', 
             left: '340px', top: '-108px', 
@@ -273,7 +273,7 @@ function createNearPlace(container, newNearPlace){
     container.insert({bottom: nearPlace});
     new ZumoCompleter('PropertyNearPlace' + newNearPlace.number + 'Type', 
         "autocomplete_types", 
-        "http://wowinteractive.com.mx/inmobiliaria_zumo/index.php/PropertyNearPlace/getNearPlaceTypes.json",
+        "/index.php/PropertyNearPlace/getNearPlaceTypes.json",
         {
         indicator: "indicator1",
         paramName: "type",
