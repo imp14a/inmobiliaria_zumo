@@ -25,5 +25,3 @@
 	    <?php if($this->Session->check('Message')){ echo $this->Session->flash();} ?>
 	</div>
 </div>
-
-    

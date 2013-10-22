@@ -38,7 +38,7 @@ $cakeDescription = __d('inmobiliaria_zumo', 'Inmobiliaria Zumo');
 	?>
 </head>
 <body>
-	<div id="container">
+	<div id="containerLogin">
 		<?php echo $this->Session->flash(); ?>
 		<?php echo $this->fetch('content'); ?>
 	</div>

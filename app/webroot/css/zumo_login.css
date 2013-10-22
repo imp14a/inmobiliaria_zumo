@@ -1,5 +1,5 @@
 div.loginContent {
-	padding: 30px;
+	padding: 25px;
 	background: #FFCC00;
 	font-size: 9pt;
 	line-height: 1.5;
@@ -20,16 +20,14 @@ div.loginContent label{
 }
 
 div.loginContent input[type=email]{
-	position: relative;
-	left: 10px;
 	border: none !important;
-	width: 160px;
+	width: 210px;
 	height: 15px;
 }
 
 div.loginContent input[type=text], input[type=password]{	
 	border: none !important;
-	width: 160px;
+	width: 210px;
 	height: 15px;
 	font-size: 12px;
 	font-family: HouschkaPro-Medium;
