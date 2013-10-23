@@ -42,7 +42,9 @@ $cakeDescription = __d('inmobiliaria_zumo', 'Inmobiliaria Zumo');
 		echo $this->Html->script('lightwindow');
 		echo $this->fetch('script');
 	?>
+	
 </head>
+
 <body>
 	<div id="container">
 		<div id="header">
