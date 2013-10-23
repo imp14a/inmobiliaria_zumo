@@ -66,6 +66,17 @@ function createUbicationAjaxSelects(state,municipality,quarter,showAll){
                             bottom: new Element('option', {value: value}).update(value)
                         });
                     });
+                    if(isFired){
+                        var options = $$('select#PropertyAddressMunicipality option');
+                        var len = options.length;
+                        for (var i = 0; i < len; i++) {
+                            console.log(options[i].value);
+                            if(valueMunicipality.indexOf(options[i].value.toString()) != -1){
+                                options[i].selected = true;
+                            }             
+                        }
+                        isFired = false;
+                    }
                 }
             }
         );
@@ -203,7 +214,7 @@ function setAdder(adder, model, number){
         //  Autocompleters
         if(typeof model.autocomplete_srv != 'undefined'){
             new ZumoCompleter(id_text, model.autocomplete_id, 
-            "http://wowinteractive.com.mx/inmobiliaria_zumo/index.php/" + model.autocomplete_srv + ".json", {
+            "/index.php/" + model.autocomplete_srv + ".json", {
                 indicator: model.autocomplete_indicator,
                 paramName: model.autocomplete_paramName,
                 minChars:  1

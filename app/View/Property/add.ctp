@@ -65,10 +65,7 @@ var isFired = false;
 
 function codeAddress() {
 	if(isFired){
-		console.log(valueMunicipality);
-		$('PropertyAddressMunicipality').setValue(valueMunicipality);
-		isFired = false;
-		valueMunicipality = "";
+		valueMunicipality = $('PropertyAddressMunicipalityGoogle').value.toString();
 		return;
 	}
 	$('PropertyAddressQuarter').value = '';
@@ -110,15 +107,23 @@ function setAddress(location){
 	latlng = new google.maps.LatLng(latitude, longitude, true);
 	geocoder.geocode({'location': latlng}, function(results, status){
 	if (status == google.maps.GeocoderStatus.OK) {
-		    $('PropertyAddressState').setValue(results[0].address_components[5].long_name);		    
+		    var options = $$('select#PropertyAddressState option');
+			var len = options.length;
+			var selectedValue = parseInt(results[0].address_components[5].long_name) > 0 ? results[0].address_components[3].long_name : results[0].address_components[5].long_name;
+			for (var i = 0; i < len; i++) {
+				if(selectedValue.indexOf(options[i].value.toString()) != -1){
+					options[i].selected = true;
+				}			   
+			}
+			$('PropertyAddressMunicipalityGoogle').value = parseInt(results[0].address_components[0].long_name, 10) > 0 ? results[0].address_components[3].long_name : results[0].address_components[2].long_name;
 		    isFired = true;
 			oEvent = document.createEvent('HTMLEvents');
             oEvent.initEvent('change',false, false);
             element = $('PropertyAddressState');
             element.dispatchEvent(oEvent);            
+
 			$('PropertyAddressQuarter').value = parseInt(results[0].address_components[0].long_name, 10) > 0 ? results[0].address_components[2].long_name : results[0].address_components[1].long_name;
 			$('PropertyAddressQuarterGoogle').value = parseInt(results[0].address_components[0].long_name, 10) > 0 ? results[0].address_components[2].long_name : results[0].address_components[1].long_name;
-			$('PropertyAddressMunicipalityGoogle').value = parseInt(results[0].address_components[0].long_name, 10) > 0 ? results[0].address_components[3].long_name : results[0].address_components[2].long_name;
             $('PropertyAddressStreet').value = parseInt(results[0].address_components[0].long_name, 10) > 0 ? results[0].address_components[1].long_name : results[0].address_components[0].long_name;            
             $('PropertyAddressPostalCode').value = parseInt(results[0].address_components[0].long_name, 10) > 0 ? results[0].address_components[7].long_name : results[0].address_components[5].long_name;            
             $('PropertyAddressInteriorNumber').value = parseInt(results[0].address_components[0].long_name, 10) > 0 ? results[0].address_components[0].long_name : '';
