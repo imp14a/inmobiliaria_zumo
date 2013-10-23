@@ -89,6 +89,11 @@ class DownloadableController extends AppController{
     	return $this->response;
 	}
 	
+	public function beforeFilter() {
+        parent::beforeFilter();
+        $this->Auth->allow('download', 'view');
+    }
+
 	public function isAuthorized($user) {
         return parent::isAuthorized($user);
     }
