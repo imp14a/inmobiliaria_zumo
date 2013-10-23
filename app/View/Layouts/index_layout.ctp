@@ -36,6 +36,7 @@ $cakeDescription = __d('inmobiliaria_zumo', 'Inmobiliaria Zumo');
 		echo $this->Html->css('inmobiliaria_zumo');
 		echo $this->fetch('css');
 		echo $this->Html->script('prototype');
+		echo $this->Html->script('scriptaculous/scriptaculous');
 		echo $this->Html->script('hover_efect_buttons');
 		echo $this->fetch('script');
 	?>
@@ -84,12 +85,27 @@ $cakeDescription = __d('inmobiliaria_zumo', 'Inmobiliaria Zumo');
 				
 			</div>
 			<div class='indexinfo'>
-					<p >
-						Somos una organizaci&oacute;n de profesionales inmobiliarios con productos y servicios especializados que cubren las necesidades de personas que desean vender, comprar o rentar una vivienda.<br />
-						Brindamos asesor&iacute;a y representaci&oacute;n profesional a quienes desean realizar transacciones inmobiliarias.
-					</p>
+				<style>
+				.container{
+					display: inline-block;
+					width: auto;
+					font-size: 16px;
+					line-height: 22px;
+				}
+				</style>
+				<div class="container" style="width: 780px;">
+					<span> Somos una organizaci&oacute;n de profesionales inmobiliarios con productos y servicios especializados que cubren las</span>
+					<div class="marker" data-maker-order="1"></div>
 				</div>
-			
+				<div class="container">
+					<span>necesidades de personas que desean vender, comprar o rentar una vivienda.</span>
+					<div class="marker" data-maker-order="2"></div>
+				</div>
+				<div>
+					<span>Brindamos asesor&iacute;a y representaci&oacute;n profesional a quienes desean realizar transacciones inmobiliarias.</span>
+					<div class="marker" data-maker-order="3"></div>
+				</div>
+			</div>
 		</div>
 	</div>
 	<?php echo $this->element('sql_dump'); ?>
