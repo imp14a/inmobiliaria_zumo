@@ -59,7 +59,7 @@ $cakeDescription = __d('inmobiliaria_zumo', 'Inmobiliaria Zumo');
 					array('escape'=>false)); ?> 
 				</li>
 				<li><?php echo $this->Html->link($this->Html->div('button downloadables','<span class="title">DESCARGABLES</span>')
-					,array('controller' => 'InmobiliariaZumo', 'action' => 'downloadables'),
+					,array('controller' => 'Downloadable', 'action' => 'view'),
 					array('escape'=>false)); ?>
 				</li>
 			</ul>
