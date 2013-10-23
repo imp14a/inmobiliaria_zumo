@@ -28,8 +28,7 @@ body{
 	font-size: 12px;
 	line-height: 18px;
 	text-align: justify;
-	margin-left: 20%;
-	margin-right: 20%;
+	text-align:center;
 	margin-top: 50px;
 }
 .indexinfo .column{
@@ -57,8 +56,9 @@ body{
 	height: 24px;
 	width: 0;
 	background-color: #FFCC00;
-	/*background-image: url(img/elements_background.png);*/
+	background-image: url(img/elements_background.png);
 	background-repeat: no-repeat;
+	background-size: contain;
 	top: 2px;
 	left: -5px;
 	z-index: -1;

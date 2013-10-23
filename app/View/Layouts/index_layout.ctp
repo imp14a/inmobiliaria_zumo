@@ -85,19 +85,20 @@ $cakeDescription = __d('inmobiliaria_zumo', 'Inmobiliaria Zumo');
 				
 			</div>
 			<div class='indexinfo'>
-
-				<div class="container" style="width: 780px;">
-					<span> Somos una organizaci&oacute;n de profesionales inmobiliarios con productos y servicios especializados que cubren las</span>
-					<div class="marker" data-maker-order="1"></div>
-				</div>
-				<div class="container" style="width: 535px;">
-					<span>necesidades de personas que desean vender, comprar o rentar una vivienda.</span>
-					<div class="marker" data-maker-order="2"></div>
-				</div>
 				<div>
-					<div class="container" style="width: 720px;">
-						<span>Brindamos asesor&iacute;a y representaci&oacute;n profesional a quienes desean realizar transacciones inmobiliarias.</span>
-						<div class="marker" data-maker-order="3"></div>
+					<div class="container" style="width: 780px;">
+						<span> Somos una organizaci&oacute;n de profesionales inmobiliarios con productos y servicios especializados que cubren las</span>
+						<div class="marker" data-maker-order="1"></div>
+					</div>
+					<div class="container" style="width: 535px;">
+						<span>necesidades de personas que desean vender, comprar o rentar una vivienda.</span>
+						<div class="marker" data-maker-order="2"></div>
+					</div>
+					<div>
+						<div class="container" style="width: 720px;">
+							<span>Brindamos asesor&iacute;a y representaci&oacute;n profesional a quienes desean realizar transacciones inmobiliarias.</span>
+							<div class="marker" data-maker-order="3"></div>
+						</div>
 					</div>
 				</div>
 			</div>
