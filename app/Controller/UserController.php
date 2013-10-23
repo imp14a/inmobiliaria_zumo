@@ -3,6 +3,7 @@
 App::import('Model','PostalCode');
 App::uses('AuthComponent', 'Controller/Component');
 App::uses('Folder', 'Utility');
+App::uses('CakeEmail', 'Network/Email');
 
 class UserController extends AppController {
 
@@ -139,9 +140,8 @@ class UserController extends AppController {
                     
     public function send_mail($receiver = null, $name = null) {
         $confirmation_link = "http://".$_SERVER['HTTP_HOST']."/inmobiliaria_zumo/index.php/User/confirm/".urlencode($this->getSecretUserId());
-        $message = 'Hola, ' . utf8_encode($name) . ', para confirmar tu correo da clic en la siguiente dirección: ' . $confirmation_link;
-        App::uses('CakeEmail', 'Network/Email');
-        $email = new CakeEmail('gmail');
+        $message = 'Hola, ' . utf8_encode($name) . ', para confirmar tu correo da clic en la siguiente dirección: ' . $confirmation_link;        
+        $email = new CakeEmail('zumomail');
         $email->from(Configure::read('email.info'));
         $email->to($receiver);
         $email->subject('Confirmación de correo');
