@@ -85,14 +85,7 @@ $cakeDescription = __d('inmobiliaria_zumo', 'Inmobiliaria Zumo');
 				
 			</div>
 			<div class='indexinfo'>
-				<style>
-				.container{
-					display: inline-block;
-					width: auto;
-					font-size: 16px;
-					line-height: 22px;
-				}
-				</style>
+
 				<div class="container" style="width: 780px;">
 					<span> Somos una organizaci&oacute;n de profesionales inmobiliarios con productos y servicios especializados que cubren las</span>
 					<div class="marker" data-maker-order="1"></div>
@@ -102,10 +95,30 @@ $cakeDescription = __d('inmobiliaria_zumo', 'Inmobiliaria Zumo');
 					<div class="marker" data-maker-order="2"></div>
 				</div>
 				<div>
-					<span>Brindamos asesor&iacute;a y representaci&oacute;n profesional a quienes desean realizar transacciones inmobiliarias.</span>
-					<div class="marker" data-maker-order="3"></div>
+					<div class="container">
+						<span>Brindamos asesor&iacute;a y representaci&oacute;n profesional a quienes desean realizar transacciones inmobiliarias.</span>
+						<div class="marker" data-maker-order="3"></div>
+					</div>
 				</div>
 			</div>
+			<script>
+			Event.observe(window,'load',function(){
+				$$('.marker').each(function(element){
+					$(element).setStyle({
+						width:0
+					});
+
+					new Effect.Morph(element, {
+						style: {
+							width:"100%"
+							}, // CSS Properties
+						duration: 2.3,
+						queue: 'end'
+						} 
+					);
+				});
+			});
+			</script>
 		</div>
 	</div>
 	<?php echo $this->element('sql_dump'); ?>

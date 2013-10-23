@@ -45,3 +45,21 @@ body{
 	margin-top: 0 !important;
 	text-align: center;
 }
+.container{
+	display: inline-block;
+	width: auto;
+	font-size: 16px;
+	line-height: 22px;
+	position: relative;
+}
+.marker{
+	position: absolute;
+	height: 20px;
+	width: 100%;
+	background-color: #FFCC00;
+	/*background-image: url(img/elements_background.png);*/
+	background-repeat: no-repeat;
+	top: 0;
+	left: 0;
+	z-index: -1;
+}
