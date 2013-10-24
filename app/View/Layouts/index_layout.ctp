@@ -85,7 +85,7 @@ $cakeDescription = __d('inmobiliaria_zumo', 'Inmobiliaria Zumo');
 				
 			</div>
 			<div class='indexinfo'>
-				<div>
+				<div style="width: 780px; text-align:left; display: inline-block;">
 					<div class="container" style="width: 780px;">
 						<span> Somos una organizaci&oacute;n de profesionales inmobiliarios con productos y servicios especializados que cubren las</span>
 						<div class="marker" data-maker-order="1"></div>
