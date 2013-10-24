@@ -2,20 +2,20 @@
     echo $this->Html->css('zumo_components');
 ?>
 <style>
-p{
+.column p{
 	font-size: 14px;
 }
-label{
+.column label{
 	font-size: 14px;
 	margin-top: 10px;
 	width: 100%;
 	display: inline-block;
 }
-textarea{
+.column. textarea{
 	margin-bottom: 30px;
 }
 </style>
-<div class="plainContent" style="padding-left:15%;">
+<div class="plainContent" style="padding-left:15%; width:90%;">
 	<div class="column" style="width:350px;">
 		<p><br>INFO<br>
 		<br>T. (01722) 2326987 / 2310932

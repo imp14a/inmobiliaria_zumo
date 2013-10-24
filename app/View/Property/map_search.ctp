@@ -115,7 +115,7 @@ function findNerbyProperties(){
     clearMarkers();
     if(!codeAddress())return;
     new Ajax.Request(
-            'http://wowinteractive.com.mx/inmobiliaria_zumo/index.php/Property/getPropertyByStateMunicipalityAndQuarter.json', {
+            '/index.php/Property/getPropertyByStateMunicipalityAndQuarter.json', {
                 parameters: {
                     state: $('PropertySearchState').value,
                     municipality:$('PropertySearchMunicipality').value,

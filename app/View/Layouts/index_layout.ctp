@@ -36,6 +36,7 @@ $cakeDescription = __d('inmobiliaria_zumo', 'Inmobiliaria Zumo');
 		echo $this->Html->css('inmobiliaria_zumo');
 		echo $this->fetch('css');
 		echo $this->Html->script('prototype');
+		echo $this->Html->script('scriptaculous/scriptaculous');
 		echo $this->Html->script('hover_efect_buttons');
 		echo $this->fetch('script');
 	?>
@@ -58,7 +59,7 @@ $cakeDescription = __d('inmobiliaria_zumo', 'Inmobiliaria Zumo');
 					array('escape'=>false)); ?> 
 				</li>
 				<li><?php echo $this->Html->link($this->Html->div('button downloadables','<span class="title">DESCARGABLES</span>')
-					,array('controller' => 'InmobiliariaZumo', 'action' => 'downloadables'),
+					,array('controller' => 'Downloadable', 'action' => 'view'),
 					array('escape'=>false)); ?>
 				</li>
 			</ul>
@@ -84,12 +85,41 @@ $cakeDescription = __d('inmobiliaria_zumo', 'Inmobiliaria Zumo');
 				
 			</div>
 			<div class='indexinfo'>
-					<p >
-						Somos una organizaci&oacute;n de profesionales inmobiliarios con productos y servicios especializados que cubren las necesidades de personas que desean vender, comprar o rentar una vivienda.<br />
-						Brindamos asesor&iacute;a y representaci&oacute;n profesional a quienes desean realizar transacciones inmobiliarias.
-					</p>
+				<div>
+					<div class="container" style="width: 780px;">
+						<span> Somos una organizaci&oacute;n de profesionales inmobiliarios con productos y servicios especializados que cubren las</span>
+						<div class="marker" data-maker-order="1"></div>
+					</div>
+					<div class="container" style="width: 535px;">
+						<span>necesidades de personas que desean vender, comprar o rentar una vivienda.</span>
+						<div class="marker" data-maker-order="2"></div>
+					</div>
+					<div>
+						<div class="container" style="width: 720px;">
+							<span>Brindamos asesor&iacute;a y representaci&oacute;n profesional a quienes desean realizar transacciones inmobiliarias.</span>
+							<div class="marker" data-maker-order="3"></div>
+						</div>
+					</div>
 				</div>
-			
+			</div>
+			<script>
+			Event.observe(window,'load',function(){
+				$$('.marker').each(function(element){
+					$(element).setStyle({
+						width:0
+					});
+
+					new Effect.Morph(element, {
+						style: {
+							width:"100%"
+							}, // CSS Properties
+						duration: 2.3,
+						queue: 'end'
+						} 
+					);
+				});
+			});
+			</script>
 		</div>
 	</div>
 	<?php echo $this->element('sql_dump'); ?>

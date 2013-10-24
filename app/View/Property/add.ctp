@@ -65,10 +65,7 @@ var isFired = false;
 
 function codeAddress() {
 	if(isFired){
-		console.log(valueMunicipality);
-		$('PropertyAddressMunicipality').setValue(valueMunicipality);
-		isFired = false;
-		valueMunicipality = "";
+		valueMunicipality = $('PropertyAddressMunicipalityGoogle').value.toString();
 		return;
 	}
 	$('PropertyAddressQuarter').value = '';
@@ -110,15 +107,23 @@ function setAddress(location){
 	latlng = new google.maps.LatLng(latitude, longitude, true);
 	geocoder.geocode({'location': latlng}, function(results, status){
 	if (status == google.maps.GeocoderStatus.OK) {
-		    $('PropertyAddressState').setValue(results[0].address_components[5].long_name);		    
+		    var options = $$('select#PropertyAddressState option');
+			var len = options.length;
+			var selectedValue = parseInt(results[0].address_components[5].long_name) > 0 ? results[0].address_components[3].long_name : results[0].address_components[5].long_name;
+			for (var i = 0; i < len; i++) {
+				if(selectedValue.indexOf(options[i].value.toString()) != -1){
+					options[i].selected = true;
+				}			   
+			}
+			$('PropertyAddressMunicipalityGoogle').value = parseInt(results[0].address_components[0].long_name, 10) > 0 ? results[0].address_components[3].long_name : results[0].address_components[2].long_name;
 		    isFired = true;
 			oEvent = document.createEvent('HTMLEvents');
             oEvent.initEvent('change',false, false);
             element = $('PropertyAddressState');
             element.dispatchEvent(oEvent);            
+
 			$('PropertyAddressQuarter').value = parseInt(results[0].address_components[0].long_name, 10) > 0 ? results[0].address_components[2].long_name : results[0].address_components[1].long_name;
 			$('PropertyAddressQuarterGoogle').value = parseInt(results[0].address_components[0].long_name, 10) > 0 ? results[0].address_components[2].long_name : results[0].address_components[1].long_name;
-			$('PropertyAddressMunicipalityGoogle').value = parseInt(results[0].address_components[0].long_name, 10) > 0 ? results[0].address_components[3].long_name : results[0].address_components[2].long_name;
             $('PropertyAddressStreet').value = parseInt(results[0].address_components[0].long_name, 10) > 0 ? results[0].address_components[1].long_name : results[0].address_components[0].long_name;            
             $('PropertyAddressPostalCode').value = parseInt(results[0].address_components[0].long_name, 10) > 0 ? results[0].address_components[7].long_name : results[0].address_components[5].long_name;            
             $('PropertyAddressInteriorNumber').value = parseInt(results[0].address_components[0].long_name, 10) > 0 ? results[0].address_components[0].long_name : '';
@@ -193,11 +198,11 @@ function setAddress(location){
 		<p class="semititle">Im&aacute;gen default de la propiedad</p>
 		<?php echo $this->Form->input('PropertyImage.0.type', array('type'=>'hidden', '
 		value'=>'default')); ?>
-		<div class="upload"><input type="text" name="" id="PropertyImage0ImageimageDefault" placeholder="" bro_id="" parent_id=""><a id="aImgDefault" href="#" class="dropbox-dropin-btn dropbox-dropin-default" style="position: absolute; top: 0px; width: 86px; font-weight: 100;"><span class="dropin-btn-status"></span>Seleccionar</a><input type="hidden" name="data[PropertyImage][0][image]" id="PropertyImage0ImageDefault"><img src="http://wowinteractive.com.mx/inmobiliaria_zumo/app/webroot/css/img/close_delete.png"></div>
+		<div class="upload"><input type="text" name="" id="PropertyImage0ImageimageDefault" placeholder="" bro_id="" parent_id=""><a id="aImgDefault" href="#" class="dropbox-dropin-btn dropbox-dropin-default" style="position: absolute; top: 0px; width: 86px; font-weight: 100;"><span class="dropin-btn-status"></span>Seleccionar</a><input type="hidden" name="data[PropertyImage][0][image]" id="PropertyImage0ImageDefault"><img src="/app/webroot/css/img/close_delete.png"></div>
 		<p class="semititle">Im&aacute;gen de planta arquitect&oacute;nica de la propiedad</p>
 		<?php echo $this->Form->input('PropertyImage.1.type', array('type'=>'hidden', '
 		value'=>'planta')); ?>
-		<div class="upload"><input type="text" name="" id="PropertyImage1ImageimagePlanta" placeholder="" bro_id="" parent_id=""><a id="aImgPlanta" href="#" class="dropbox-dropin-btn dropbox-dropin-default" style="position: absolute; top: 0px; width: 86px; font-weight: 100;"><span class="dropin-btn-status"></span>Seleccionar</a><input type="hidden" name="data[PropertyImage][1][image]" id="PropertyImage1ImagePlanta"><img src="http://wowinteractive.com.mx/inmobiliaria_zumo/app/webroot/css/img/close_delete.png"></div>
+		<div class="upload"><input type="text" name="" id="PropertyImage1ImageimagePlanta" placeholder="" bro_id="" parent_id=""><a id="aImgPlanta" href="#" class="dropbox-dropin-btn dropbox-dropin-default" style="position: absolute; top: 0px; width: 86px; font-weight: 100;"><span class="dropin-btn-status"></span>Seleccionar</a><input type="hidden" name="data[PropertyImage][1][image]" id="PropertyImage1ImagePlanta"><img src="/app/webroot/css/img/close_delete.png"></div>
 		<div id="addImages"><p class="semititle">Im&aacute;genes para vista de resultado</p></div>
 		<p class="semititle">Servicios</p>
 		<div id="autocomplete_categories" class="autocomplete"></div>
