@@ -23,7 +23,7 @@ class InmobiliariaZumoController extends AppController {
 		$this->set('title_for_layout', 'CONTACTO');
 		if(!empty($this->data)){
 			
-			$message = '			Hola, se recivio informacion de contacto de parte de: ' . $this->data['ContactMessage']['username'] . '<'.$this->data['ContactMessage']['email'].' >,
+			$message = '			Hola, se recivio información de contacto de parte de: ' . $this->data['ContactMessage']['username'] . '<'.$this->data['ContactMessage']['email'].' >,
 			 con el siguiente mensaje: 
 
 			 '.$this->data['ContactMessage']['message'].'
@@ -54,7 +54,7 @@ class InmobiliariaZumoController extends AppController {
     	App::uses('CakeEmail', 'Network/Email');
         $email = new CakeEmail('gmail');
         $email->from(Configure::read('email.admin'));
-        $email->to($receiver);
+        $email->to($Configure::read('email.contact'));
         $email->subject('Correo contacto: '.utf8_encode($name));
         $email->send($message);
     }

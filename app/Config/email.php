@@ -3,6 +3,7 @@
 
 Configure::write('email.info', 'info@zumoinmobiliaria.mx');
 Configure::write('email.admin', 'admin@zumoinmobiliaria.mx');
+Configure::write('email.contact', 'contacto@zumoinmobiliaria.mx');
 
 class EmailConfig {
 
