@@ -139,7 +139,7 @@ class UserController extends AppController {
     }
                     
     public function send_mail($receiver = null, $name = null) {
-        $confirmation_link = "http://".$_SERVER['HTTP_HOST']."/inmobiliaria_zumo/index.php/User/confirm/".urlencode($this->getSecretUserId());
+        $confirmation_link = "http://".$_SERVER['HTTP_HOST']."/index.php/User/confirm/".urlencode($this->getSecretUserId());
         $message = 'Hola, ' . utf8_encode($name) . ', para confirmar tu correo da clic en la siguiente dirección: ' . $confirmation_link;        
         $email = new CakeEmail('zumomail');
         $email->from(Configure::read('email.info'));

@@ -52,8 +52,8 @@ class InmobiliariaZumoController extends AppController {
 
     public function send_mail($receiver = null, $name = null, $message = null) { 
     	App::uses('CakeEmail', 'Network/Email');
-        $email = new CakeEmail('gmail');
-        $email->from(Configure::read('email.admin'));
+        $email = new CakeEmail('zumomail');
+        $email->from(Configure::read('email.info'));
         $email->to($Configure::read('email.contact'));
         $email->subject('Correo contacto: '.utf8_encode($name));
         $email->send($message);
