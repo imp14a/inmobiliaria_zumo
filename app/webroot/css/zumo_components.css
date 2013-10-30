@@ -11,7 +11,7 @@ div.slider div.handle {
 	height:15px; 
 	cursor:move; 
 	position: absolute; 
-	background: url('/inmobiliaria_zumo/app/webroot/css/img/level_slider.png') no-repeat;
+	background: url('/app/webroot/css/img/level_slider.png') no-repeat;
 	top: -6px;
 }
 
