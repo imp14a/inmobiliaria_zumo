@@ -151,41 +151,45 @@
              <div class="line">
                 <div style="width:auto; display:inline-block; margin-right:10px;">
                     <p class="semititle">Otras &Aacute;reas</p>
-                    <?php $i=0; foreach($areas as $area):?>
-                        <?php if($i%5==0 ): $close_div = 0; ?>
-                            <div class="chekbox_group" style="width: auto;">
-                        <?php  endif;?>
-                        <?php echo $this->Form->checkbox('AdvancedSearch.Areas.'
-                            .Inflector::slug($area['PropertyArea']['area_name']),array('hiddenField' => false)); ?>
-                            <label for="AdvancedSearchAreas<?php echo Inflector::camelize(
-                                    Inflector::slug($area['PropertyArea']['area_name'])
-                                ); ?>" > <?php echo $area['PropertyArea']['area_name'];?></label>
-                        <?php if($close_div==4): ?>
+                    <?php if(count($areas)>0):?>
+                        <?php $i=0; foreach($areas as $area):?>
+                            <?php if($i%5==0 ): $close_div = 0; ?>
+                                <div class="chekbox_group" style="width: auto;">
+                            <?php  endif;?>
+                            <?php echo $this->Form->checkbox('AdvancedSearch.Areas.'
+                                .Inflector::slug($area['PropertyArea']['area_name']),array('hiddenField' => false)); ?>
+                                <label for="AdvancedSearchAreas<?php echo Inflector::camelize(
+                                        Inflector::slug($area['PropertyArea']['area_name'])
+                                    ); ?>" > <?php echo $area['PropertyArea']['area_name'];?></label>
+                            <?php if($close_div==4): ?>
+                                </div>
+                            <?php endif; $close_div++;?>
+                        <?php $i++; endforeach;?>
+                        <?php if($close_div<4): ?>
                             </div>
-                        <?php endif; $close_div++;?>
-                    <?php $i++; endforeach;?>
-                    <?php if($close_div<4): ?>
-                        </div>
+                        <?php endif;?>
                     <?php endif;?>
                 </div>
                 <div style="width:auto; display:inline-block;">
                     <p class="semititle">Servicios cercanos</p>
-                    <?php $i=0; foreach($services as $service):?>
-                        <?php if($i%5==0 ): $close_div = 0; ?>
-                            <div class="chekbox_group" style="width: auto;">
-                        <?php  endif;?>
-                        <?php echo $this->Form->checkbox('AdvancedSearch.Services.'
-                            .Inflector::slug($service['PropertyNearPlace']['type']),array('hiddenField' => false)); ?>
-                            <label for="AdvancedSearchServices<?php echo Inflector::camelize(
-                                    Inflector::slug($service['PropertyNearPlace']['type'])
-                                ); ?>" > <?php echo $service['PropertyNearPlace']['type'];?></label>
-                        <?php if($close_div==4): ?>
+                    <?php if(count($services)>0):?>
+                        <?php $i=0; foreach($services as $service):?>
+                            <?php if($i%5==0 ): $close_div = 0; ?>
+                                <div class="chekbox_group" style="width: auto;">
+                            <?php  endif;?>
+                            <?php echo $this->Form->checkbox('AdvancedSearch.Services.'
+                                .Inflector::slug($service['PropertyNearPlace']['type']),array('hiddenField' => false)); ?>
+                                <label for="AdvancedSearchServices<?php echo Inflector::camelize(
+                                        Inflector::slug($service['PropertyNearPlace']['type'])
+                                    ); ?>" > <?php echo $service['PropertyNearPlace']['type'];?></label>
+                            <?php if($close_div==4): ?>
+                                </div>
+                            <?php endif; $close_div++;?>
+                        <?php $i++; endforeach;?>
+                        <?php if($close_div<4): ?>
                             </div>
-                        <?php endif; $close_div++;?>
-                    <?php $i++; endforeach;?>
-                    <?php if($close_div<4): ?>
-                        </div>
-                    <?php endif;?>
+                        <?php endif;?>
+                     <?php endif;?>
                 </div>
              </div>
         </div>

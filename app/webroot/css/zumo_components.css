@@ -208,7 +208,7 @@ input[type=submit]:hover{
 	margin-top: 20px;
 }
 .spinerContainer{
-	width: 120px;
+	width: 130px;
 	display: inline-block;
 }
 .spinerContainer .spiner_title{
@@ -238,6 +238,7 @@ input[type=submit]:hover{
 .spinerControl.up{
 	background: url(img/add.png) no-repeat right;
 	margin-right: 5px;
+	margin-left: 10px;
 }
 
 .spinerControl.down{
