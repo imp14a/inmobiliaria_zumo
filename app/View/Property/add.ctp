@@ -194,7 +194,7 @@ function setAddress(location){
 	    <?php echo $this->Html->image('ajax-loader.gif',array('alt'=>'Espere ...')); ?>
     	</span>
 		<p class="semititle">Im&aacute;genes de la propiedad</p>
-		<?php echo $this->Form->input('user_id_dropbox',array('label' => 'Dropbox ID'));?>
+		<?php echo $this->Form->input('user_id_dropbox',array('type' => 'hidden', 'value'=>$dropbox_id));?>
 		<p class="semititle">Im&aacute;gen default de la propiedad</p>
 		<?php echo $this->Form->input('PropertyImage.0.type', array('type'=>'hidden', '
 		value'=>'default')); ?>

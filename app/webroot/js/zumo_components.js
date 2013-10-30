@@ -120,11 +120,11 @@ function setAdder(adder, model, number){
             $(model.parent.id).focus();
             return;
         }
-        if(model.field == 'image' && $('PropertyUserIdDropbox').value.trim().length == 0){
+        /*if(model.field == 'image' && $('PropertyUserIdDropbox').value.trim().length == 0){
             alert('Debe ingresar el Dropbox ID.');
             $('PropertyUserIdDropbox').focus();
             return;
-        }
+        }*/
         var name = 'data[' + model.name + '][' + model.number + '][' + model.field + ']';
         var id_text_aux = model.field.split('_');
         id_text = model.name + model.number;
