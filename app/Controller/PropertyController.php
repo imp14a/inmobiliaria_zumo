@@ -129,6 +129,7 @@ class PropertyController extends AppController {
 	public function add($id = null){
 		$this->set('title_for_layout','Registro de inmuebles');
 		$this->loadModel('PropertyDescription');
+		$this->set('dropbox_id', Configure::read('Dropbox.ID'));
 		//Tipos
 		$type = $this->Property->PropertyDescription->getColumnType('type');
 		preg_match_all("/'(.*?)'/", $type, $enums);
