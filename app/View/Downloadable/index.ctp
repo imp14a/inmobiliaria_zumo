@@ -20,7 +20,7 @@
             <td><?php echo $download['Downloadable']['title']; ?></td>
             <td><?php echo $download['Downloadable']['description']; ?></td>
             <td><?php echo $this->Html->link('editar', array('controller' => '
-            downloadable', 'action' => 'upload', $download['Downloadable']['id'])); ?>
+            Downloadable', 'action' => 'upload', $download['Downloadable']['id'])); ?>
             <td>
                 <?php echo $this->Form->postLink(
                     'borrar',
@@ -30,6 +30,6 @@
             </td>
         </tr>
         <?php endforeach; ?>
-        <a class="activeButton" href="/inmobiliaria_zumo/index.php/downloadable/upload/">AGREGAR DESCARGABLE</a><a class="activeButton" href="/inmobiliaria_zumo/index.php/inmobiliariazumo/panelAdministration">CANCELAR</a>
+        <a class="activeButton" href="/index.php/Downloadable/upload/">AGREGAR DESCARGABLE</a><a class="activeButton" href="/index.php/InmobiliariaZumo/panelAdministration">CANCELAR</a>
     </table>
 </div>
