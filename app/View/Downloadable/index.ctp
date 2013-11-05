@@ -19,8 +19,7 @@
             <td><?php echo $download['Downloadable']['file_name']; ?></td>
             <td><?php echo $download['Downloadable']['title']; ?></td>
             <td><?php echo $download['Downloadable']['description']; ?></td>
-            <td><?php echo $this->Html->link('editar', array('controller' => '
-            Downloadable', 'action' => 'upload', $download['Downloadable']['id'])); ?>
+            <td><?php echo $this->Html->link('editar', array('controller' => 'Downloadable', 'action' => 'upload', $download['Downloadable']['id'])); ?>
             <td>
                 <?php echo $this->Form->postLink(
                     'borrar',
