@@ -4,8 +4,6 @@ class DownloadableController extends AppController{
 
 	public $components = array('Paginator');
 	public $paginate = array(
-        'fields' => array('Downloadable.id', 'Downloadable.file_name'
-        	,'Downloadable.title', 'Downloadable.description'),
         'limit' => 1,
         'order' => array(
             'Downloadable.title' => 'asc'
