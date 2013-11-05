@@ -15,37 +15,11 @@ class DownloadableController extends AppController{
         $this->set('downloadables', $this->Downloadable->find('all'));
 	}
 
-	public function view($id = null){
+	public function view(){
 		$this->set('title_for_layout','Vista de Descargable');
-		$this->Downloadable->id = $id === null ? $this->Downloadable->find('first') : $id;
-		if ($this->request->is('get')) {
-			$id_docs = $this->Downloadable->find('list', array('fields'=>array('Downloadable.id'),
-				'recursive'=>-1));
-			$no_docs = $this->Downloadable->find('count', array('recursive' => -1));
-			$marca = false;
-			$back_id = "";
-			$next_id = "";
-			$no_doc = 0;
-			foreach ($id_docs as $key => $value) {
-				if($marca){
-					$next_id = $value;
-					break;
-				}
-				if(strcmp($value, $this->Downloadable->id) === 0){
-					$marca = true;
-					$next_id = $value;
-				}
-				if(!$marca){
-					$back_id = $value;
-				}
-				$no_doc++;
-			}	
-			$this->set('no_doc', $no_doc);
-			$this->set('back_id', $back_id);	
-			$this->set('next_id', $next_id);
-			$this->set('no_docs', $no_docs);
-			$this->set('downloadable', $this->Downloadable->read());
-        } 
+		$this->Paginator->settings = $this->paginate;
+		$downloadables = $this->Paginator->paginate('Downloadable');
+		$this->set('downloadables', $downloadables);
 	}
 
 	public function delete($id) {

@@ -5,14 +5,15 @@
 	<div class="paginator">
 		<div class="pagesControl">
 		<?php
-	    	echo $this->Html->link('<', array($back_id));
-	    	echo $this->Html->link('>', array($next_id));
+	    	echo $this->Paginator->prev(' < ', array(), null, array('class' => 'prev disabled'));
+        	echo $this->Paginator->next(' > ', array(), null, array('class' => 'next disabled'));
 		?>
 		</div>
 		<div class="pagesInfo">
-			Doc <?php echo $no_doc."|".$no_docs; ?>
+			<?php echo $this->Paginator->counter('Doc {:current} | {:count}');?>
 	    </div>
 	</div>
+	<?php foreach ($downloadables as $downloadable): ?>
 	<div class="column" style="width:20%;">
 		<?php echo $this->Html->link('DESCARGAR', array('controller' => 'downloadable', 'action' => 'download', $downloadable['Downloadable']['id']), array('class' => 'activeButton')); ?>
 	</div>
@@ -26,4 +27,5 @@
 		<object type="application/pdf" data="/app/webroot/files/<?php echo $downloadable['Downloadable']['file_name'];?>#toolbar=1&amp;navpanes=0&amp; scrollbar=1" width="100%" height="400px">
 		<param name="src" value="/app/webroot/files/<?php echo $downloadable['Downloadable']['file_name'];?>#toolbar=1&amp;navpanes=0&amp;scrollbar=1">
 	</div>
+	<?php endforeach; ?>
 </div>
