@@ -27,6 +27,6 @@
             </td>
         </tr>
         <?php endforeach; ?>
-        <a class="activeButton" href="/index.php/user/add/">AGREGAR USUARIO</a><a class="activeButton" href="/index.php/inmobiliariazumo/panelAdministration">CANCELAR</a>
+        <a class="activeButton" href="/index.php/User/add/">AGREGAR USUARIO</a><a class="activeButton" href="/index.php/InmobiliariaZumo/panelAdministration">CANCELAR</a>
     </table>
 </div>

@@ -38,6 +38,6 @@
             </td>
         </tr>
         <?php endforeach; ?>
-        <a class="activeButton" href="/inmobiliaria_zumo/index.php/property/add/">AGREGAR PROPIEDAD</a><a class="activeButton" href="/inmobiliaria_zumo/index.php/inmobiliariazumo/panelAdministration">CANCELAR</a>
+        <a class="activeButton" href="/index.php/Property/add/">AGREGAR PROPIEDAD</a><a class="activeButton" href="/index.php/InmobiliariaZumo/panelAdministration">CANCELAR</a>
     </table>
 </div>
