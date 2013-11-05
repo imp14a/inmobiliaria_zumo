@@ -10,6 +10,6 @@
 	echo $this->Form->input('username', array('label'=>'Usuario:', 'class'=>'largeText'));
 	echo $this->Form->input('email', array('label'=>'Correo electrónico:', 'class'=>'largeText'));
 	echo $this->Form->input('isAdmin', array('label'=>'Administrador')); ?>
-	<div class="submit"><a href="/inmobiliaria_zumo/index.php/user" class="activeButton">CANCELAR</a><input type="submit" value="GUARDAR"></div>
+	<div class="submit"><a href="/index.php/User" class="activeButton">CANCELAR</a><input type="submit" value="GUARDAR"></div>
 	<?php if($this->Session->check('Message')){ echo $this->Session->flash();} ?>
 </div>

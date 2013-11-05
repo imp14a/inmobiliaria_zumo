@@ -135,7 +135,7 @@ function setAddress(location){
 </script>
 
 <div class="plainContent">
-	<a class="activeButton" href="/inmobiliaria_zumo/index.php/property/index">CANCELAR</a>
+	<a class="activeButton" href="/index.php/Property/index">CANCELAR</a>
 	<p></p>
 	<h3>Registro de inmuebles</h3><br>	
 	<?php echo $this->Form->create('Property', array('type' => 'file')); ?>

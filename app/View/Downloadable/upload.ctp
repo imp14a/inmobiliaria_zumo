@@ -11,6 +11,6 @@
 	echo $this->Form->input('description', array('label'=>'Descripción')); 
 	echo $this->Form->input('file', array('label'=>'Archivo:', 'type'=>'file')); ?>
 
-	<div class="submit"><a href="/inmobiliaria_zumo/index.php/downloadable" class="activeButton">CANCELAR</a><input type="submit" value="GUARDAR">
+	<div class="submit"><a href="/index.php/Downloadable" class="activeButton">CANCELAR</a><input type="submit" value="GUARDAR">
 	<?php if($this->Session->check('Message')){ echo $this->Session->flash();} ?>
 </div>
