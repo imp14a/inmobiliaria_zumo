@@ -161,6 +161,9 @@ class PropertyController extends AppController {
 		$this->set('states', $enum);	
 
 		$this->Property->id = $id;
+		if($id != NULL){
+		//Obtener areas imagenes y categorias
+		}
         if ($this->request->is('get')) {
             $this->request->data = $this->Property->read();
         } 
@@ -199,12 +202,10 @@ class PropertyController extends AppController {
 
 	public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->allow(simple_search', 'map_search', 'getPropertyByStateMunicipalityAndQuarter',
+        $this->Auth->allow('simple_search', 'map_search', 'getPropertyByStateMunicipalityAndQuarter',
         	'view', 'searchResult');
         $this->Auth->deny('index');
     }
-
-
 
     public function view($id = null){
     	$this->layout = 'property_layout';
