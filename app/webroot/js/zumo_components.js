@@ -69,10 +69,10 @@ function createUbicationAjaxSelects(state,municipality,quarter,showAll){
                     if(isFired){
                         var options = $$('select#PropertyAddressMunicipality option');
                         var len = options.length;
-                        for (var i = 0; i < len; i++) {
-                            console.log(options[i].value);
+                        for (var i = 0; i < len; i++) {                            
                             if(valueMunicipality.indexOf(options[i].value.toString()) != -1){
                                 options[i].selected = true;
+                                $('PropertyAddressMunicipality').value = options[i].value.toString();
                             }             
                         }
                         isFired = false;

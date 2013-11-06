@@ -113,6 +113,7 @@ function setAddress(location){
 			for (var i = 0; i < len; i++) {
 				if(selectedValue.indexOf(options[i].value.toString()) != -1){
 					options[i].selected = true;
+					$('PropertyAddressMunicipality').value = options[i].value.toString();
 				}			   
 			}
 			$('PropertyAddressMunicipalityGoogle').value = parseInt(results[0].address_components[0].long_name, 10) > 0 ? results[0].address_components[3].long_name : results[0].address_components[2].long_name;
