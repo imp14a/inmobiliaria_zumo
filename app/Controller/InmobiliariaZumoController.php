@@ -23,7 +23,7 @@ class InmobiliariaZumoController extends AppController {
 		$this->set('title_for_layout', 'CONTACTO');
 		if(!empty($this->data)){
 			
-			$message = '			Hola, se recivio información de contacto de parte de: ' . $this->data['ContactMessage']['username'] . '<'.$this->data['ContactMessage']['email'].' >,
+			$message = '			Hola, se recibió información de contacto de parte de: ' . $this->data['ContactMessage']['username'] . '<'.$this->data['ContactMessage']['email'].' >,
 			 con el siguiente mensaje: 
 
 			 '.$this->data['ContactMessage']['message'].'
