@@ -130,6 +130,7 @@ class PropertyController extends AppController {
 		$this->set('title_for_layout','Registro de inmuebles');
 		$this->loadModel('PropertyDescription');
 		$this->set('dropbox_id', Configure::read('Dropbox.ID'));
+		$this->set('property_edit_id', $id);
 		//Tipos
 		$type = $this->Property->PropertyDescription->getColumnType('type');
 		preg_match_all("/'(.*?)'/", $type, $enums);
@@ -163,6 +164,9 @@ class PropertyController extends AppController {
 		$this->Property->id = $id;
 		if($id != NULL){
 		//Obtener areas imagenes y categorias
+			$this->loadModel('PropertyArea');
+			$property_areas = $this->Property->PropertyArea->find('all', array('conditions' => array('PropertyArea.property_id' => $id)));    
+			$this->set('property_areas', $property_areas);			
 		}
         if ($this->request->is('get')) {
             $this->request->data = $this->Property->read();
