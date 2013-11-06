@@ -142,6 +142,7 @@ function setAddress(location){
 	<?php echo $this->Form->create('Property', array('type' => 'file')); ?>
 		<label style="float: left; margin-top: 2px; margin-right: 10px;">Tipo de inmueble</label>
 		<div class="selectZumo">
+		<?php echo $this->Form->input('PropertyDescription.id',array('type'=>'hidden')); ?>
 		<?php echo $this->Form->input('PropertyDescription.type',array('label' => '', 'options' => $types)) ?>
 		</div>
 		<?php echo $this->Form->input('name',array('label'=>'Nombre:', 'class'=>'largeText')); ?>
@@ -154,11 +155,13 @@ function setAddress(location){
 		</div>
 		<br>
 		<p class="semititle">Precios</p>
+			<?php echo $this->Form->input('PropertyPaymentInformation.id',array('type'=>'hidden')); ?>
 			<?php echo $this->Form->input('PropertyPaymentInformation.rent_price',array('label'=>'Precio de renta:', 'class'=>'mediumText')); ?>
 			<?php echo $this->Form->input('PropertyPaymentInformation.sale_price',array('label'=>'Precio de compra:', 'class'=>'mediumText')); ?>
 			<?php echo $this->Form->input('PropertyPaymentInformation.maintenance_price',array('label'=>'Cuota de mantenimiento:', 'class'=>'mediumText')); ?>
 		<br>
 		<p class="semititle">Ubicaci&oacute;n y Direcci&oacute;n</p>
+		<?php echo $this->Form->input('PropertyAddress.id',array('type'=>'hidden')); ?>
 		<?php echo $this->Form->hidden('PropertyAddress.country',array('value'=>'México', 'class'=>'largeText')); ?>
 		<label style="float: left; margin-top: 2px; margin-right: 10px;">Estado</label>
 		<div class="selectZumo">
@@ -205,7 +208,7 @@ function setAddress(location){
 		value'=>'planta')); ?>
 		<div class="upload"><input type="text" name="" id="PropertyImage1ImageimagePlanta" placeholder="" bro_id="" parent_id=""><a id="aImgPlanta" href="#" class="dropbox-dropin-btn dropbox-dropin-default" style="position: absolute; top: 0px; width: 86px; font-weight: 100;"><span class="dropin-btn-status"></span>Seleccionar</a><input type="hidden" name="data[PropertyImage][1][image]" id="PropertyImage1ImagePlanta"><img src="/app/webroot/css/img/close_delete.png"></div>
 		<div id="addImages"><p class="semititle">Im&aacute;genes para vista de resultado</p></div>
-		<p class="semititle">Servicios</p>
+		<p class="semititle">Servicios</p>		
 		<div id="autocomplete_categories" class="autocomplete"></div>
 		<span id="indicator2" style="display: none">
 	    <?php echo $this->Html->image('ajax-loader.gif',array('alt'=>'Espere ...')); ?>

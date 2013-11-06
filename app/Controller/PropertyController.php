@@ -166,12 +166,15 @@ class PropertyController extends AppController {
         } 
         else {		
 			if (!empty($this->request->data)) {	
+				if($id != NULL){
+					$this->request->data['Property']['id'] = $id;					
+				}
 				if($this->Property->saveAll($this->request->data, array('validate'=>'first'))){
 					$this->Session->setFlash('Propiedad registrada.');
 					$this->redirect(array('action' => 'addnearplaces', $this->Property->id));					
 				}else{
 					$this->Session->setFlash('Ha ocurrido un error, por favor intente más tarde');
-				}
+				}											
 			}
 		}
 	}
@@ -196,7 +199,7 @@ class PropertyController extends AppController {
 
 	public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->allow('simple_search', 'map_search', 'getPropertyByStateMunicipalityAndQuarter',
+        $this->Auth->allow(simple_search', 'map_search', 'getPropertyByStateMunicipalityAndQuarter',
         	'view', 'searchResult');
         $this->Auth->deny('index');
     }
