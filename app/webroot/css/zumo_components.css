@@ -22,6 +22,28 @@ div.slider div.range {
 
 /* Estilizacion de componentes */
 
+a.deleterow {
+	background: url(img/close_delete.png);
+	background-repeat: no-repeat;
+	display: block;
+	text-decoration: none;
+	text-align: center;
+	position: relative;
+	left: 232px;
+	top: -30px;
+}
+
+a.deleteimage {
+	background: url(img/close_delete.png);
+	background-repeat: no-repeat;
+	display: block;
+	text-decoration: none;
+	text-align: center;
+	position: relative;
+	left: 350px;
+	top: 2px;
+}
+
 div.upload {
     width: 157px;
     height: 15px;   

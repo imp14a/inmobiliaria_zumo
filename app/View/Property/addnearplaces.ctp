@@ -25,6 +25,19 @@ div.autocomplete {
 </style>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 <script>
+/*<?php $no = 0; $number = 65; foreach ($near_places as $place): ?>
+    <?php echo $this->Form->input('PropertyNearPlace.'.$no.'.type', array('label'=>false));?>
+    <div class="nearPlace">
+        <img src="http://chart.apis.google.com/chart?chst=d_map_pin_letter&amp;chld=<?php echo chr($number);?>|FFCC00|000000" style="position: relative;">        
+        <input type="text" placeholder="Ingrese el tipo de lugar" name="data[PropertyNearPlace][2][type]" id="PropertyNearPlace2Type" class="largeText" autocomplete="off" style="left:-3px; top: -30px; position: relative;">
+        <input type="text" placeholder="Ingrese el nombre de lugar" name="data[PropertyNearPlace][2][name]" id="PropertyNearPlace2Name" class="largeText" style="position: relative; left: -318px; top: -10px;">
+        <textarea type="text" placeholder="Ingrese alguna descripción" name="data[PropertyNearPlace][2][description]" id="PropertyNearPlace2Description" class="largeText" style="position: relative; left: 31px; top: -14px; height: 50px;"></textarea>
+        <img src="/app/webroot/css/img/close_delete.png" style="position: relative; left: 340px; top: -108px; cursor: pointer;">
+        <input type="hidden" name="data[PropertyNearPlace][2][latitude]" id="PropertyNearPlace2Latitude" value="19.43245883429453">
+        <input type="hidden" name="data[PropertyNearPlace][2][longitude]" id="PropertyNearPlace2Longitude" value="-99.20543320477009">
+    </div>
+    <?php $no++; $number++; endforeach; ?> */
+
 // Enable the visual refresh
 google.maps.visualRefresh = true;
 
@@ -42,19 +55,26 @@ function initialize() {
     map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
     
     google.maps.event.addListener(map, 'dblclick', function(event) {
-        placeMarker(event.latLng, false);
+        placeMarker(event.latLng, false, true);
     });
 
     codeAddress();
     var latlng = new google.maps.LatLng($('PropertyLatitude').value, $('PropertyLongitude').value, true);
-    placeMarker(latlng, true);  
+    placeMarker(latlng, true); 
+    <?php foreach ($near_places as $place): ?>
+    <?php $latitude = $place['PropertyNearPlace']['latitude'];
+    $longitude = $place['PropertyNearPlace']['longitude'];
+    echo 'latlng = new google.maps.LatLng('.$latitude.', '.$longitude.', true);';
+    ?>
+    <?php echo 'placeMarker(latlng, false, false);' ?>
+    <?php endforeach; ?> 
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
 
 var nearPlaceNumber = 65; //Letra inicial A
 
-function placeMarker(location, property) {
+function placeMarker(location, property, newPlace) {
 	var marker = new google.maps.Marker({
 	    position: location,
 	    map: map,
@@ -84,8 +104,8 @@ function placeMarker(location, property) {
         }
         nearPlace['latitude'] = latitude;
         nearPlace['longitude'] = longitude;
-        createNearPlace($('place_container'), nearPlace);
-        nearPlaceNumber++;
+        if(newPlace) createNearPlace($('place_container'), nearPlace);
+        nearPlaceNumber++; 
     }
     else{
         var infowindow = new google.maps.InfoWindow({

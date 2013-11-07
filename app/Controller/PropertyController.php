@@ -165,11 +165,21 @@ class PropertyController extends AppController {
 		if($id != NULL){
 		//Obtener areas imagenes y categorias
 			$this->loadModel('PropertyArea');
+			$this->loadModel('PropertyImage');
 			$property_areas = $this->Property->PropertyArea->find('all', array('conditions' => array('PropertyArea.property_id' => $id)));    
 			$this->set('property_areas', $property_areas);			
+			$property_images = $this->Property->PropertyImage->find('all', 
+			array('conditions' => array('NOT'=>array("PropertyImage.type" => array('default', 'planta')))));   
+			$this->set('property_images', $property_images);
 		}
         if ($this->request->is('get')) {
             $this->request->data = $this->Property->read();
+            $this->set('latitude', $this->request->data['Property']['latitude']);
+            $this->set('longitude', $this->request->data['Property']['longitude']);
+            list($thrash, $image_name) = split(Configure::read('Dropbox.ID')."/", $this->request->data['PropertyImage']['0']['image'], 2);
+            $this->set('imageDefault', $image_name);
+            list($thrash, $image_name) = split(Configure::read('Dropbox.ID')."/", $this->request->data['PropertyImage']['1']['image'], 2);
+            $this->set('imagePlanta', $image_name);
         } 
         else {		
 			if (!empty($this->request->data)) {	
@@ -188,9 +198,12 @@ class PropertyController extends AppController {
 
 	public function addnearplaces($id){
 		$this->set('title_for_layout','Registro de lugares cercanos');
-        $this->Property->id = $id;
         if ($this->request->is('get')) {
-            $this->request->data = $this->Property->read();
+        	$this->Property->id = $id;
+            $this->request->data = $this->Property->read();         
+			$this->loadModel('PropertyNearPlace');
+			$near_places = $this->Property->PropertyNearPlace->find('all', array('conditions'=>array('PropertyNearPlace.property_id'=>$id)));
+			$this->set('near_places', $near_places);
         } 
         else {
             if (!empty($this->request->data)) {    

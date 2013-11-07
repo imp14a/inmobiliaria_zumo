@@ -26,6 +26,15 @@ class PropertyAreaController extends AppController {
         $this->Auth->allow('getPropertyAreas');
     }
 
+    public function delete($id){
+		if ($this->PropertyArea->delete($id)) {
+            $this->Session->setFlash('Propiedad actualizada!');
+            $this->redirect($this->referer());
+        }else{
+            $this->Session->setFlash('Ha ocurrido un error, intente de nuevo.');
+        }
+    }
+
 }
 
 ?>
