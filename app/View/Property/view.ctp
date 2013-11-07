@@ -78,7 +78,7 @@
 			<div clas="informationLine">
 				<div class="informationCell" style="width: 350px;">
 					<label>Calle, N&uacute;mero</label>
-					<span> <?php echo $property['PropertyAddress']['street'].', '.$property['PropertyAddress']['exterior_number'].' '.$property['PropertyAddress']['exterior_number']; ?></span>
+					<span> <?php echo $property['PropertyAddress']['street'].', '.$property['PropertyAddress']['exterior_number'].' '.$property['PropertyAddress']['interior_number']; ?></span>
 				</div>
 			</div>
 			<div class="informationLine">
