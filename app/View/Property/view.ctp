@@ -69,9 +69,9 @@
 						<span> <?php echo $this->Number->currency($property['PropertyPaymentInformation']['sale_price'],'USD'); ?></span>
 					</div>
 				<?php endif;?>
-				<div class="informationCell" style="width: 80px;">
+				<div class="informationCell" style="width: 130px;">
 					<label>Cuota Mantenimiento</label>
-					<span> <?php echo $this->Number->currency($property['PropertyPaymentInformation']['maintenance_price'],'USD'); ?></span>
+					<span> <?php echo empty($property['PropertyPaymentInformation']['maintenance_price'])?"--":$this->Number->currency($property['PropertyPaymentInformation']['maintenance_price'],'USD'); ?></span>
 				</div>
 			</div>
 			<div class="informationSeparator"></div>
@@ -101,25 +101,26 @@
 			<div class="informationLine">
 				<div class="informationCell">
 					<label>Recamaras</label>
-					<span> <?php echo $property['PropertyDescription']['number_of_rooms']; ?></span>
+					<span> <?php echo empty($property['PropertyDescription']['number_of_rooms'])?"--":$property['PropertyDescription']['number_of_rooms']; ?></span>
 				</div>
 				<div class="informationCell">
 					<label>Ba&ntilde;os</label>
-					<span> <?php echo $property['PropertyDescription']['number_of_bathrooms']; ?></span>
+					<span> <?php echo empty($property['PropertyDescription']['number_of_bathrooms'])?"--":$property['PropertyDescription']['number_of_bathrooms']; ?></span>
 				</div>
 				<div class="informationCell">
 					<label>Estacionamientos</label>
-					<span> <?php echo $property['PropertyDescription']['number_of_parkings']; ?></span>
+					<span> <?php echo empty($property['PropertyDescription']['number_of_parkings'])?"--":$property['PropertyDescription']['number_of_parkings']; ?></span>
 				</div>
 			</div>
 			<div class="informationLine">
 				<div class="informationCell" style="width: 80px;">
 					<label>m<sup>2</sup> contrucci&oacute;n</label>
-					<span> <?php echo $property['PropertyDescription']['square_meters_of_construction']; ?></span>
+					<span> <?php echo empty($property['PropertyDescription']['square_meters_of_construction'])?"--":$property['PropertyDescription']['square_meters_of_construction']; ?></span>
 				</div>
 				<div class="informationCell" style="width: 80px;">
 					<label>m<sup>2</sup> terreno</label>
-					<span> <?php echo $property['PropertyDescription']['square_meters_of_land']; ?></span>
+					<span> <?php echo empty($property['PropertyDescription']['square_meters_of_land'])?"--":$property['PropertyDescription']['square_meters_of_land']; ?>
+					</span>
 				</div>
 				<div class="informationCell">
 					<label>Niveles</label>
@@ -155,7 +156,7 @@
 			<div class="informationSeparator" style="clear:left;"></div>
 			<div class="informationLine" >
 				<label style="display:block;margin-left: 20px;">Observaciones</label>
-				<p style="margin-left: 20px; font-family: HouschkaPro-Bold;"><?php echo $property['PropertyDescription']['extra_description']; ?></p>
+				<p style="margin-left: 20px;font-family: HouschkaPro-Bold;"><?php echo $property['PropertyDescription']['extra_description']; ?></p>
 			</div>
 		</div>
 		<div class="tabContent" id="property_nearby">
