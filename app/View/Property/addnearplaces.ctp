@@ -147,6 +147,20 @@ function codeAddress() {
     <span id="indicator1" style="display: none">
         <?php echo $this->Html->image('ajax-loader.gif',array('alt'=>'Espere ...')); ?>
     </span>
-    <div id="place_container"></div> 
+    <div id="place_container">
+        <?php $no = 0; $number = 65; foreach ($near_places as $place): ?>   
+    <div class="nearPlace">        
+        <img src="http://chart.apis.google.com/chart?chst=d_map_pin_letter&amp;chld=<?php echo chr($number);?>|FFCC00|000000" style="position: relative;">                
+        <?php echo $this->Form->input('PropertyNearPlace.'.$no.'.type', array('label'=>false,'div'=>false, 'class'=>'largeText', 'style'=>'left:-3px; top: -30px; position: relative;'));?>
+        <?php echo $this->Form->input('PropertyNearPlace.'.$no.'.name', array('label'=>false,'div'=>false, 'class'=>'largeText', 'style'=>'position: relative; left: -318px; top: -10px'));?>        
+        <?php echo $this->Form->input('PropertyNearPlace.'.$no.'.description', array('label'=>false,'div'=>false, 'class'=>'largeText', 'style'=>'position: relative; left: 31px; top: -18px; height: 50px;'));?>        
+        <?php echo $this->Form->input('PropertyNearPlace.'.$no.'.id', array('type'=>'hidden'));?>   
+        <?php echo $this->Form->input('PropertyNearPlace.'.$no.'.property_id', array('type'=>'hidden'));?>
+        <?php echo $this->Form->input('PropertyNearPlace.'.$no.'.latitude', array('type'=>'hidden'));?>   
+        <?php echo $this->Form->input('PropertyNearPlace.'.$no.'.longitude', array('type'=>'hidden'));?>   
+        <?php echo $this->Html->link('.', array('controller'=>'PropertyNearPlace', 'action'=>'delete', $place['PropertyNearPlace']['id']), array('class'=>'delete', 'style'=>'top: -109px;left: 335px;'));?>          
+    </div>
+    <?php $no++; $number++; endforeach; ?> 
+    </div> 
 	<?php echo $this->Form->end('GUARDAR'); ?>
 </div>

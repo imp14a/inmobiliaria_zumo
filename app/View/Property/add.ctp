@@ -35,13 +35,11 @@ function initialize() {
     
     google.maps.event.addListener(map, 'dblclick', function(event) {
     	placeMarker(event.latLng);
-	});
-
-    codeAddress();
+	});    
+    <?php if($property_edit_id === NULL) echo 'codeAddress();'?>
     <?php if($property_edit_id != NULL){
 		echo "latlng = new google.maps.LatLng(".$latitude.", ".$longitude.", true);";
-		echo "placeMarker(latlng);";
-		echo "setAddress(latlng);";
+		echo "placeMarker(latlng);";				
 	}?>
 }
 
@@ -73,9 +71,9 @@ function codeAddress() {
 		valueMunicipality = $('PropertyAddressMunicipalityGoogle').value.toString();
 		return;
 	}
-	$('PropertyAddressQuarter').value = '';
-    $('PropertyAddressStreet').value = '';            
-    $('PropertyAddressPostalCode').value = '';
+	if($('PropertyAddressQuarter').value.length == 0) $('PropertyAddressQuarter').value = '';
+    if($('PropertyAddressStreet').value.length == 0) $('PropertyAddressStreet').value = '';            
+    if($('PropertyAddressPostalCode').value.length == 0) $('PropertyAddressPostalCode').value = '';
     var address = "Mexico, Estado de " + $('PropertyAddressState').value + ',' 
                             + $('PropertyAddressMunicipality').value; /*+ ',' 
                             + 'Colonia '+$('PropertyAddressQuarter').value;*/
@@ -114,20 +112,21 @@ function setAddress(location){
 	if (status == google.maps.GeocoderStatus.OK) {
 		    var options = $$('select#PropertyAddressState option');
 			var len = options.length;
-			var selectedValue = parseInt(results[0].address_components[5].long_name) > 0 ? results[0].address_components[3].long_name : results[0].address_components[5].long_name;			
+			var selectedValue = parseInt(results[0].address_components[0].long_name) > 0 ? results[0].address_components[3].long_name : results[0].address_components[5].long_name;			
 			for (var i = 0; i < len; i++) {
 				if(selectedValue.indexOf(options[i].value.toString()) != -1){
-					options[i].selected = true;
-					$('PropertyAddressMunicipality').value = options[i].value.toString();
+					<?php if ($property_edit_id === null){
+						echo "options[i].selected = true;";
+						echo "$('PropertyAddressMunicipality').value = options[i].value.toString();";
+					}?>					
 				}			   
-			}
+			}			
 			$('PropertyAddressMunicipalityGoogle').value = parseInt(results[0].address_components[0].long_name, 10) > 0 ? results[0].address_components[3].long_name : results[0].address_components[2].long_name;
 		    isFired = true;
 			oEvent = document.createEvent('HTMLEvents');
             oEvent.initEvent('change',false, false);
             element = $('PropertyAddressState');
-            element.dispatchEvent(oEvent);            
-
+            element.dispatchEvent(oEvent);           			
 			$('PropertyAddressQuarter').value = parseInt(results[0].address_components[0].long_name, 10) > 0 ? results[0].address_components[2].long_name : results[0].address_components[1].long_name;
 			$('PropertyAddressQuarterGoogle').value = parseInt(results[0].address_components[0].long_name, 10) > 0 ? results[0].address_components[2].long_name : results[0].address_components[1].long_name;
             $('PropertyAddressStreet').value = parseInt(results[0].address_components[0].long_name, 10) > 0 ? results[0].address_components[1].long_name : results[0].address_components[0].long_name;            
@@ -135,7 +134,7 @@ function setAddress(location){
             $('PropertyAddressInteriorNumber').value = parseInt(results[0].address_components[0].long_name, 10) > 0 ? results[0].address_components[0].long_name : '';
             map.setCenter(results[0].geometry.location);
             var zoom =  6;
-            <?php if($property_edit_id != NULL) echo "zoom+=10;";?>
+            <?php if($property_edit_id != null) echo "zoom+=10;";?>
             map.setZoom(zoom);
         } else {
             alert('Geocode was not successful for the following reason: ' + status);
@@ -146,6 +145,9 @@ function setAddress(location){
 
 <div class="plainContent">
 	<a class="activeButton" href="/index.php/Property/index">CANCELAR</a>
+	<?php if($property_edit_id!=null){?>
+	<a class="activeButton" href="/index.php/Property/addnearplaces/<?php echo $property_edit_id;?>">EDITAR LUGARES CERCANOS</a>
+	<?php }	?>
 	<p></p>
 	<?php if($this->Session->check('Message')){ echo $this->Session->flash();} ?>  
 	<br>
@@ -210,7 +212,7 @@ function setAddress(location){
 		<?php echo $this->Form->input('PropertyArea.'.$no.'.id',array('type'=>'hidden'));?>
 		<?php echo $this->Form->input('PropertyArea.'.$no.'.area_name',array('label'=>false,'div' => false)); ?>
 		<?php echo $this->Html->link('.',
-        	array('controller'=>'PropertyArea','action'=>'delete',$area['PropertyArea']['id']),array('class'=>'deleterow'));
+        	array('controller'=>'PropertyArea','action'=>'delete',$area['PropertyArea']['id']),array('class'=>'delete', 'style'=>'left: 232px;top: -30px;'));
         ?>
 		<?php echo "</div>";?>
 		<?php $no++;?>
@@ -239,13 +241,28 @@ function setAddress(location){
 		<a id="aImg<?php echo $no;?>" href="#" class="dropbox-dropin-btn dropbox-dropin-default" style="position: absolute; top: 0px; width: 86px; font-weight: 100;"><span class="dropin-btn-status"></span>Seleccionar</a>
 		<?php echo $this->Form->input('PropertyImage.'.$no.'.image', array('type'=>'hidden')); ?>
 		<?php echo $this->Html->link('.',
-        	array('controller'=>'PropertyImage','action'=>'delete',$image['PropertyImage']['id']),array('class'=>'deleteimage'));
+        	array('controller'=>'PropertyImage','action'=>'delete',$image['PropertyImage']['id']),array('class'=>'delete', 'style'=>'left: 350px;top: 2px;'));
         ?>
 		<?php echo "</div>";?>
 		<?php $no++;?>
 		<?php endforeach; ?>
 		<p class="semititle">Servicios</p>		
-		<div id="autocomplete_categories" class="autocomplete"></div>
+		<div id="autocomplete_categories" class="autocomplete"></div>	
+		<?php $no = 0; foreach ($property_informations as $information): ?>
+		<div class="addText" style="height: 30px;position: relative;top: -40px;">
+		<?php echo $this->Form->input('PropertyInformation.'.$no.'.id', array('type'=>'hidden'));?>
+		<?php echo $this->Form->input('PropertyInformation.'.$no.'.property_id', array('type'=>'hidden'));?>
+		<table class="non-style">
+			<tr class="non-style">
+			<td class="non-style"><?php echo $this->Form->input('PropertyInformation.'.$no.'.category', array('label'=>false, 'div'=>false));?></td>
+			<td class="non-style"><?php echo $this->Form->input('PropertyInformation.'.$no.'.name', array('label'=>false, 'div'=>false));?>	</td>
+			<?php echo $this->Html->link('.', 
+				array('controller'=>'PropertyInformation','action'=>'delete', $information['PropertyInformation']['id']),array('class'=>'delete', 'style'=>'left: 462px;top: 25px;'));?>
+		</tr>
+		</table>
+		</div>
+		<?php $no++;?>
+		<?php endforeach; ?>			
 		<span id="indicator2" style="display: none">
 	    <?php echo $this->Html->image('ajax-loader.gif',array('alt'=>'Espere ...')); ?>
     	</span>
@@ -292,7 +309,7 @@ function setAddress(location){
 	model_category_name['autocomplete_paramName'] = 'name';
 	model_category_name['autocomplete_srv'] = 'PropertyInformation/getPropertyElementsByCategory'
 	model_category['child'] = model_category_name;
-	setAdder($('addServices'), model_category);
+	setAdder($('addServices'), model_category, <?php echo (count($property_informations));?>);
 
 	createUbicationAjaxSelects('PropertyAddressState', 'PropertyAddressMunicipality', null, true);
 	$('PropertyAddressState').observe('change', codeAddress);
@@ -310,7 +327,7 @@ function setAddress(location){
 			var options = {
             success: function(files) {                            
                 $(name).value = 'https://dl.dropboxusercontent.com/u/'+$('PropertyUserIdDropbox').value+'/'+files[0].link.split("/Public/")[1];
-                $(alias).value = files[0].name;             
+                $(alias).value = files[0].link.split("/Public/")[1];             
             },
             linkType: "direct",
             multiselect: false,

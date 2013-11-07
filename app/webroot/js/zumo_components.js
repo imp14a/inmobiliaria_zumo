@@ -120,11 +120,6 @@ function setAdder(adder, model, number){
             $(model.parent.id).focus();
             return;
         }
-        /*if(model.field == 'image' && $('PropertyUserIdDropbox').value.trim().length == 0){
-            alert('Debe ingresar el Dropbox ID.');
-            $('PropertyUserIdDropbox').focus();
-            return;
-        }*/
         var name = 'data[' + model.name + '][' + model.number + '][' + model.field + ']';
         var id_text_aux = model.field.split('_');
         id_text = model.name + model.number;
@@ -208,7 +203,7 @@ function setAdder(adder, model, number){
         if(typeof model.child != null && typeof model.child != 'undefined'){
             model.child['isChild'] = true;
             model.child['parent'] = model;
-            setAdder(subAdder, model.child)
+            setAdder(subAdder, model.child, model.number)
         }
         adder.insert({bottom: subAdder});
         //  Autocompleters

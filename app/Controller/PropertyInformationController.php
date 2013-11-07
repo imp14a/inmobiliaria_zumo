@@ -43,6 +43,15 @@ class PropertyInformationController extends AppController {
         $this->Auth->allow('getPropertyElementsByCategory', 'getPropertyCategories');
     }
 
+    public function delete($id){
+    	if ($this->PropertyInformation->delete($id)) {
+            $this->Session->setFlash('Propiedad actualizada!');
+            $this->redirect($this->referer());
+        }else{
+            $this->Session->setFlash('Ha ocurrido un error, intente de nuevo.');
+        }
+    }
+
 }
 
 ?>

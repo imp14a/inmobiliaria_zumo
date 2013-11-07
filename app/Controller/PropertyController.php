@@ -162,24 +162,36 @@ class PropertyController extends AppController {
 		$this->set('states', $enum);	
 
 		$this->Property->id = $id;
-		if($id != NULL){
+		if($id != null){
 		//Obtener areas imagenes y categorias
 			$this->loadModel('PropertyArea');
 			$this->loadModel('PropertyImage');
+			$this->loadModel('PropertyInformation');
 			$property_areas = $this->Property->PropertyArea->find('all', array('conditions' => array('PropertyArea.property_id' => $id)));    
 			$this->set('property_areas', $property_areas);			
 			$property_images = $this->Property->PropertyImage->find('all', 
 			array('conditions' => array('NOT'=>array("PropertyImage.type" => array('default', 'planta')))));   
 			$this->set('property_images', $property_images);
+			$property_informations = $this->Property->PropertyInformation->find('all', array('conditions' => array('PropertyInformation.property_id' => $id)));
+			$this->set('property_informations', $property_informations);			
 		}
         if ($this->request->is('get')) {
             $this->request->data = $this->Property->read();
+            $this->request->data['PropertyInformation'] = array();
+            $no=0;
+            foreach ($property_informations as $info){
+				$this->request->data['PropertyInformation'][$no]['id'] = $info['PropertyInformation']['id'];
+				$this->request->data['PropertyInformation'][$no]['property_id'] = $info['PropertyInformation']['property_id'];
+				$this->request->data['PropertyInformation'][$no]['name'] = $info['PropertyInformation']['name'];
+				$this->request->data['PropertyInformation'][$no]['category'] = $info['PropertyInformation']['category'];
+				$no++;
+			}
             $this->set('latitude', $this->request->data['Property']['latitude']);
             $this->set('longitude', $this->request->data['Property']['longitude']);
             list($thrash, $image_name) = split(Configure::read('Dropbox.ID')."/", $this->request->data['PropertyImage']['0']['image'], 2);
             $this->set('imageDefault', $image_name);
             list($thrash, $image_name) = split(Configure::read('Dropbox.ID')."/", $this->request->data['PropertyImage']['1']['image'], 2);
-            $this->set('imagePlanta', $image_name);
+            $this->set('imagePlanta', $image_name);            
         } 
         else {		
 			if (!empty($this->request->data)) {	
@@ -193,17 +205,29 @@ class PropertyController extends AppController {
 					$this->Session->setFlash('Ha ocurrido un error, por favor intente más tarde');
 				}											
 			}
-		}
+		}		
 	}
 
 	public function addnearplaces($id){
 		$this->set('title_for_layout','Registro de lugares cercanos');
-        if ($this->request->is('get')) {
-        	$this->Property->id = $id;
-            $this->request->data = $this->Property->read();         
+		$this->Property->id = $id;
+        if ($this->request->is('get')) {        	
+            $this->request->data = $this->Property->read();                                             
 			$this->loadModel('PropertyNearPlace');
 			$near_places = $this->Property->PropertyNearPlace->find('all', array('conditions'=>array('PropertyNearPlace.property_id'=>$id)));
-			$this->set('near_places', $near_places);
+			$this->set('near_places', $near_places);			
+			$this->request->data['PropertyNearPlace'] = array();
+            $no=0;
+            foreach ($near_places as $place){
+				$this->request->data['PropertyNearPlace'][$no]['id'] = $place['PropertyNearPlace']['id'];
+				$this->request->data['PropertyNearPlace'][$no]['property_id'] = $place['PropertyNearPlace']['property_id'];
+				$this->request->data['PropertyNearPlace'][$no]['latitude'] = $place['PropertyNearPlace']['latitude'];
+				$this->request->data['PropertyNearPlace'][$no]['longitude'] = $place['PropertyNearPlace']['longitude'];
+				$this->request->data['PropertyNearPlace'][$no]['type'] = $place['PropertyNearPlace']['type'];
+				$this->request->data['PropertyNearPlace'][$no]['name'] = $place['PropertyNearPlace']['name'];
+				$this->request->data['PropertyNearPlace'][$no]['description'] = $place['PropertyNearPlace']['description'];
+				$no++;
+			}			
         } 
         else {
             if (!empty($this->request->data)) {    
