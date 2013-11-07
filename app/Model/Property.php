@@ -17,7 +17,7 @@ class Property extends AppModel {
         ));
 
 	public $hasMany = array(
-        'PropertyArea', 'PropertyInformation', 'PropertyImage', 'PropertyNearPlace'
+        'PropertyArea', 'PropertyInformation', 'PropertyImage'=>array('conditions' => array('PropertyImage.type' => 'description')), 'PropertyNearPlace'
     );
 
     public function afterFind($results, $primary = false) {

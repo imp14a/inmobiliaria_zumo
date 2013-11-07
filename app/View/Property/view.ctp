@@ -70,7 +70,7 @@
 					</div>
 				<?php endif;?>
 				<div class="informationCell" style="width: 80px;">
-					<label>Cuota mensual</label>
+					<label>Cuota Mantenimiento</label>
 					<span> <?php echo $this->Number->currency($property['PropertyPaymentInformation']['maintenance_price'],'USD'); ?></span>
 				</div>
 			</div>
@@ -78,7 +78,7 @@
 			<div clas="informationLine">
 				<div class="informationCell" style="width: 350px;">
 					<label>Calle, N&uacute;mero</label>
-					<span> <?php echo $property['PropertyAddress']['street'].', '.$property['PropertyAddress']['exterior_number']; ?></span>
+					<span> <?php echo $property['PropertyAddress']['street'].', '.$property['PropertyAddress']['exterior_number'].' '.$property['PropertyAddress']['exterior_number']; ?></span>
 				</div>
 			</div>
 			<div class="informationLine">
@@ -151,6 +151,11 @@
 					<?php endforeach; ?>
 				</div>
 				<?php endforeach;?>
+			</div>
+			<div class="informationSeparator" style="clear:left;"></div>
+			<div class="informationLine" >
+				<label style="display:block;margin-left: 20px;">Observaciones</label>
+				<p><?php echo $property['PropertyDescription']['extra_description']; ?></p>
 			</div>
 		</div>
 		<div class="tabContent" id="property_nearby">
