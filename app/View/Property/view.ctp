@@ -155,7 +155,7 @@
 			<div class="informationSeparator" style="clear:left;"></div>
 			<div class="informationLine" >
 				<label style="display:block;margin-left: 20px;">Observaciones</label>
-				<p><?php echo $property['PropertyDescription']['extra_description']; ?></p>
+				<p style="margin-left: 20px; font-family: HouschkaPro-Bold;"><?php echo $property['PropertyDescription']['extra_description']; ?></p>
 			</div>
 		</div>
 		<div class="tabContent" id="property_nearby">
