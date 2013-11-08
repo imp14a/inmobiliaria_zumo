@@ -163,7 +163,7 @@ class PropertyController extends AppController {
 
 		$this->Property->id = $id;
 		if($id != null){
-		//Obtener areas imagenes y categorias
+		//Obtener areas imagenes y categorias						
 			$this->loadModel('PropertyArea');
 			$this->loadModel('PropertyImage');
 			$this->loadModel('PropertyInformation');
@@ -174,6 +174,7 @@ class PropertyController extends AppController {
 			$this->set('property_images', $property_images);
 			$property_informations = $this->Property->PropertyInformation->find('all', array('conditions' => array('PropertyInformation.property_id' => $id)));
 			$this->set('property_informations', $property_informations);			
+			$property_informations = $this->Property->PropertyInformation->find('all', array('conditions' => array('PropertyInformation.property_id' => $id)));			
 		}
         if ($this->request->is('get')) {
             $this->request->data = $this->Property->read();
@@ -185,12 +186,12 @@ class PropertyController extends AppController {
 				$this->request->data['PropertyInformation'][$no]['name'] = $info['PropertyInformation']['name'];
 				$this->request->data['PropertyInformation'][$no]['category'] = $info['PropertyInformation']['category'];
 				$no++;
-			}
+			}			
             $this->set('latitude', $this->request->data['Property']['latitude']);
             $this->set('longitude', $this->request->data['Property']['longitude']);
-            list($thrash, $image_name) = split(Configure::read('Dropbox.ID')."/", $this->request->data['PropertyImage']['0']['image'], 2);
+            list($thrash, $image_name) = split(Configure::read('Dropbox.ID')."/", $this->request->data['DefaultImage']['image'], 2);
             $this->set('imageDefault', $image_name);
-            list($thrash, $image_name) = split(Configure::read('Dropbox.ID')."/", $this->request->data['PropertyImage']['1']['image'], 2);
+            list($thrash, $image_name) = split(Configure::read('Dropbox.ID')."/", $this->request->data['ArchitecturalPlant']['image'], 2);
             $this->set('imagePlanta', $image_name);            
         } 
         else {		

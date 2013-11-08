@@ -112,15 +112,7 @@ function setAddress(location){
 	if (status == google.maps.GeocoderStatus.OK) {
 		    var options = $$('select#PropertyAddressState option');
 			var len = options.length;
-			var selectedValue = parseInt(results[0].address_components[0].long_name) > 0 ? results[0].address_components[3].long_name : results[0].address_components[5].long_name;			
-			for (var i = 0; i < len; i++) {
-				if(selectedValue.indexOf(options[i].value.toString()) != -1){
-					<?php if ($property_edit_id === null){
-						echo "options[i].selected = true;";
-						echo "$('PropertyAddressMunicipality').value = options[i].value.toString();";
-					}?>					
-				}			   
-			}			
+			var selectedValue = parseInt(results[0].address_components[0].long_name) > 0 ? results[0].address_components[3].long_name : results[0].address_components[5].long_name;		
 			$('PropertyAddressMunicipalityGoogle').value = parseInt(results[0].address_components[0].long_name, 10) > 0 ? results[0].address_components[3].long_name : results[0].address_components[2].long_name;
 		    isFired = true;
 			oEvent = document.createEvent('HTMLEvents');
@@ -134,7 +126,7 @@ function setAddress(location){
             $('PropertyAddressInteriorNumber').value = parseInt(results[0].address_components[0].long_name, 10) > 0 ? results[0].address_components[0].long_name : '';
             map.setCenter(results[0].geometry.location);
             var zoom =  6;
-            <?php if($property_edit_id != null) echo "zoom+=10;";?>
+            zoom+=10;
             map.setZoom(zoom);
         } else {
             alert('Geocode was not successful for the following reason: ' + status);
@@ -223,18 +215,19 @@ function setAddress(location){
 		<p class="semititle">Im&aacute;genes de la propiedad</p>
 		<?php echo $this->Form->input('user_id_dropbox',array('type' => 'hidden', 'value'=>$dropbox_id));?>
 		<p class="semititle">Im&aacute;gen default de la propiedad</p>
-		<?php echo $this->Form->input('PropertyImage.0.id', array('type'=>'hidden')); ?>
-		<?php echo $this->Form->input('PropertyImage.0.type', array('type'=>'hidden', '
+		<?php echo $this->Form->input('DefaultImage.id', array('type'=>'hidden')); ?>
+		<?php echo $this->Form->input('DefaultImage.type', array('type'=>'hidden', '
 		value'=>'default')); ?>
-		<div class="upload"><input value="<?php echo $imageDefault;?>" type="text" name="" id="PropertyImage0ImageimageDefault" placeholder="" bro_id="" parent_id=""><a id="aImgDefault" href="#" class="dropbox-dropin-btn dropbox-dropin-default" style="position: absolute; top: 0px; width: 86px; font-weight: 100;"><span class="dropin-btn-status"></span>Seleccionar</a><?php echo $this->Form->input('PropertyImage.0.image', array('type'=>'hidden')); ?></div>
+		<div class="upload"><input value="<?php echo $imageDefault;?>" type="text" name="" id="PropertyImage0ImageimageDefault" placeholder="" bro_id="" parent_id=""><a id="aImgDefault" href="#" class="dropbox-dropin-btn dropbox-dropin-default" style="position: absolute; top: 0px; width: 86px; font-weight: 100;"><span class="dropin-btn-status"></span>Seleccionar</a><?php echo $this->Form->input('DefaultImage.image', array('type'=>'hidden')); ?></div>
 		<p class="semititle">Im&aacute;gen de planta arquitect&oacute;nica de la propiedad</p>
-		<?php echo $this->Form->input('PropertyImage.1.id', array('type'=>'hidden')); ?>
-		<?php echo $this->Form->input('PropertyImage.1.type', array('type'=>'hidden', '
+		<?php echo $this->Form->input('ArchitecturalPlant.id', array('type'=>'hidden')); ?>
+		<?php echo $this->Form->input('ArchitecturalPlant.type', array('type'=>'hidden', '
 		value'=>'planta')); ?>
-		<div class="upload"><input value="<?php echo $imagePlanta;?>"  type="text" name="" id="PropertyImage1ImageimagePlanta" placeholder="" bro_id="" parent_id=""><a id="aImgPlanta" href="#" class="dropbox-dropin-btn dropbox-dropin-default" style="position: absolute; top: 0px; width: 86px; font-weight: 100;"><span class="dropin-btn-status"></span>Seleccionar</a><?php echo $this->Form->input('PropertyImage.1.image', array('type'=>'hidden')); ?></div>
+		<div class="upload"><input value="<?php echo $imagePlanta;?>"  type="text" name="" id="PropertyImage1ImageimagePlanta" placeholder="" bro_id="" parent_id=""><a id="aImgPlanta" href="#" class="dropbox-dropin-btn dropbox-dropin-default" style="position: absolute; top: 0px; width: 86px; font-weight: 100;"><span class="dropin-btn-status"></span>Seleccionar</a><?php echo $this->Form->input('ArchitecturalPlant.image', array('type'=>'hidden')); ?></div>
 		<div id="addImages"><p class="semititle">Im&aacute;genes para vista de resultado</p></div>
 		<?php $no = 2; foreach ($property_images as $image): ?>
 		<?php echo $this->Form->input('PropertyImage.'.$no.'.id', array('type'=>'hidden')); ?>
+		<?php echo $this->Form->input('PropertyImage.'.$no.'.property_id', array('type'=>'hidden')); ?>
 		<div class="upload">
 		<?php list($thrash, $image_name) = split(Configure::read('Dropbox.ID')."/", $image['PropertyImage']['image'], 2);?>
 		<input type="text" value="<?php echo $image_name;?>"name="" id="PropertyImage<?php echo $no;?>ImageimageName" placeholder="" bro_id="" parent_id="">
@@ -315,8 +308,8 @@ function setAddress(location){
 	$('PropertyAddressState').observe('change', codeAddress);
 	$('PropertyAddressMunicipality').observe('change', codeAddress);
 
-    setDropBox('aImgDefault', 'PropertyImage0Image', 'PropertyImage0ImageimageDefault');
-   	setDropBox('aImgPlanta', 'PropertyImage1Image', 'PropertyImage1ImageimagePlanta');
+    setDropBox('aImgDefault', 'DefaultImageImage', 'PropertyImage0ImageimageDefault');
+   	setDropBox('aImgPlanta', 'ArchitecturalPlantImage', 'PropertyImage1ImageimagePlanta');
 
 	<?php $no = 2; foreach ($property_images as $image): ?>
 	<?php echo 'setDropBox(aImg'.$no.',PropertyImage'.$no.'Image, PropertyImage'.$no.'ImageimageName);';?>

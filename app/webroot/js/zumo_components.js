@@ -160,8 +160,8 @@ function setAdder(adder, model, number){
                 .observe('click', function(){
                     var options = {
                         success: function(files) {                            
-                            $(id_text).value = 'https://dl.dropboxusercontent.com/u/'+$('PropertyUserIdDropbox').value+'/'+files[0].name;                            
-                            $(id_text + 'imageName').value = files[0].name;
+                            $(id_text).value = 'https://dl.dropboxusercontent.com/u/'+$('PropertyUserIdDropbox').value+'/'+files[0].link.split("/Public/")[1];                            
+                            $(id_text + 'imageName').files[0].link.split("/Public/")[1];
                         },
                         linkType: "direct",
                         multiselect: false,
