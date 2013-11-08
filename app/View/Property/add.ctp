@@ -34,7 +34,12 @@ function initialize() {
     map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
     
     google.maps.event.addListener(map, 'dblclick', function(event) {
-    	placeMarker(event.latLng);
+    	if($('PropertyAddressState').value==''){
+			alert('Selecciona un estado');
+			return;
+		}else{
+    		placeMarker(event.latLng);
+    	}
 	});    
     <?php if($property_edit_id === NULL) echo 'codeAddress();'?>
     <?php if($property_edit_id != NULL){
@@ -170,7 +175,7 @@ function setAddress(location){
 		<?php echo $this->Form->hidden('PropertyAddress.country',array('value'=>'México', 'class'=>'largeText')); ?>
 		<label style="float: left; margin-top: 2px; margin-right: 10px;">Estado</label>
 		<div class="selectZumo">
-			<?php echo $this->Form->input('PropertyAddress.state',array('label' => '', 'options' => $states)) ?>
+			<?php echo $this->Form->input('PropertyAddress.state',array('label' => '', 'options' => $states, 'empty' => '(Seleccionar estado)')) ?>
 		</div>		
 		<label style="float: left; margin-top: 2px; margin-right: 10px;">Delegaci&oacute;n o Municipio:</label>
 		<div class="selectZumo">

@@ -41,7 +41,8 @@ class DownloadableController extends AppController{
             $this->request->data = $this->Downloadable->read();
         } 
         else {
-			if (!empty($this->request->data)) {  
+        	var_dump($this->request->data);
+			if (!empty($this->request->data)) {  				
 				$file = $this->request->data['Downloadable']['file'];
 				if ($file['error'] === UPLOAD_ERR_OK) {
 					if (move_uploaded_file($file['tmp_name'], WWW_ROOT.DS.'files'.DS.$file['name'])) {
@@ -55,9 +56,17 @@ class DownloadableController extends AppController{
 					}else{
 						$this->Session->setFlash('Ha ocurrido un error al salvar el archivo, intente de nuevo.');
 					}
-				}
-				else{
-					$this->Session->setFlash('Ha ocurrido un error al subir el archivo, intente de nuevo.');
+				}else{
+					if($id!=null){
+						if($this->Downloadable->save($this->request->data)){
+							$this->Session->setFlash('Archivo actualizado con éxito');
+							$this->redirect('index');
+						}else{
+							$this->Session->setFlash('Ha ocurrido un error al salvar el registro, intente de nuevo.');
+						}	
+					}else{
+						$this->Session->setFlash('Ha ocurrido un error al subir el archivo, intente de nuevo.');
+					}
 				}
 			}
 		}

@@ -7,6 +7,7 @@
 	<h1>Datos de archivo:</h1>
 	<?php 
 	echo $this->Form->create('Downloadable', array('type' => 'file'));
+	echo $this->Form->input('id', array('type'=>'hidden'));
 	echo $this->Form->input('title', array('label'=>'Título:', 'class'=>'largeText'));
 	echo $this->Form->input('description', array('label'=>'Descripción')); 
 	echo $this->Form->input('file', array('label'=>'Archivo:', 'type'=>'file')); ?>

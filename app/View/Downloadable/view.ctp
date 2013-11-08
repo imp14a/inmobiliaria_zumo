@@ -10,7 +10,7 @@
 		?>
 		</div>
 		<div class="pagesInfo">
-			<?php echo $this->Paginator->counter('Doc {:current} | {:count}');?>
+			<?php echo $this->Paginator->counter('Doc {:page} | {:pages}');?>
 	    </div>
 	</div>
 	<?php foreach ($downloadables as $downloadable): ?>

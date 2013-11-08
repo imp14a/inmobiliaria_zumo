@@ -7,6 +7,7 @@
 	<h1>Datos de usuario:</h1>
 	<?php 
 	echo $this->Form->create('User');
+	echo $this->Form->input('id', array('type'=>'hidden'));
 	echo $this->Form->input('username', array('label'=>'Usuario:', 'class'=>'largeText'));
 	echo $this->Form->input('email', array('label'=>'Correo electrónico:', 'class'=>'largeText'));
 	echo $this->Form->input('isAdmin', array('label'=>'Administrador')); ?>
