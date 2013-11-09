@@ -41,7 +41,6 @@ class DownloadableController extends AppController{
             $this->request->data = $this->Downloadable->read();
         } 
         else {
-        	var_dump($this->request->data);
 			if (!empty($this->request->data)) {  				
 				$file = $this->request->data['Downloadable']['file'];
 				if ($file['error'] === UPLOAD_ERR_OK) {
